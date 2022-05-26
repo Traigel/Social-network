@@ -1,11 +1,10 @@
 import React from "react";
+import s from './Header.module.css'
 
-const Header = () => {
-    return <div>
-        <a href='#'>Home</a>
-        <a href='#'>New Feed</a>
-        <a href='#'>Messages</a>
+export const Header = () => {
+    return <div className={s.header}>
+        <div className={s.logo}>
+            <img src={'https://cdn.logo.com/hotlink-ok/logo-social.png'}/>
+        </div>
     </div>
 };
-
-export default Header;
