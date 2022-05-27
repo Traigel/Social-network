@@ -1,6 +1,7 @@
 .navBar {
     grid-area: navBar;
     background-color: cadetblue;
+    padding: 20px;
 }
 
 .item a {

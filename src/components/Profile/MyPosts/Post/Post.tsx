@@ -8,7 +8,7 @@ type PostType = {
 
 export const Post = (props: PostType) => {
     return <div className={s.item}>
-        <img alt={'ava'} src={'https://shapka-youtube.ru/wp-content/uploads/2021/02/prikolnaya-avatarka-dlya-patsanov.jpg'}/>
+        <img alt={'ava'} src={'https://shapka-youtube.ru/wp-content/uploads/2021/02/avatarka-dlya-skaypa-dlya-parney.jpg'}/>
         {props.message}
         <div>
             <span>Like {props.likes}</span>

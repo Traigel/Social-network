@@ -8,9 +8,12 @@ export const Profile = () => {
         <div>
             <img alt={'imgProfile'} src={imgProfile}/>
         </div>
-        <div>
-            ava + description
+        <div className={s.profileInfo}>
+            <div>
+                ava + description
+            </div>
+            <MyPosts/>
         </div>
-        <MyPosts/>
+
     </div>
 };
