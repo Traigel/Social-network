@@ -1,15 +1,15 @@
 import React from "react";
-import s from './MyPosts.module.css'
+import style from './MyPosts.module.css'
+import {PostsType} from "../../../index";
 import {Post} from "./Post/Post";
 
-export const MyPosts = () => {
+type MyPostsType = {
+    posts: Array<PostsType>
+}
 
-    let postData = [
-        {id: 1, message: 'Hello word', likes: 24},
-        {id: 2, message: 'Yo! i`m props', likes: 56},
-    ]
+export const MyPosts = (props: MyPostsType) => {
 
-    return <div className={s.myPosts}>
+    return <div className={style.myPosts}>
         <h3>My posts</h3>
         <div>
             <div>
@@ -19,7 +19,6 @@ export const MyPosts = () => {
                 <button>Add post</button>
             </div>
         </div>
-        <Post message={'Hello word'} likes={24}/>
-        <Post message={'Yo! i`m props'} likes={56}/>
+        {props.posts.map( u => <Post key={u.id} message={u.message} likes={u.likes}/>)}
     </div>
 };

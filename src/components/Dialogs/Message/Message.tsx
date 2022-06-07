@@ -1,11 +1,8 @@
 import React from "react";
 import s from './Message.module.css'
+import {MessagesDataType} from "../../../index";
 
-type MessageType = {
-    message: string
-}
-
-export const Message = (props: MessageType) => {
+export const Message = (props: MessagesDataType) => {
     return <div className={s.message}>
         {props.message}
     </div>

@@ -2,10 +2,15 @@ import React from "react";
 import s from './Profile.module.css'
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import {ProfilePageType} from "../../index";
 
-export const Profile = () => {
+type ProfileType = {
+    profilePage: ProfilePageType
+}
+
+export const Profile = (props: ProfileType) => {
     return <div className={s.profile}>
         <ProfileInfo/>
-        <MyPosts/>
+        <MyPosts posts={props.profilePage.posts}/>
     </div>
 };

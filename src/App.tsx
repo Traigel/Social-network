@@ -9,19 +9,24 @@ import { Music } from './components/Music/Music';
 import { Settings } from './components/Setting/Setting';
 import { Users } from './components/Users/Users';
 import { Dialogs } from './components/Dialogs/Dialogs';
+import {StateType} from "./index";
 
-const App = () => {
+type ArrType = {
+    state: StateType
+}
+
+const App = (props: ArrType) => {
     return <BrowserRouter>
         <div className='app-wrapper'>
             <Header/>
             <NavBar/>
             <div className='app-wrapper-content'>
-                <Route path='/profile' component={Profile} />
-                <Route path='/messages' component={Dialogs} />
-                <Route path='/news' component={News} />
-                <Route path='/music' component={Music} />
-                <Route path='/settings' component={Settings} />
-                <Route path='/users' component={Users} />
+                <Route path='/profile' render={()=><Profile profilePage={props.state.profilePage}/>}/>
+                <Route path='/messages' render={()=><Dialogs dialogsPage={props.state.dialogsPage}/>}/>
+                <Route path='/news' render={()=><News/>} />
+                <Route path='/music' render={()=><Music/>} />
+                <Route path='/settings' render={()=><Settings/>} />
+                <Route path='/users' render={()=><Users/>} />
             </div>
         </div>
     </BrowserRouter>
