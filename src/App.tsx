@@ -9,7 +9,7 @@ import { Music } from './components/Music/Music';
 import { Settings } from './components/Setting/Setting';
 import { Users } from './components/Users/Users';
 import { Dialogs } from './components/Dialogs/Dialogs';
-import {StateType} from "./index";
+import {StateType} from "./Redux/myState";
 
 type ArrType = {
     state: StateType
