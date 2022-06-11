@@ -11,11 +11,11 @@ import { Users } from './components/Users/Users';
 import { Dialogs } from './components/Dialogs/Dialogs';
 import {StateType} from "./Redux/myState";
 
-type ArrType = {
+type AppPropsType = {
     state: StateType
 }
 
-const App = (props: ArrType) => {
+const App = (props: AppPropsType) => {
     return <BrowserRouter>
         <div className='app-wrapper'>
             <Header/>

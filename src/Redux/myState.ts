@@ -1,22 +1,24 @@
+import {v1} from "uuid";
+
 export type ProfilePageType = {
     posts: Array<PostsType>
 }
 export type PostsType = {
-    id?: number,
+    id: string,
     message: string,
     likes: number
 }
 
 export type DialogsPageType = {
     dialogsData: Array<DialogsDataType>
-        messagesData: Array<MessagesDataType>
+    messagesData: Array<MessagesDataType>
 }
 export type DialogsDataType = {
     id: number,
     name: string
 }
 export type MessagesDataType = {
-    id?: number,
+    id: string,
     message: string
 }
 
@@ -28,8 +30,8 @@ export type StateType = {
 export let state: StateType = {
     profilePage: {
         posts: [
-            {id: 1, message: 'Hello word', likes: 24},
-            {id: 2, message: 'Yo! i`m props', likes: 56},
+            {id: v1(), message: 'Hello word', likes: 24},
+            {id: v1(), message: 'Yo! i`m props', likes: 56},
         ]
     },
     dialogsPage: {
@@ -41,9 +43,9 @@ export let state: StateType = {
             {id: 5, name: 'Masha'},
         ],
         messagesData: [
-            {id: 1, message: 'Hello Word!'},
-            {id: 2, message: 'I am a computer programmer'},
-            {id: 3, message: 'Yo'},
+            {id: v1(), message: 'Hello Word!'},
+            {id: v1(), message: 'I am a computer programmer'},
+            {id: v1(), message: 'Yo'},
         ]
     },
 }

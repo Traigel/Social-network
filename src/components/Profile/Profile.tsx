@@ -4,11 +4,11 @@ import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import { ProfilePageType } from "../../Redux/myState";
 
-type ProfileType = {
+type ProfilePropsType = {
     profilePage: ProfilePageType
 }
 
-export const Profile = (props: ProfileType) => {
+export const Profile = (props: ProfilePropsType) => {
     return <div className={s.profile}>
         <ProfileInfo/>
         <MyPosts posts={props.profilePage.posts}/>
