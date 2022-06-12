@@ -1,4 +1,5 @@
 import {v1} from "uuid";
+import {rerenderEntireTree} from "../rerender";
 
 export type ProfilePageType = {
     posts: Array<PostsType>
@@ -51,5 +52,6 @@ export let state: StateType = {
 }
 
 export const addPostCallBack = (newMessage: string) => {
-    state.profilePage.posts.push({id: v1(), message: newMessage , likes: 0})
+    state.profilePage.posts.unshift({id: v1(), message: newMessage , likes: 0})
+    rerenderEntireTree(state)
 }
