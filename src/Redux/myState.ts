@@ -3,6 +3,7 @@ import {rerenderEntireTree} from "../rerender";
 
 export type ProfilePageType = {
     posts: Array<PostsType>
+    newPostText: string
 }
 export type PostsType = {
     id: string,
@@ -33,7 +34,8 @@ export let state: StateType = {
         posts: [
             {id: v1(), message: 'Hello word', likes: 24},
             {id: v1(), message: 'Yo! i`m props', likes: 56},
-        ]
+        ],
+        newPostText: ''
     },
     dialogsPage: {
         dialogsData: [
@@ -51,7 +53,13 @@ export let state: StateType = {
     },
 }
 
-export const addPostCallBack = (newMessage: string) => {
-    state.profilePage.posts.unshift({id: v1(), message: newMessage , likes: 0})
+export const addPostCallBack = (newPost: string) => {
+    state.profilePage.posts.unshift({id: v1(), message: newPost , likes: 0})
+    state.profilePage.newPostText = ''
+    rerenderEntireTree(state)
+}
+
+export const updateNewPostTextCallBack = (newPostText: string) => {
+    state.profilePage.newPostText = newPostText
     rerenderEntireTree(state)
 }
