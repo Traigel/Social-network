@@ -2,20 +2,22 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import { Message } from "./Message/Message";
-import { DialogsPageType } from "../../Redux/myState";
+import {addMassageCallBack, DialogsPageType} from "../../Redux/myState";
 
 type DialogsPropsType = {
     dialogsPage: DialogsPageType
+    addMassageCallBack: () => void
+    updateNewMessageTextCallBack: (newPostText: string) => void
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
 
-    let onChangeMessageHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log(e.currentTarget.value)
+    let onChangeAddMessageHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        props.updateNewMessageTextCallBack(e.currentTarget.value)
     }
 
-    let onClickMessageHandler = () => {
-
+    let onClickAddMessageHandler = () => {
+    props.addMassageCallBack()
     }
 
     return <div className={s.dialogs}>
@@ -24,8 +26,9 @@ export const Dialogs = (props: DialogsPropsType) => {
         </div>
         <div className={s.messages}>
             {props.dialogsPage.messagesData.map( u => <Message key={u.id} message={u.message} id={u.id}/> )}
-            <input onChange={onChangeMessageHandler}/>
-            <button onClick={onClickMessageHandler}>Message</button>
+            <input value={props.dialogsPage.newMessageText}
+                   onChange={onChangeAddMessageHandler}/>
+            <button onClick={onClickAddMessageHandler}>Message</button>
         </div>
     </div>
 };

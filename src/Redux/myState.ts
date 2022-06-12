@@ -14,6 +14,7 @@ export type PostsType = {
 export type DialogsPageType = {
     dialogsData: Array<DialogsDataType>
     messagesData: Array<MessagesDataType>
+    newMessageText: string
 }
 export type DialogsDataType = {
     id: number,
@@ -49,7 +50,8 @@ export let state: StateType = {
             {id: v1(), message: 'Hello Word!'},
             {id: v1(), message: 'I am a computer programmer'},
             {id: v1(), message: 'Yo'},
-        ]
+        ],
+        newMessageText: ''
     },
 }
 
@@ -61,5 +63,16 @@ export const addPostCallBack = (newPost: string) => {
 
 export const updateNewPostTextCallBack = (newPostText: string) => {
     state.profilePage.newPostText = newPostText
+    rerenderEntireTree(state)
+}
+
+export const addMassageCallBack = () => {
+    state.dialogsPage.messagesData.push({id: v1(), message: state.dialogsPage.newMessageText})
+    state.dialogsPage.newMessageText = ''
+    rerenderEntireTree(state)
+}
+
+export const updateNewMessageTextCallBack = (newMassageText: string) => {
+    state.dialogsPage.newMessageText = newMassageText
     rerenderEntireTree(state)
 }
