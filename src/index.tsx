@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {state} from './Redux/myState'
+import {addPostCallBack, state} from './Redux/myState'
 
 ReactDOM.render(
-    <div><App state={state}/></div>,
+    <div><App state={state} addPostCallBack={addPostCallBack}/></div>,
     document.getElementById('root')
 );

@@ -9,10 +9,11 @@ import { Music } from './components/Music/Music';
 import { Settings } from './components/Setting/Setting';
 import { Users } from './components/Users/Users';
 import { Dialogs } from './components/Dialogs/Dialogs';
-import {StateType} from "./Redux/myState";
+import {addPostCallBack, StateType} from "./Redux/myState";
 
 type AppPropsType = {
     state: StateType
+    addPostCallBack: (newMessage: string) => void
 }
 
 const App = (props: AppPropsType) => {
@@ -21,7 +22,8 @@ const App = (props: AppPropsType) => {
             <Header/>
             <NavBar/>
             <div className='app-wrapper-content'>
-                <Route path='/profile' render={()=><Profile profilePage={props.state.profilePage}/>}/>
+                <Route path='/profile' render={()=><Profile profilePage={props.state.profilePage}
+                                                            addPostCallBack={props.addPostCallBack}/>}/>
                 <Route path='/messages' render={()=><Dialogs dialogsPage={props.state.dialogsPage}/>}/>
                 <Route path='/news' render={()=><News/>} />
                 <Route path='/music' render={()=><Music/>} />

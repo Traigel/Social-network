@@ -49,3 +49,7 @@ export let state: StateType = {
         ]
     },
 }
+
+export const addPostCallBack = (newMessage: string) => {
+    state.profilePage.posts.push({id: v1(), message: newMessage , likes: 0})
+}

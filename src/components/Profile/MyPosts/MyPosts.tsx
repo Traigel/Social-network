@@ -5,16 +5,18 @@ import {Post} from "./Post/Post";
 
 type MyPostsPropsType = {
     posts: Array<PostsType>
+    addPostCallBack: (newMessage: string) => void
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
 
+    let newPosts = ''
     let onChangeAddPostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        console.log(e.currentTarget.value)
+        newPosts = e.currentTarget.value
     }
 
     let onclickAddPostHandler = () => {
-
+        props.addPostCallBack(newPosts)
     }
 
     return <div className={style.myPosts}>
