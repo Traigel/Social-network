@@ -1,5 +1,8 @@
 import {v1} from "uuid";
-import {rerenderEntireTree} from "../rerender";
+
+let rerenderEntireTree = () => {
+
+}
 
 export type ProfilePageType = {
     posts: Array<PostsType>
@@ -56,23 +59,27 @@ export let state: StateType = {
 }
 
 export const addPostCallBack = (newPost: string) => {
-    state.profilePage.posts.unshift({id: v1(), message: newPost , likes: 0})
+    state.profilePage.posts.unshift({id: v1(), message: newPost, likes: 0})
     state.profilePage.newPostText = ''
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 export const updateNewPostTextCallBack = (newPostText: string) => {
     state.profilePage.newPostText = newPostText
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 export const addMassageCallBack = () => {
     state.dialogsPage.messagesData.push({id: v1(), message: state.dialogsPage.newMessageText})
     state.dialogsPage.newMessageText = ''
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 export const updateNewMessageTextCallBack = (newMassageText: string) => {
     state.dialogsPage.newMessageText = newMassageText
-    rerenderEntireTree(state)
+    rerenderEntireTree()
+}
+
+export const subscribe = (observer: ()=> void) => {
+    rerenderEntireTree = observer
 }
