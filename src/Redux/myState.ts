@@ -24,14 +24,16 @@ export type MessagesDataType = {
     message: string
 }
 
-type AddActionType = {
-    type: 'ADD-POST' | 'ADD-MESSAGE'
-}
-type UpdateNewActionType = {
-    type: 'UPDATE-NEW-POST-TEXT' | 'UPDATE-NEW-MESSAGE'
-    newText: string
-}
-export type ActionType = AddActionType | UpdateNewActionType
+
+type AddPostActionType = ReturnType<typeof addPostAC>
+type UpdateNewPostActionType = ReturnType<typeof updateNewPostAC>
+type AddMessagesActionType = ReturnType<typeof addMessagesAC>
+type UpdateNewMessagesActionType = ReturnType<typeof updateNewMessagesAC>
+export type ActionType =
+    AddPostActionType
+    | UpdateNewPostActionType
+    | AddMessagesActionType
+    | UpdateNewMessagesActionType
 
 export type StateType = {
     profilePage: ProfilePageType,
@@ -102,7 +104,6 @@ export let store: StoreType = {
             this._callSubscriber()
         }
     },
-
     // addPostCallBack() {
     //     this._state.profilePage.posts.unshift({id: v1(), message: this._state.profilePage.newPostText, likes: 0})
     //     this._state.profilePage.newPostText = ''
@@ -121,4 +122,19 @@ export let store: StoreType = {
     //     this._state.dialogsPage.newMessageText = newMassageText
     //     this._callSubscriber()
     // },
+}
+
+export const addPostAC = () => ({type: 'ADD-POST'} as const)
+export const updateNewPostAC = (newText: string) => {
+    return {
+        type: 'UPDATE-NEW-POST-TEXT',
+        newText: newText
+    } as const
+}
+export const addMessagesAC = () => ({type: 'ADD-MESSAGE'} as const)
+export const updateNewMessagesAC = (newText: string) => {
+    return {
+        type: 'UPDATE-NEW-MESSAGE',
+        newText: newText
+    } as const
 }
