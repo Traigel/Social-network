@@ -6,7 +6,7 @@ import { ProfilePageType } from "../../Redux/myState";
 
 type ProfilePropsType = {
     profilePage: ProfilePageType
-    addPostCallBack: (newPost: string) => void
+    addPostCallBack: () => void
     updateNewPostTextCallBack: (newPostText: string) => void
 }
 

@@ -1,28 +1,21 @@
 import React from 'react';
 import './index.css';
-import {state, subscribe} from "./Redux/myState";
+import {store} from "./Redux/myState";
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {
-    addMassageCallBack,
-    addPostCallBack,
-    StateType,
-    updateNewMessageTextCallBack,
-    updateNewPostTextCallBack
-} from './Redux/myState'
 
 export const rerenderEntireTree = () => {
     ReactDOM.render(
-        <div><App state={state}
-                  addPostCallBack={addPostCallBack}
-                  updateNewPostTextCallBack={updateNewPostTextCallBack}
-                  addMassageCallBack={addMassageCallBack}
-                  updateNewMessageTextCallBack={updateNewMessageTextCallBack}/></div>,
+        <div><App state={store.getState()}
+                  addPostCallBack={store.addPostCallBack.bind(store)}
+                  updateNewPostTextCallBack={store.updateNewPostTextCallBack.bind(store)}
+                  addMassageCallBack={store.addMassageCallBack.bind(store)}
+                  updateNewMessageTextCallBack={store.updateNewMessageTextCallBack.bind(store)}/></div>,
         document.getElementById('root')
     );
 }
 
 rerenderEntireTree()
 
-subscribe(rerenderEntireTree);
+store.subscribe(rerenderEntireTree);

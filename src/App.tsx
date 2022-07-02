@@ -9,17 +9,11 @@ import { Music } from './components/Music/Music';
 import { Settings } from './components/Setting/Setting';
 import { Users } from './components/Users/Users';
 import { Dialogs } from './components/Dialogs/Dialogs';
-import {
-    addMassageCallBack,
-    addPostCallBack,
-    StateType,
-    updateNewMessageTextCallBack,
-    updateNewPostTextCallBack
-} from "./Redux/myState";
+import {StateType} from "./Redux/myState";
 
 type AppPropsType = {
     state: StateType
-    addPostCallBack: (newPost: string) => void
+    addPostCallBack: () => void
     updateNewPostTextCallBack: (newPostText: string) => void
     addMassageCallBack: () => void
     updateNewMessageTextCallBack: (newMessageText: string) => void

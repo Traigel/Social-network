@@ -1,9 +1,5 @@
 import {v1} from "uuid";
 
-let rerenderEntireTree = () => {
-
-}
-
 export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
@@ -33,53 +29,67 @@ export type StateType = {
     dialogsPage: DialogsPageType
 }
 
-export let state: StateType = {
-    profilePage: {
-        posts: [
-            {id: v1(), message: 'Hello word', likes: 24},
-            {id: v1(), message: 'Yo! i`m props', likes: 56},
-        ],
-        newPostText: ''
+export type StoreType = {
+    _state: StateType
+    getState: () => StateType
+    _callSubscriber: () => void
+    addPostCallBack: () => void
+    updateNewPostTextCallBack: (newPostText: string) => void
+    addMassageCallBack: () => void
+    updateNewMessageTextCallBack: (newMassageText: string) => void
+    subscribe: (observer: () => void) => void
+}
+
+export let store: StoreType = {
+    _state: {
+        profilePage: {
+            posts: [
+                {id: v1(), message: 'Hello word', likes: 24},
+                {id: v1(), message: 'Yo! i`m props', likes: 56},
+            ],
+            newPostText: ''
+        },
+        dialogsPage: {
+            dialogsData: [
+                {id: 1, name: 'Vladimir'},
+                {id: 2, name: 'Alex'},
+                {id: 3, name: 'Dima'},
+                {id: 4, name: 'Vasa'},
+                {id: 5, name: 'Masha'},
+            ],
+            messagesData: [
+                {id: v1(), message: 'Hello Word!'},
+                {id: v1(), message: 'I am a computer programmer'},
+                {id: v1(), message: 'Yo'},
+            ],
+            newMessageText: ''
+        },
     },
-    dialogsPage: {
-        dialogsData: [
-            {id: 1, name: 'Vladimir'},
-            {id: 2, name: 'Alex'},
-            {id: 3, name: 'Dima'},
-            {id: 4, name: 'Vasa'},
-            {id: 5, name: 'Masha'},
-        ],
-        messagesData: [
-            {id: v1(), message: 'Hello Word!'},
-            {id: v1(), message: 'I am a computer programmer'},
-            {id: v1(), message: 'Yo'},
-        ],
-        newMessageText: ''
+    getState() {
+        return this._state
     },
-}
-
-export const addPostCallBack = (newPost: string) => {
-    state.profilePage.posts.unshift({id: v1(), message: newPost, likes: 0})
-    state.profilePage.newPostText = ''
-    rerenderEntireTree()
-}
-
-export const updateNewPostTextCallBack = (newPostText: string) => {
-    state.profilePage.newPostText = newPostText
-    rerenderEntireTree()
-}
-
-export const addMassageCallBack = () => {
-    state.dialogsPage.messagesData.push({id: v1(), message: state.dialogsPage.newMessageText})
-    state.dialogsPage.newMessageText = ''
-    rerenderEntireTree()
-}
-
-export const updateNewMessageTextCallBack = (newMassageText: string) => {
-    state.dialogsPage.newMessageText = newMassageText
-    rerenderEntireTree()
-}
-
-export const subscribe = (observer: ()=> void) => {
-    rerenderEntireTree = observer
+    _callSubscriber() {
+    },
+    addPostCallBack() {
+        this._state.profilePage.posts.unshift({id: v1(), message: this._state.profilePage.newPostText, likes: 0})
+        this._state.profilePage.newPostText = ''
+        this._callSubscriber()
+    },
+    updateNewPostTextCallBack(newPostText: string) {
+        this._state.profilePage.newPostText = newPostText
+        this._callSubscriber()
+        console.log('qwe')
+    },
+    addMassageCallBack() {
+        this._state.dialogsPage.messagesData.push({id: v1(), message: this._state.dialogsPage.newMessageText})
+        this._state.dialogsPage.newMessageText = ''
+        this._callSubscriber()
+    },
+    updateNewMessageTextCallBack(newMassageText: string) {
+        this._state.dialogsPage.newMessageText = newMassageText
+        this._callSubscriber()
+    },
+    subscribe(observer: () => void) {
+        this._callSubscriber = observer
+    }
 }

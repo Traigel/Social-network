@@ -1,11 +1,11 @@
 import React, {ChangeEvent} from "react";
-import {PostsType, ProfilePageType} from "../../../Redux/myState";
+import {ProfilePageType} from "../../../Redux/myState";
 import style from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 
 type MyPostsPropsType = {
     profilePage: ProfilePageType
-    addPostCallBack: (newPost: string) => void
+    addPostCallBack: () => void
     updateNewPostTextCallBack: (newPostText: string) => void
 }
 
@@ -16,7 +16,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
     }
 
     let onclickAddPostHandler = () => {
-        props.addPostCallBack(props.profilePage.newPostText)
+        props.addPostCallBack()
     }
 
     return <div className={style.myPosts}>
