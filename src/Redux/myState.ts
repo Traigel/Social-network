@@ -24,6 +24,15 @@ export type MessagesDataType = {
     message: string
 }
 
+type AddActionType = {
+    type: 'ADD-POST' | 'ADD-MESSAGE'
+}
+type UpdateNewActionType = {
+    type: 'UPDATE-NEW-POST-TEXT' | 'UPDATE-NEW-MESSAGE'
+    newText: string
+}
+export type ActionType = AddActionType | UpdateNewActionType
+
 export type StateType = {
     profilePage: ProfilePageType,
     dialogsPage: DialogsPageType
@@ -31,13 +40,14 @@ export type StateType = {
 
 export type StoreType = {
     _state: StateType
-    getState: () => StateType
     _callSubscriber: () => void
-    addPostCallBack: () => void
-    updateNewPostTextCallBack: (newPostText: string) => void
-    addMassageCallBack: () => void
-    updateNewMessageTextCallBack: (newMassageText: string) => void
+    getState: () => StateType
     subscribe: (observer: () => void) => void
+    dispatch: (action: ActionType) => void
+    // addPostCallBack: () => void
+    // updateNewPostTextCallBack: (newPostText: string) => void
+    // addMassageCallBack: () => void
+    // updateNewMessageTextCallBack: (newMassageText: string) => void
 }
 
 export let store: StoreType = {
@@ -65,31 +75,50 @@ export let store: StoreType = {
             newMessageText: ''
         },
     },
+    _callSubscriber() {
+    },
+
     getState() {
         return this._state
     },
-    _callSubscriber() {
-    },
-    addPostCallBack() {
-        this._state.profilePage.posts.unshift({id: v1(), message: this._state.profilePage.newPostText, likes: 0})
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber()
-    },
-    updateNewPostTextCallBack(newPostText: string) {
-        this._state.profilePage.newPostText = newPostText
-        this._callSubscriber()
-        console.log('qwe')
-    },
-    addMassageCallBack() {
-        this._state.dialogsPage.messagesData.push({id: v1(), message: this._state.dialogsPage.newMessageText})
-        this._state.dialogsPage.newMessageText = ''
-        this._callSubscriber()
-    },
-    updateNewMessageTextCallBack(newMassageText: string) {
-        this._state.dialogsPage.newMessageText = newMassageText
-        this._callSubscriber()
-    },
     subscribe(observer: () => void) {
         this._callSubscriber = observer
-    }
+    },
+
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            this._state.profilePage.posts.unshift({id: v1(), message: this._state.profilePage.newPostText, likes: 0})
+            this._state.profilePage.newPostText = ''
+            this._callSubscriber()
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText
+            this._callSubscriber()
+        } else if (action.type === 'ADD-MESSAGE') {
+            this._state.dialogsPage.messagesData.push({id: v1(), message: this._state.dialogsPage.newMessageText})
+            this._state.dialogsPage.newMessageText = ''
+            this._callSubscriber()
+        } else if (action.type === 'UPDATE-NEW-MESSAGE') {
+            this._state.dialogsPage.newMessageText = action.newText
+            this._callSubscriber()
+        }
+    },
+
+    // addPostCallBack() {
+    //     this._state.profilePage.posts.unshift({id: v1(), message: this._state.profilePage.newPostText, likes: 0})
+    //     this._state.profilePage.newPostText = ''
+    //     this._callSubscriber()
+    // },
+    // updateNewPostTextCallBack(newPostText: string) {
+    //     this._state.profilePage.newPostText = newPostText
+    //     this._callSubscriber()
+    // },
+    // addMassageCallBack() {
+    //     this._state.dialogsPage.messagesData.push({id: v1(), message: this._state.dialogsPage.newMessageText})
+    //     this._state.dialogsPage.newMessageText = ''
+    //     this._callSubscriber()
+    // },
+    // updateNewMessageTextCallBack(newMassageText: string) {
+    //     this._state.dialogsPage.newMessageText = newMassageText
+    //     this._callSubscriber()
+    // },
 }

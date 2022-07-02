@@ -1,22 +1,21 @@
 import React, {ChangeEvent} from "react";
-import {ProfilePageType} from "../../../Redux/myState";
+import {ActionType, ProfilePageType} from "../../../Redux/myState";
 import style from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 
 type MyPostsPropsType = {
     profilePage: ProfilePageType
-    addPostCallBack: () => void
-    updateNewPostTextCallBack: (newPostText: string) => void
+    dispatch: (action: ActionType) => void
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
 
     let onChangeAddPostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewPostTextCallBack(e.currentTarget.value)
+        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: e.currentTarget.value})
     }
 
     let onclickAddPostHandler = () => {
-        props.addPostCallBack()
+        props.dispatch({type: 'ADD-POST'})
     }
 
     return <div className={style.myPosts}>

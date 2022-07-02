@@ -2,22 +2,21 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import { Message } from "./Message/Message";
-import {DialogsPageType} from "../../Redux/myState";
+import {ActionType, DialogsPageType} from "../../Redux/myState";
 
 type DialogsPropsType = {
     dialogsPage: DialogsPageType
-    addMassageCallBack: () => void
-    updateNewMessageTextCallBack: (newPostText: string) => void
+    dispatch: (action: ActionType) => void
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
 
     let onChangeAddMessageHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        props.updateNewMessageTextCallBack(e.currentTarget.value)
+        props.dispatch({type: 'UPDATE-NEW-MESSAGE' , newText: e.currentTarget.value})
     }
 
     let onClickAddMessageHandler = () => {
-    props.addMassageCallBack()
+    props.dispatch({type: 'ADD-MESSAGE'})
     }
 
     return <div className={s.dialogs}>

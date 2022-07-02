@@ -8,10 +8,9 @@ import App from './App';
 export const rerenderEntireTree = () => {
     ReactDOM.render(
         <div><App state={store.getState()}
-                  addPostCallBack={store.addPostCallBack.bind(store)}
-                  updateNewPostTextCallBack={store.updateNewPostTextCallBack.bind(store)}
-                  addMassageCallBack={store.addMassageCallBack.bind(store)}
-                  updateNewMessageTextCallBack={store.updateNewMessageTextCallBack.bind(store)}/></div>,
+                  dispatch={store.dispatch.bind(store)}
+        />
+        </div>,
         document.getElementById('root')
     );
 }
