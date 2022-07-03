@@ -10,6 +10,7 @@ import {Settings} from './components/Setting/Setting';
 import {Users} from './components/Users/Users';
 import {Dialogs} from './components/Dialogs/Dialogs';
 import {ActionType, StateType} from "./Redux/myState";
+import {Friends} from "./components/Friends/Friends";
 
 type AppPropsType = {
     state: StateType
@@ -30,6 +31,7 @@ const App = (props: AppPropsType) => {
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>
                 <Route path='/users' render={() => <Users/>}/>
+                <Route path='/friends' render={() => <Friends/>}/>
             </div>
         </div>
     </BrowserRouter>

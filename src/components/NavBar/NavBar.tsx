@@ -28,10 +28,13 @@ export const NavBar = (props: NavBarPropsType) => {
             <NavLink to="/users" activeClassName={style.activeLink}>Users</NavLink>
         </div>
         <div className={style.friends}>
-            {props.friendsPage.map(el => <div key={el.id}>
+            <h3 className={style.item}>
+                <NavLink to="/friends" activeClassName={style.activeLink}>Friends</NavLink>
+            </h3>
+            {props.friendsPage.map(el => <div className={style.friendsItem} key={el.id}>
                 <img alt={'ava'}
                      src={'https://shapka-youtube.ru/wp-content/uploads/2021/02/avatarka-dlya-skaypa-dlya-parney.jpg'}/>
-                {el.name}
+                <div>{el.name}</div>
             </div>)}
         </div>
     </nav>
