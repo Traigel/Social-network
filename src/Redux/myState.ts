@@ -16,7 +16,7 @@ export type DialogsPageType = {
     newMessageText: string
 }
 export type DialogsDataType = {
-    id: number,
+    id: string,
     name: string
 }
 export type MessagesDataType = {
@@ -24,6 +24,10 @@ export type MessagesDataType = {
     message: string
 }
 
+export type FriendsPage = {
+    id: string,
+    name: string
+}
 
 type AddPostActionType = ReturnType<typeof addPostAC>
 type UpdateNewPostActionType = ReturnType<typeof updateNewPostAC>
@@ -38,6 +42,7 @@ export type ActionType =
 export type StateType = {
     profilePage: ProfilePageType,
     dialogsPage: DialogsPageType
+    friendsPage: Array<FriendsPage>
 }
 
 export type StoreType = {
@@ -63,11 +68,11 @@ export let store: StoreType = {
         },
         dialogsPage: {
             dialogsData: [
-                {id: 1, name: 'Vladimir'},
-                {id: 2, name: 'Alex'},
-                {id: 3, name: 'Dima'},
-                {id: 4, name: 'Vasa'},
-                {id: 5, name: 'Masha'},
+                {id: v1(), name: 'Vladimir'},
+                {id: v1(), name: 'Alex'},
+                {id: v1(), name: 'Dima'},
+                {id: v1(), name: 'Vasa'},
+                {id: v1(), name: 'Masha'},
             ],
             messagesData: [
                 {id: v1(), message: 'Hello Word!'},
@@ -76,6 +81,13 @@ export let store: StoreType = {
             ],
             newMessageText: ''
         },
+        friendsPage: [
+            {id: v1(), name: 'Vladimir'},
+            {id: v1(), name: 'Alex'},
+            {id: v1(), name: 'Dima'},
+            {id: v1(), name: 'Vasa'},
+            {id: v1(), name: 'Masha'},
+        ]
     },
     _callSubscriber() {
     },

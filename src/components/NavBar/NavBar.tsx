@@ -1,26 +1,38 @@
 import React from "react";
-import s from './NavBar.module.css';
+import style from './NavBar.module.css';
 import {NavLink} from "react-router-dom";
+import {FriendsPage} from "../../Redux/myState";
 
-export const NavBar = () => {
-    return <nav className={s.navBar}>
-        <div className={s.item}>
-            <NavLink to="/profile" activeClassName={s.activeLink}>Profile</NavLink>
+type NavBarPropsType = {
+    friendsPage: Array<FriendsPage>
+}
+
+export const NavBar = (props: NavBarPropsType) => {
+    return <nav className={style.navBar}>
+        <div className={style.item}>
+            <NavLink to="/profile" activeClassName={style.activeLink}>Profile</NavLink>
         </div>
-        <div className={s.item}>
-            <NavLink to="/messages" activeClassName={s.activeLink}>Messages</NavLink>
+        <div className={style.item}>
+            <NavLink to="/messages" activeClassName={style.activeLink}>Messages</NavLink>
         </div>
-        <div className={s.item}>
-            <NavLink to="/news" activeClassName={s.activeLink}>News</NavLink>
+        <div className={style.item}>
+            <NavLink to="/news" activeClassName={style.activeLink}>News</NavLink>
         </div>
-        <div className={s.item}>
-            <NavLink to="/music" activeClassName={s.activeLink}>Music</NavLink>
+        <div className={style.item}>
+            <NavLink to="/music" activeClassName={style.activeLink}>Music</NavLink>
         </div>
-        <div className={s.item}>
-            <NavLink to="/settings" activeClassName={s.activeLink}>Settings</NavLink>
+        <div className={style.item}>
+            <NavLink to="/settings" activeClassName={style.activeLink}>Settings</NavLink>
         </div>
-        <div className={s.item}>
-            <NavLink to="/users" activeClassName={s.activeLink}>Users</NavLink>
+        <div className={style.item}>
+            <NavLink to="/users" activeClassName={style.activeLink}>Users</NavLink>
+        </div>
+        <div className={style.friends}>
+            {props.friendsPage.map(el => <div key={el.id}>
+                <img alt={'ava'}
+                     src={'https://shapka-youtube.ru/wp-content/uploads/2021/02/avatarka-dlya-skaypa-dlya-parney.jpg'}/>
+                {el.name}
+            </div>)}
         </div>
     </nav>
 };

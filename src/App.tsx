@@ -20,7 +20,7 @@ const App = (props: AppPropsType) => {
     return <BrowserRouter>
         <div className='app-wrapper'>
             <Header/>
-            <NavBar/>
+            <NavBar friendsPage={props.state.friendsPage}/>
             <div className='app-wrapper-content'>
                 <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage}
                                                               dispatch={props.dispatch}/>}/>
