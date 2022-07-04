@@ -9,7 +9,7 @@ import {Music} from './components/Music/Music';
 import {Settings} from './components/Setting/Setting';
 import {Users} from './components/Users/Users';
 import {Dialogs} from './components/Dialogs/Dialogs';
-import {ActionType, StateType} from "./Redux/myState";
+import {ActionType, StateType} from "./Redux/myStore";
 import {Friends} from "./components/Friends/Friends";
 
 type AppPropsType = {
@@ -21,7 +21,7 @@ const App = (props: AppPropsType) => {
     return <BrowserRouter>
         <div className='app-wrapper'>
             <Header/>
-            <NavBar friendsPage={props.state.friendsPage}/>
+            <NavBar sidebar={props.state.sidebar}/>
             <div className='app-wrapper-content'>
                 <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage}
                                                               dispatch={props.dispatch}/>}/>

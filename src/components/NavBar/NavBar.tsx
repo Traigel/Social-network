@@ -1,10 +1,10 @@
 import React from "react";
 import style from './NavBar.module.css';
 import {NavLink} from "react-router-dom";
-import {FriendsPage} from "../../Redux/myState";
+import {SidebarType} from "../../Redux/myStore";
 
 type NavBarPropsType = {
-    friendsPage: Array<FriendsPage>
+    sidebar: Array<SidebarType>
 }
 
 export const NavBar = (props: NavBarPropsType) => {
@@ -31,7 +31,7 @@ export const NavBar = (props: NavBarPropsType) => {
             <h3 className={style.item}>
                 <NavLink to="/friends" activeClassName={style.activeLink}>Friends</NavLink>
             </h3>
-            {props.friendsPage.map(el => <div className={style.friendsItem} key={el.id}>
+            {props.sidebar.map(el => <div className={style.friendsItem} key={el.id}>
                 <img alt={'ava'}
                      src={'https://shapka-youtube.ru/wp-content/uploads/2021/02/avatarka-dlya-skaypa-dlya-parney.jpg'}/>
                 <div>{el.name}</div>
