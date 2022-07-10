@@ -1,8 +1,28 @@
 import {v1} from "uuid";
-import {ActionType, ProfilePageType} from "./myStore";
 
-export const profileReducer = (state: ProfilePageType, action: ActionType) => {
+export type PostsType = {
+    id: string,
+    message: string,
+    likes: number
+}
+export type ProfilePageType = {
+    posts: Array<PostsType>
+    newPostText: string
+}
 
+type AddPostActionType = ReturnType<typeof addPostAC>
+type UpdateNewPostActionType = ReturnType<typeof updateNewPostAC>
+export type ActionType = AddPostActionType | UpdateNewPostActionType
+
+const initialState: ProfilePageType = {
+        posts: [
+            {id: v1(), message: 'Hello word', likes: 24},
+            {id: v1(), message: 'Yo! i`m props', likes: 56},
+        ],
+        newPostText: ''
+    }
+
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionType) => {
     switch (action.type) {
         case 'ADD-POST':
             state.posts.unshift({id: v1(), message: state.newPostText, likes: 0})
@@ -17,6 +37,7 @@ export const profileReducer = (state: ProfilePageType, action: ActionType) => {
 }
 
 export const addPostAC = () => ({type: 'ADD-POST'} as const)
+
 export const updateNewPostAC = (newText: string) => {
     return {
         type: 'UPDATE-NEW-POST-TEXT',

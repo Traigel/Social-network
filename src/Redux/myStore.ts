@@ -3,31 +3,31 @@ import {addPostAC, profileReducer, updateNewPostAC} from "./profile-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 import {addMessagesAC, updateNewMessagesAC, dialogsReducer} from "./dialogs-reducer";
 
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
 }
-export type PostsType = {
+type PostsType = {
     id: string,
     message: string,
     likes: number
 }
 
-export type DialogsPageType = {
+type DialogsPageType = {
     dialogsData: Array<DialogsDataType>
     messagesData: Array<MessagesDataType>
     newMessageText: string
 }
-export type DialogsDataType = {
+type DialogsDataType = {
     id: string,
     name: string
 }
-export type MessagesDataType = {
+type MessagesDataType = {
     id: string,
     message: string
 }
 
-export type SidebarType = {
+type SidebarType = {
     id: string,
     name: string
 }
@@ -36,31 +36,27 @@ type AddPostActionType = ReturnType<typeof addPostAC>
 type UpdateNewPostActionType = ReturnType<typeof updateNewPostAC>
 type AddMessagesActionType = ReturnType<typeof addMessagesAC>
 type UpdateNewMessagesActionType = ReturnType<typeof updateNewMessagesAC>
-export type ActionType =
+type ActionType =
     AddPostActionType
     | UpdateNewPostActionType
     | AddMessagesActionType
     | UpdateNewMessagesActionType
 
-export type StateType = {
+type StateType = {
     profilePage: ProfilePageType,
     dialogsPage: DialogsPageType
     sidebar: Array<SidebarType>
 }
 
-export type StoreType = {
+type StoreType = {
     _state: StateType
     _callSubscriber: () => void
     getState: () => StateType
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionType) => void
-    // addPostCallBack: () => void
-    // updateNewPostTextCallBack: (newPostText: string) => void
-    // addMassageCallBack: () => void
-    // updateNewMessageTextCallBack: (newMassageText: string) => void
 }
 
-export let store: StoreType = {
+let store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -103,31 +99,13 @@ export let store: StoreType = {
     },
 
     dispatch(action) {
-
-        this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
-
-        this._callSubscriber()
+        //
+        // this._state.profilePage = profileReducer(this._state.profilePage, action)
+        // this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        // this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+        //
+        // this._callSubscriber()
     },
-    // addPostCallBack() {
-    //     this._state.profilePage.posts.unshift({id: v1(), message: this._state.profilePage.newPostText, likes: 0})
-    //     this._state.profilePage.newPostText = ''
-    //     this._callSubscriber()
-    // },
-    // updateNewPostTextCallBack(newPostText: string) {
-    //     this._state.profilePage.newPostText = newPostText
-    //     this._callSubscriber()
-    // },
-    // addMassageCallBack() {
-    //     this._state.dialogsPage.messagesData.push({id: v1(), message: this._state.dialogsPage.newMessageText})
-    //     this._state.dialogsPage.newMessageText = ''
-    //     this._callSubscriber()
-    // },
-    // updateNewMessageTextCallBack(newMassageText: string) {
-    //     this._state.dialogsPage.newMessageText = newMassageText
-    //     this._callSubscriber()
-    // },
 }
 
 
