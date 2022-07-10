@@ -1,21 +1,22 @@
 import React, {ChangeEvent} from "react";
 import style from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {addPostAC, ProfileActionType, ProfilePageType, updateNewPostAC} from "../../../Redux/profile-reducer";
+import {ProfilePageType} from "../../../Redux/profile-reducer";
 
 type MyPostsPropsType = {
     profilePage: ProfilePageType
-    dispatch: (action: ProfileActionType) => void
+    updateNewPostText: (value: string) => void
+    addPost: ()=> void
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
 
-    let onChangeAddPostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateNewPostAC(e.currentTarget.value))
+    let onclickAddPostHandler = () => {
+        props.addPost()
     }
 
-    let onclickAddPostHandler = () => {
-        props.dispatch(addPostAC())
+    let onChangeAddPostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewPostText(e.currentTarget.value)
     }
 
     return <div className={style.myPosts}>
