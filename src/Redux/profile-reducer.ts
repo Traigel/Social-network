@@ -12,7 +12,7 @@ export type ProfilePageType = {
 
 type AddPostActionType = ReturnType<typeof addPostAC>
 type UpdateNewPostActionType = ReturnType<typeof updateNewPostAC>
-export type ActionType = AddPostActionType | UpdateNewPostActionType
+export type ProfileActionType = AddPostActionType | UpdateNewPostActionType
 
 const initialState: ProfilePageType = {
         posts: [
@@ -22,7 +22,7 @@ const initialState: ProfilePageType = {
         newPostText: ''
     }
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionType) => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionType) => {
     switch (action.type) {
         case 'ADD-POST':
             state.posts.unshift({id: v1(), message: state.newPostText, likes: 0})

@@ -7,7 +7,9 @@ import App from './App';
 
 export const rerenderEntireTree = () => {
     ReactDOM.render(
-        <div><App state={store.getState()}
+        <div><App profilePage={store.getState().profilePage}
+                  dialogsPage={store.getState().dialogsPage}
+                  sidebar={store.getState().sidebar}
                   dispatch={store.dispatch.bind(store)}
         />
         </div>,
@@ -17,6 +19,4 @@ export const rerenderEntireTree = () => {
 
 rerenderEntireTree()
 
-store.subscribe(()=> {
-    rerenderEntireTree()
-});
+store.subscribe(rerenderEntireTree);
