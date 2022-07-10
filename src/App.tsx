@@ -21,16 +21,14 @@ type AppPropsType = {
     dispatch: (action: ProfileActionType | DialogsActionType) => void
 }
 
-const App = (props: AppPropsType) => {
+const App = () => {
     return <BrowserRouter>
         <div className='app-wrapper'>
             <Header/>
-            <NavBar sidebar={props.sidebar}/>
+            <NavBar />
             <div className='app-wrapper-content'>
-                <Route path='/profile' render={() => <Profile profilePage={props.profilePage}
-                                                              dispatch={props.dispatch}/>}/>
-                <Route path='/messages' render={() => <DialogsContainer dialogsPage={props.dialogsPage}
-                                                               dispatch={props.dispatch}/>}/>
+                <Route path='/profile' render={() => <Profile/>}/>
+                <Route path='/messages' render={() => <DialogsContainer/>}/>
                 <Route path='/news' render={() => <News/>}/>
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>
