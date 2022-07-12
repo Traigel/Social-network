@@ -6,18 +6,18 @@ import {DialogsPageType} from "../../Redux/dialogs-reducer";
 
 type DialogsPropsType = {
     dialogsPage: DialogsPageType
-    onClickAddMessage: () => void
-    onChangeAddMessage: (value: string) => void
+    addMessages: () => void
+    updateNewMessages: (value: string) => void
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
 
     let onChangeAddMessageHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        props.onChangeAddMessage(e.currentTarget.value)
+        props.updateNewMessages(e.currentTarget.value)
     }
 
     let onClickAddMessageHandler = () => {
-        props.onClickAddMessage()
+        props.addMessages()
     }
 
     return <div className={style.dialogs}>

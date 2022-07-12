@@ -4,13 +4,13 @@ import {store} from "./Redux/redux-store";
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {StoreContext} from './StoreContext';
+import {Provider} from "react-redux";
 
 export const rerenderEntireTree = () => {
     ReactDOM.render(
-        <StoreContext.Provider value={store}>
+        <Provider store={store}>
             <App/>
-        </StoreContext.Provider>
+        </Provider>
         ,
         document.getElementById('root')
     );

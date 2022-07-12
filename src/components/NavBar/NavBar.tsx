@@ -1,8 +1,8 @@
 import React from "react";
 import style from './NavBar.module.css';
 import {NavLink} from "react-router-dom";
-import {SidebarType} from "../../Redux/sidebar-reducer";
-import {StoreContext} from "../../StoreContext";
+import { SidebarType } from "../../Redux/sidebar-reducer";
+import {FriendsNavBarContainer} from "./FriendsNavBar/FriendsNavBarContainer";
 
 type NavBarPropsType = {
     sidebar: Array<SidebarType>
@@ -32,19 +32,7 @@ export const NavBar = () => {
             <h3 className={style.item}>
                 <NavLink to="/friends" activeClassName={style.activeLink}>Friends</NavLink>
             </h3>
-            <StoreContext.Consumer>
-                {(store) => {
-                    return {store.getState().sidebar.map(el => <div className={style.friendsItem} key={el.id}>
-                            <img alt={'ava'}
-                                 src={'https://shapka-youtube.ru/wp-content/uploads/2021/02/avatarka-dlya-skaypa-dlya-parney.jpg'}/>
-                            <div>{el.name}</div>
-                        </div>)
-                    }
-                }
-                }
-
-            </StoreContext.Consumer>
-
+            <FriendsNavBarContainer/>
         </div>
     </nav>
 };

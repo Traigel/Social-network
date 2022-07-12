@@ -48,7 +48,7 @@ type StateType = {
     sidebar: Array<SidebarType>
 }
 
-type StoreType = {
+export type StoreType = {
     _state: StateType
     _callSubscriber: () => void
     getState: () => StateType
