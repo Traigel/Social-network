@@ -17,7 +17,7 @@ export type DialogsPageType = typeof initialState
 
 type AddMessagesActionType = ReturnType<typeof addMessagesAC>
 type UpdateNewMessagesActionType = ReturnType<typeof updateNewMessagesAC>
-export type DialogsActionType = AddMessagesActionType | UpdateNewMessagesActionType
+type DialogsActionType = AddMessagesActionType | UpdateNewMessagesActionType
 
 const initialState = {
     dialogsData: [
