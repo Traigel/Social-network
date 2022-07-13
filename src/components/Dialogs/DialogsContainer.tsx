@@ -5,6 +5,8 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {Dispatch} from "redux";
 
+export type DialogsPropsType = mapStatePropsType & mapDispatchPropsType
+
 type mapStatePropsType = {
     dialogsPage: DialogsPageType
 }
@@ -14,7 +16,7 @@ type mapDispatchPropsType = {
     addMessages: () => void
 }
 
-const mapStateToProps = (state:AppStateType): mapStatePropsType => {
+const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
         dialogsPage: state.dialogsPage
     }

@@ -1,10 +1,6 @@
 import React from "react";
 import style from './FriendsNavBar.module.css';
-import {SidebarType} from "../../../Redux/sidebar-reducer";
-
-type FriendsNavBarPropsType = {
-    sidebar: Array<SidebarType>
-}
+import {FriendsNavBarPropsType} from "./FriendsNavBarContainer";
 
 export const FriendsNavBar = (props: FriendsNavBarPropsType) => {
     return <div>

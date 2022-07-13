@@ -8,9 +8,10 @@ export type SidebarType = {
 const initialState: Array<SidebarType> = [
     {id: v1(), name: 'Vladimir'},
     {id: v1(), name: 'Alex'},
-    {id: v1(), name: 'Dima'},
-    {id: v1(), name: 'Vasa'},
-    {id: v1(), name: 'Masha'},
+    {id: v1(), name: 'Evgenii'},
+    {id: v1(), name: 'Viktoria'},
+    {id: v1(), name: 'Sergey'},
+    {id: v1(), name: 'Oskar'},
 ]
 
 export const sidebarReducer = (state: Array<SidebarType> = initialState, action: any) => {

@@ -5,6 +5,8 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/redux-store";
 import {Dispatch} from "redux";
 
+export type MyPostsPropsType = mapStatePropsType & mapDispatchPropsType
+
 type mapStatePropsType = {
     profilePage: ProfilePageType
 }

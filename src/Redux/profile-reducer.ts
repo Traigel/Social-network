@@ -15,22 +15,26 @@ type UpdateNewPostActionType = ReturnType<typeof updateNewPostAC>
 export type ProfileActionType = AddPostActionType | UpdateNewPostActionType
 
 const initialState: ProfilePageType = {
-        posts: [
-            {id: v1(), message: 'Hello word', likes: 24},
-            {id: v1(), message: 'Yo! i`m props', likes: 56},
-        ],
-        newPostText: ''
-    }
+    posts: [
+        {id: v1(), message: 'Hello word', likes: 24},
+        {id: v1(), message: 'Yo! i`m props', likes: 56},
+    ],
+    newPostText: ''
+}
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionType): ProfilePageType => {
     switch (action.type) {
         case 'ADD-POST':
-            state.posts.unshift({id: v1(), message: state.newPostText, likes: 0})
-            state.newPostText = ''
-            return state;
+            return {
+                ...state,
+                posts: [{id: v1(), message: state.newPostText, likes: 0}, ...state.posts],
+                newPostText: ''
+            };
         case 'UPDATE-NEW-POST-TEXT':
-            state.newPostText = action.newText
-            return state;
+            return {
+                ...state,
+                newPostText: action.newText
+            };
         default :
             return state;
     }

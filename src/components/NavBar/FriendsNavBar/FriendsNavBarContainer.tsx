@@ -5,6 +5,8 @@ import {AppStateType} from "../../../Redux/redux-store";
 import {Dispatch} from "redux";
 import {SidebarType} from "../../../Redux/sidebar-reducer";
 
+export type FriendsNavBarPropsType = mapStatePropsType & mapDispatchPropsType
+
 type mapStatePropsType = {
     sidebar: Array<SidebarType>
 }

@@ -1,13 +1,7 @@
 import React, {ChangeEvent} from "react";
 import style from './MyPosts.module.css'
+import {MyPostsPropsType} from "./MyPostsContainer";
 import {Post} from "./Post/Post";
-import {ProfilePageType} from "../../../Redux/profile-reducer";
-
-type MyPostsPropsType = {
-    profilePage: ProfilePageType
-    updateNewPostText: (value: string) => void
-    addPost: ()=> void
-}
 
 export const MyPosts = (props: MyPostsPropsType) => {
 
@@ -30,6 +24,6 @@ export const MyPosts = (props: MyPostsPropsType) => {
                 <button onClick={onclickAddPostHandler}>Add post</button>
             </div>
         </div>
-        {props.profilePage.posts.map( u => <Post key={u.id} message={u.message} likes={u.likes} id={u.id}/>)}
+        {props.profilePage.posts.map(u => <Post key={u.id} message={u.message} likes={u.likes} id={u.id}/>)}
     </div>
 };
