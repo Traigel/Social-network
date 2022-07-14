@@ -14,7 +14,7 @@ const initialState: Array<SidebarType> = [
     {id: v1(), name: 'Oskar'},
 ]
 
-export const sidebarReducer = (state: Array<SidebarType> = initialState, action: any) => {
+export const sidebarReducer = (state: Array<SidebarType> = initialState, action: any): Array<SidebarType> => {
     return (
         state
     )

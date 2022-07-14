@@ -6,29 +6,27 @@ type LocationType = {
 }
 export type UsersType = {
     id: string
+    photoUrl: string
     followed: boolean
     name: string
     status: string
     location: LocationType
 }
-type UsersMainType = typeof initialState
+//export type UsersMainType = typeof initialState
+export type UsersMainType = {
+    users: UsersType[]
+}
 
 type FollowActonType = ReturnType<typeof followAC>
 type UsFollowActonType = ReturnType<typeof usFollowAC>
-type UsersActionType = FollowActonType | UsFollowActonType
+type SetUsersActionType = ReturnType<typeof setUsersAC>
+type UsersActionType = FollowActonType | UsFollowActonType | SetUsersActionType
 
-const initialState = {
-    users: [
-        {id: v1(), followed: true, name: 'Vladimir', status: 'I am a boss', location: {city: 'Grodno', country: 'Belarus'}},
-        {id: v1(), followed: true, name: 'Alex', status: 'I am a boss', location: {city: 'Kiev', country: 'Ukraine'}},
-        {id: v1(), followed: false, name: 'Evgenii', status: 'I am a boss', location: {city: 'Minsk', country: 'Belarus'}},
-        {id: v1(), followed: false, name: 'Viktoria', status: 'I am a boss', location: {city: 'Ural', country: 'Russia'}},
-        {id: v1(), followed: true, name: 'Sergey', status: 'I am a boss', location: {city: 'SPB', country: 'Russia'}},
-        {id: v1(), followed: false, name: 'Oskar', status: 'I am a boss', location: {city: 'Astata', country: 'Kazahstan'}},
-    ] as Array<UsersType>,
+const initialState: UsersMainType = {
+    users: []
 }
 
-export const usersReducer = (state: UsersMainType = initialState, action: UsersActionType) => {
+export const usersReducer = (state: UsersMainType = initialState, action: UsersActionType): UsersMainType => {
     switch (action.type) {
         case "FOLLOW":
             return {
@@ -40,6 +38,11 @@ export const usersReducer = (state: UsersMainType = initialState, action: UsersA
                 ...state,
                 users: state.users.map(el => el.id === action.userID ? {...el, followed: false} : el)
             }
+        case 'SET-USERS':
+            return {
+                ...state,
+                users: [...state.users, ...action.users]
+            }
         default :
             return state;
     }
@@ -47,3 +50,4 @@ export const usersReducer = (state: UsersMainType = initialState, action: UsersA
 
 export const followAC = (userID: string) => ({type: 'FOLLOW', userID} as const)
 export const usFollowAC = (userID: string) => ({type: 'UNFOLLOW', userID} as const)
+export const setUsersAC = (users: Array<UsersType>) => ({type: 'SET-USERS', users} as const)
