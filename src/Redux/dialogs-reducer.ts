@@ -8,11 +8,7 @@ export type MessagesDataType = {
     id: string,
     message: string
 }
-// export type DialogsPageType = {
-//     dialogsData: Array<DialogsDataType>
-//     messagesData: Array<MessagesDataType>
-//     newMessageText: string
-// }
+
 export type DialogsPageType = typeof initialState
 
 type AddMessagesActionType = ReturnType<typeof addMessagesAC>
@@ -21,7 +17,7 @@ type DialogsActionType = AddMessagesActionType | UpdateNewMessagesActionType
 
 const initialState = {
     dialogsData: [
-        {id: v1(), name: 'Vladimir'},
+        {id: v1(), name: 'Vova'},
         {id: v1(), name: 'Alex'},
         {id: v1(), name: 'Dima'},
         {id: v1(), name: 'Vasa'},

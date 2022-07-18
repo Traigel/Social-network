@@ -8,13 +8,13 @@ import {followAC, setUsersAC, UsersType, usFollowAC} from "../../Redux/users-red
 export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
 
 type mapStateToPropsType = {
-    users: Array<UsersType>
+    users: UsersType[]
 }
 
 type mapDispatchToPropsType = {
     follow: (userID: string) => void
     usFollow: (userID: string) => void
-    setUsersAC: (users: Array<UsersType>) => void
+    setUsersAC: (users: UsersType[]) => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
