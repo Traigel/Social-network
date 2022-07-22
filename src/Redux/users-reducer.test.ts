@@ -1,15 +1,35 @@
 import {followAC, setUsersAC, UsersMainType, usersReducer, UsersType, usFollowAC} from "./users-reducer";
 import {v1} from "uuid";
 
-const userID_1: string = v1();
-const userID_2: string = v1();
+const userID_1: number = 1;
+const userID_2: number = 2;
 
 let initialState: UsersMainType;
 beforeEach(() => {
     initialState = {
         users: [
-            {id: userID_1, photoUrl: 'https://shapka-youtube.ru/wp-content/uploads/2021/02/avatarka-dlya-skaypa-dlya-parney.jpg', followed: true, name: 'Vladimir', status: 'I am a boss', location: {city: 'Grodno', country: 'Belarus'}},
-            {id: userID_2, photoUrl: 'https://shapka-youtube.ru/wp-content/uploads/2021/02/avatarka-dlya-skaypa-dlya-parney.jpg', followed: false, name: 'Alex', status: 'I am a boss', location: {city: 'Kiev', country: 'Ukraine'}},
+            {
+                "name": 'Vladimir',
+                "id": userID_1,
+                "uniqueUrlName": null,
+                "photos": {
+                    "small": null,
+                    "large": null
+                },
+                "status": null,
+                "followed": true
+            },
+            {
+                "name": 'Alex',
+                "id": userID_2,
+                "uniqueUrlName": null,
+                "photos": {
+                    "small": null,
+                    "large": null
+                },
+                "status": "@Bobuk@",
+                "followed": false
+            }
         ]
     }
 })
