@@ -1,22 +1,23 @@
 import React from "react";
 import style from './Users.module.css'
 import {UsersPropsType} from "./UsersContainer";
+import usersImg from '../../assets/images/usersImg.jpg'
 import axios from "axios";
 
 export const Users = (props: UsersPropsType) => {
+    const gerUsers = () => {
+        if (props.users.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users')
+                .then(response => {
+                        props.setUsersAC(response.data.items)
+                    }
+                )
+        }
 
-    const usersImg = 'https://shapka-youtube.ru/wp-content/uploads/2021/02/avatarka-dlya-skaypa-dlya-parney.jpg'
-
-    if (props.users.length === 0) {
-
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
-            .then(response => {
-                    props.setUsersAC(response.data.items)
-                }
-            )
     }
 
     return <div>
+        <button onClick={gerUsers}>Get users</button>
         {props.users.map(el => {
 
             const onClickFollowHandler = () => props.usFollow(el.id)

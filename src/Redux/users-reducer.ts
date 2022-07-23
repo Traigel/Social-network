@@ -15,7 +15,6 @@ export type UsersType = {
     photos: PhotosType
     status: string | null
     followed: boolean
-    //location: LocationType
 }
 //export type UsersMainType = typeof initialState
 export type UsersMainType = {

@@ -1,5 +1,4 @@
-import {followAC, setUsersAC, UsersMainType, usersReducer, UsersType, usFollowAC} from "./users-reducer";
-import {v1} from "uuid";
+import {followAC, setUsersAC, UsersMainType, usersReducer, usFollowAC} from "./users-reducer";
 
 const userID_1: number = 1;
 const userID_2: number = 2;
