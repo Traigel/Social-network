@@ -1,9 +1,56 @@
 import React from "react";
 import {connect} from "react-redux";
-import {Users} from "./Users";
 import {Dispatch} from "redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, UsersType, usFollowAC} from "../../Redux/users-reducer";
+import {
+    followAC,
+    setCurrentPageAC,
+    setTotalUsersCountAC,
+    setUsersAC,
+    UsersType,
+    usFollowAC
+} from "../../Redux/users-reducer";
+import axios from "axios";
+import {Users} from "./Users";
+
+class UsersAPI extends React.Component<UsersPropsType> {
+
+    constructor(props: UsersPropsType) {
+        super(props);
+    }
+
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                    this.props.setUsersAC(response.data.items)
+                    this.props.setTotalUsersCountAC(response.data.totalCount)
+                }
+            )
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPageAC(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                    this.props.setUsersAC(response.data.items)
+                }
+            )
+    }
+
+    render() {
+        return <Users
+            users={this.props.users}
+            pageSize={this.props.pageSize}
+            totalUsersCount={this.props.totalUsersCount}
+            currentPage={this.props.currentPage}
+            onPageChanged={this.onPageChanged}
+            follow={this.props.follow}
+            usFollow={this.props.usFollow}
+        />
+    }
+}
+
+
 
 export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
 
@@ -36,9 +83,9 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         follow: (userID: number) => dispatch(followAC(userID)),
         usFollow: (userID: number) => dispatch(usFollowAC(userID)),
         setUsersAC: (users: Array<UsersType>) => dispatch(setUsersAC(users)),
-        setCurrentPageAC: (pageNumber:number) => dispatch(setCurrentPageAC(pageNumber)),
+        setCurrentPageAC: (pageNumber: number) => dispatch(setCurrentPageAC(pageNumber)),
         setTotalUsersCountAC: (totalCount: number) => dispatch(setTotalUsersCountAC(totalCount))
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPI)
