@@ -2,6 +2,7 @@ import React from "react";
 import style from "./Users.module.css";
 import usersImg from "../../assets/images/usersImg.jpg";
 import {UsersType} from "../../Redux/users-reducer";
+import {NavLink} from "react-router-dom";
 
 type UsersCompType = {
     users: UsersType[]
@@ -43,9 +44,11 @@ export const Users = (props: UsersCompType) => {
                     <div key={el.id} className={style.items}>
                         <div className={`${style.item} ${style.itemImgButton}`}>
                             <div>
-                                <img style={{width: '50px', borderRadius: '20px'}}
-                                     alt={'ava'}
-                                     src={el.photos.small !== null ? el.photos.small : usersImg}/>
+                                <NavLink to={'/profile/' + el.id}>
+                                    <img style={{width: '50px', borderRadius: '20px'}}
+                                         alt={'ava'}
+                                         src={el.photos.small !== null ? el.photos.small : usersImg}/>
+                                </NavLink>
                             </div>
                             <div>
                                 {el.followed

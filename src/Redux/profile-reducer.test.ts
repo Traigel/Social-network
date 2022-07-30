@@ -1,4 +1,4 @@
-import {addPostAC, ProfilePageType, profileReducer, updateNewPostAC} from "./profile-reducer";
+import {addPostAC, ProfilePageType, profileReducer, ProfileType, updateNewPostAC} from "./profile-reducer";
 import {v1} from "uuid";
 
 let initialState: ProfilePageType;
@@ -8,7 +8,28 @@ beforeEach(() => {
             {id: v1(), message: 'Hello word', likes: 24},
             {id: v1(), message: 'Yo! i`m props', likes: 56},
         ],
-        newPostText: ''
+        newPostText: '',
+        profile: {
+            userId: 2,
+            aboutMe: '',
+            fullName: '',
+            lookingForAJob: true,
+            lookingForAJobDescription: '',
+            photos: {
+                large: null,
+                small: null
+            },
+            contacts: {
+                facebook: '',
+                github: '',
+                instagram: '',
+                mainLink: '',
+                twitter: '',
+                vk: '',
+                website: '',
+                youtube: ''
+            }
+        }
     }
 })
 
