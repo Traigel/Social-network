@@ -6,14 +6,14 @@ export type PostsType = {
     likes: number
 }
 type ContactsType = {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
+    github: string | null
+    vk: string | null
+    facebook: string | null
+    instagram: string | null
+    twitter: string | null
+    website: string | null
+    youtube: string | null
+    mainLink: string | null
 }
 type PhotosType = {
     small: string | null
@@ -47,28 +47,6 @@ const initialState: ProfilePageType = {
     ],
     newPostText: '',
     profile: null
-
-// {
-//     userId: 2,
-//         aboutMe: '',
-//     fullName: '',
-//     lookingForAJob: true,
-//     lookingForAJobDescription: '',
-//     photos: {
-//     large: null,
-//         small: null
-// },
-//     contacts: {
-//         facebook: '',
-//             github: '',
-//             instagram: '',
-//             mainLink: '',
-//             twitter: '',
-//             vk: '',
-//             website: '',
-//             youtube: ''
-//     }
-// }
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionType): ProfilePageType => {
