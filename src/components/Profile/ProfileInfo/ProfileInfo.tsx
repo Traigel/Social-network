@@ -21,7 +21,7 @@ export const ProfileInfo = (props: ProfileInfoType) => {
             </div>
             <div className={styles.info}>
                 <h1 className={styles.name}>{props.profile.fullName}</h1>
-                <span className={styles.status}>{props.profile.aboutMe}</span>
+                <span className={styles.status}>{props.profile.aboutMe ? props.profile.aboutMe : '...'}</span>
                 <div>
                     {props.profile.lookingForAJob ? <h4 className={styles.job}>Looking for a job: </h4> : ''}
                     <span> {props.profile.lookingForAJobDescription}</span>
