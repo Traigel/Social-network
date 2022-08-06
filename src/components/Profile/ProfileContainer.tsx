@@ -14,7 +14,7 @@ export class ProfileAPI extends React.Component<PropsType> {
     componentDidMount() {
         let userID = this.props.match.params.userID
         if (!userID) {userID = '23751'}
-        axios.get(`https://social-network.samuraijs.com/api/1.0//profile/${userID}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`)
             .then(response => {
                     this.props.setUserProfileAC(response.data)
                 }

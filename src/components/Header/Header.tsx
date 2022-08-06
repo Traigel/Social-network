@@ -1,11 +1,27 @@
 import React from "react";
-import s from './Header.module.css'
+import styles from './Header.module.css'
 import imgLogo from '../../assets/images/logo.png'
+import {NavLink} from "react-router-dom";
 
-export const Header = () => {
-    return <div className={s.header}>
-        <div className={s.logo}>
+type HeaderPropsType = {
+    isAuth: boolean
+    login: string | null
+}
+
+export const Header = (props: HeaderPropsType) => {
+    return <div className={styles.header}>
+        <div className={styles.logo}>
             <img alt={'Logo'} src={imgLogo}/>
+            <div className={styles.loginBlock}>
+                <h3>
+                    {props.isAuth ?
+                        props.login
+                        :
+                        <NavLink to={'/login'}>Login</NavLink>
+                    }
+                </h3>
+
+            </div>
         </div>
     </div>
 };
