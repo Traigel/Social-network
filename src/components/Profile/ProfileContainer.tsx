@@ -7,6 +7,7 @@ import {Dispatch} from "redux";
 import {ProfileType, setUserProfileAC} from "../../Redux/profile-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {profileAPI} from "../../api/api";
 
 
 export class ProfileAPI extends React.Component<PropsType> {
@@ -14,9 +15,7 @@ export class ProfileAPI extends React.Component<PropsType> {
     componentDidMount() {
         let userID = this.props.match.params.userID
         if (!userID) {userID = '23751'}
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`, {
-            withCredentials: true
-        })
+        profileAPI.getUserID(userID)
             .then(response => {
                     this.props.setUserProfileAC(response.data)
                 }

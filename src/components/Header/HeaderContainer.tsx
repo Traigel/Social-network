@@ -6,16 +6,15 @@ import {ProfileType, setUserProfileAC} from "../../Redux/profile-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {Dispatch} from "redux";
 import {AuthType, setAuthUserDateAC} from "../../Redux/auth-reducer";
+import {authAPI} from "../../api/api";
 
 export class HeaderAPI extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
-        })
-            .then(response => {
-                    if (response.data.resultCode === 0) {
-                        this.props.setAuthUserDateAC(response.data.data)
+        authAPI.getAuth()
+            .then(data => {
+                    if (data.resultCode === 0) {
+                        this.props.setAuthUserDateAC(data.data)
                     }
                 }
             )

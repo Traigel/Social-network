@@ -4,6 +4,7 @@ import usersImg from "../../assets/images/usersImg.jpg";
 import {UsersType} from "../../Redux/users-reducer";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {followAPI} from "../../api/api";
 
 type UsersCompType = {
     users: UsersType[]
@@ -39,12 +40,7 @@ export const Users = (props: UsersCompType) => {
             {props.users.map(el => {
 
                 const onClickFollowHandler = () => {
-                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {
-                        withCredentials: true,
-                        headers:{
-                            'API-KEY': '455241d3-47b3-41f0-8bd1-28ed96c874d5'
-                        }
-                    })
+                    followAPI.deleteUserID(el.id)
                         .then(response => {
                                 if (response.data.resultCode === 0) {
                                     props.usFollow(el.id)
@@ -53,12 +49,7 @@ export const Users = (props: UsersCompType) => {
                         )
                 }
                 const onClickUnFollowHandler = () => {
-                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {}, {
-                        withCredentials: true,
-                        headers:{
-                            'API-KEY': '455241d3-47b3-41f0-8bd1-28ed96c874d5'
-                        }
-                    })
+                    followAPI.postUserID(el.id)
                         .then(response => {
                                 if (response.data.resultCode === 0) {
                                     props.follow(el.id)
