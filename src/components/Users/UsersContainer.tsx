@@ -6,11 +6,10 @@ import {
     followAC,
     setCurrentPageAC,
     setTotalUsersCountAC,
-    setUsersAC, toggleIsFetchingAC,
+    setUsersAC, toggleFollowingProgressAC, toggleIsFetchingAC,
     UsersType,
     usFollowAC
 } from "../../Redux/users-reducer";
-import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
 import {usersAPI} from "../../api/api";
@@ -58,6 +57,8 @@ class UsersAPI extends React.Component<UsersPropsType> {
                 onPageChanged={this.onPageChanged}
                 follow={this.props.follow}
                 usFollow={this.props.usFollow}
+                toggleFollowingProgressAC={this.props.toggleFollowingProgressAC}
+                followingInProgress={this.props.followingInProgress}
             />
         </>
     }
@@ -73,6 +74,7 @@ type mapStateToPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: number[]
 }
 
 type mapDispatchToPropsType = {
@@ -81,7 +83,8 @@ type mapDispatchToPropsType = {
     setUsersAC: (users: UsersType[]) => void
     setCurrentPageAC: (newCurrentPage: number) => void
     setTotalUsersCountAC: (totalCount: number) => void
-    toggleIsFetchingAC:(isFetching: boolean) => void
+    toggleIsFetchingAC: (isFetching: boolean) => void
+    toggleFollowingProgressAC: (isFetching: boolean, userID: number) => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -90,7 +93,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
@@ -101,7 +105,8 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         setUsersAC: (users: Array<UsersType>) => dispatch(setUsersAC(users)),
         setCurrentPageAC: (pageNumber: number) => dispatch(setCurrentPageAC(pageNumber)),
         setTotalUsersCountAC: (totalCount: number) => dispatch(setTotalUsersCountAC(totalCount)),
-        toggleIsFetchingAC: (isFetching: boolean) => dispatch(toggleIsFetchingAC(isFetching))
+        toggleIsFetchingAC: (isFetching: boolean) => dispatch(toggleIsFetchingAC(isFetching)),
+        toggleFollowingProgressAC: (isFetching: boolean, userID: number) => dispatch(toggleFollowingProgressAC(isFetching, userID))
     }
 }
 

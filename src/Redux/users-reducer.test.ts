@@ -41,7 +41,8 @@ beforeEach(() => {
         pageSize: 5,
         totalUsersCount: 0,
         currentPage: 1,
-        isFetching: false
+        isFetching: false,
+        followingInProgress: []
     }
 })
 
@@ -52,7 +53,8 @@ beforeEach(() => {
         pageSize: 5,
         totalUsersCount: 0,
         currentPage: 1,
-        isFetching: false
+        isFetching: false,
+        followingInProgress: []
     }
 })
 

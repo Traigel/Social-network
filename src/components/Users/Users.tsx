@@ -3,7 +3,6 @@ import style from "./Users.module.css";
 import usersImg from "../../assets/images/usersImg.jpg";
 import {UsersType} from "../../Redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
 import {followAPI} from "../../api/api";
 
 type UsersCompType = {
@@ -14,6 +13,8 @@ type UsersCompType = {
     onPageChanged: (el: number) => void
     follow: (userID: number) => void
     usFollow: (userID: number) => void
+    toggleFollowingProgressAC: (isFetching: boolean, userID: number) => void
+    followingInProgress: number[]
 }
 
 export const Users = (props: UsersCompType) => {
@@ -40,24 +41,27 @@ export const Users = (props: UsersCompType) => {
             {props.users.map(el => {
 
                 const onClickFollowHandler = () => {
+                    props.toggleFollowingProgressAC(true, el.id)
                     followAPI.deleteUserID(el.id)
                         .then(response => {
                                 if (response.data.resultCode === 0) {
                                     props.usFollow(el.id)
                                 }
+                                props.toggleFollowingProgressAC(false, el.id)
                             }
                         )
                 }
                 const onClickUnFollowHandler = () => {
+                    props.toggleFollowingProgressAC(true, el.id)
                     followAPI.postUserID(el.id)
                         .then(response => {
                                 if (response.data.resultCode === 0) {
                                     props.follow(el.id)
                                 }
+                                props.toggleFollowingProgressAC(false, el.id)
                             }
                         )
                 }
-
                 return (
                     <div key={el.id} className={style.items}>
                         <div className={`${style.item} ${style.itemImgButton}`}>
@@ -71,9 +75,13 @@ export const Users = (props: UsersCompType) => {
                             <div>
                                 {el.followed
                                     ?
-                                    <button onClick={onClickFollowHandler}>UnFollow</button>
+                                    <button
+                                        disabled={props.followingInProgress.some(id => id === el.id)}
+                                        onClick={onClickFollowHandler}>UnFollow</button>
                                     :
-                                    <button onClick={onClickUnFollowHandler}>Follow</button>
+                                    <button
+                                        disabled={props.followingInProgress.some(id => id === el.id)}
+                                        onClick={onClickUnFollowHandler}>Follow</button>
                                 }
                             </div>
                         </div>
