@@ -3,6 +3,7 @@ import style from "./Users.module.css";
 import usersImg from "../../assets/images/usersImg.jpg";
 import {UsersType} from "../../Redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 type UsersCompType = {
     users: UsersType[]
@@ -37,8 +38,34 @@ export const Users = (props: UsersCompType) => {
 
             {props.users.map(el => {
 
-                const onClickFollowHandler = () => props.usFollow(el.id)
-                const onClickUnFollowHandler = () => props.follow(el.id)
+                const onClickFollowHandler = () => {
+                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {
+                        withCredentials: true,
+                        headers:{
+                            'API-KEY': '455241d3-47b3-41f0-8bd1-28ed96c874d5'
+                        }
+                    })
+                        .then(response => {
+                                if (response.data.resultCode === 0) {
+                                    props.usFollow(el.id)
+                                }
+                            }
+                        )
+                }
+                const onClickUnFollowHandler = () => {
+                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {}, {
+                        withCredentials: true,
+                        headers:{
+                            'API-KEY': '455241d3-47b3-41f0-8bd1-28ed96c874d5'
+                        }
+                    })
+                        .then(response => {
+                                if (response.data.resultCode === 0) {
+                                    props.follow(el.id)
+                                }
+                            }
+                        )
+                }
 
                 return (
                     <div key={el.id} className={style.items}>
@@ -53,9 +80,9 @@ export const Users = (props: UsersCompType) => {
                             <div>
                                 {el.followed
                                     ?
-                                    <button onClick={onClickFollowHandler}>Follow</button>
+                                    <button onClick={onClickFollowHandler}>UnFollow</button>
                                     :
-                                    <button onClick={onClickUnFollowHandler}>UnFollow</button>
+                                    <button onClick={onClickUnFollowHandler}>Follow</button>
                                 }
                             </div>
                         </div>
