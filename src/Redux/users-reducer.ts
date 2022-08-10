@@ -1,3 +1,6 @@
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
+
 type LocationType = {
     city: string
     country: string
@@ -95,3 +98,16 @@ export const setCurrentPageAC = (pageNumber: number) => ({type: 'SET-CURRENT-PAG
 export const setTotalUsersCountAC = (totalCount: number) => ({type: 'SET-TOTAL-USERS-COUNT', totalCount} as const)
 export const toggleIsFetchingAC = (isFetching: boolean) => ({type: 'TOGGLE-IS-FETCHING', isFetching} as const)
 export const toggleFollowingProgressAC = (isFetching: boolean, userID: number) => ({type: 'FOLLOWING-IN-PROGRESS', isFetching, userID} as const)
+
+export const getUsersTC = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch<UsersActionType>) => {
+        dispatch(toggleIsFetchingAC(true))
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(date => {
+                    dispatch(toggleIsFetchingAC(false))
+                    dispatch(setUsersAC(date.items))
+                    dispatch(setTotalUsersCountAC(date.totalCount))
+                }
+            )
+    }
+}

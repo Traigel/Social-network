@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {
-    followAC,
+    followAC, getUsersTC,
     setCurrentPageAC,
     setTotalUsersCountAC,
     setUsersAC, toggleFollowingProgressAC, toggleIsFetchingAC,
@@ -85,6 +85,7 @@ type mapDispatchToPropsType = {
     setTotalUsersCountAC: (totalCount: number) => void
     toggleIsFetchingAC: (isFetching: boolean) => void
     toggleFollowingProgressAC: (isFetching: boolean, userID: number) => void
+    getUsersTC: (currentPage: number, pageSize: number) => any
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -106,7 +107,8 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         setCurrentPageAC: (pageNumber: number) => dispatch(setCurrentPageAC(pageNumber)),
         setTotalUsersCountAC: (totalCount: number) => dispatch(setTotalUsersCountAC(totalCount)),
         toggleIsFetchingAC: (isFetching: boolean) => dispatch(toggleIsFetchingAC(isFetching)),
-        toggleFollowingProgressAC: (isFetching: boolean, userID: number) => dispatch(toggleFollowingProgressAC(isFetching, userID))
+        toggleFollowingProgressAC: (isFetching: boolean, userID: number) => dispatch(toggleFollowingProgressAC(isFetching, userID)),
+        getUsersTC: (currentPage: number, pageSize: number) => dispatch(getUsersTC(currentPage, pageSize))
     }
 }
 
