@@ -85,7 +85,7 @@ type mapDispatchToPropsType = {
     setTotalUsersCountAC: (totalCount: number) => void
     toggleIsFetchingAC: (isFetching: boolean) => void
     toggleFollowingProgressAC: (isFetching: boolean, userID: number) => void
-    getUsersTC: (currentPage: number, pageSize: number) => any
+    getUsersTC: (currentPage: number, pageSize: number) => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {

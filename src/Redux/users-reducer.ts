@@ -1,5 +1,6 @@
 import {usersAPI} from "../api/api";
-import {Dispatch} from "redux";
+import { ThunkAction } from "redux-thunk";
+import { AppStateType } from "./redux-store";
 
 type LocationType = {
     city: string
@@ -99,8 +100,10 @@ export const setTotalUsersCountAC = (totalCount: number) => ({type: 'SET-TOTAL-U
 export const toggleIsFetchingAC = (isFetching: boolean) => ({type: 'TOGGLE-IS-FETCHING', isFetching} as const)
 export const toggleFollowingProgressAC = (isFetching: boolean, userID: number) => ({type: 'FOLLOWING-IN-PROGRESS', isFetching, userID} as const)
 
-export const getUsersTC = (currentPage: number, pageSize: number) => {
-    return (dispatch: Dispatch<UsersActionType>) => {
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, UsersActionType>
+
+export const getUsersTC = (currentPage: number, pageSize: number): ThunkType => {
+    return async (dispatch) => {
         dispatch(toggleIsFetchingAC(true))
         usersAPI.getUsers(currentPage, pageSize)
             .then(date => {
