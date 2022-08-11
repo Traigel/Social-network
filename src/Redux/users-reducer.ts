@@ -35,7 +35,7 @@ type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>
 type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>
 type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetchingAC>
 type ToggleFollowingProgressACType = ReturnType<typeof toggleFollowingProgressAC>
-type UsersActionType = FollowActonType | UsFollowActonType | SetUsersActionType | SetCurrentPageACType
+export type UsersActionType = FollowActonType | UsFollowActonType | SetUsersActionType | SetCurrentPageACType
     | SetTotalUsersCountACType | ToggleIsFetchingACType | ToggleFollowingProgressACType
 
 const initialState: UsersMainType = {

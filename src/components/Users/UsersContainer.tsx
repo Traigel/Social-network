@@ -7,6 +7,7 @@ import {
     setCurrentPageAC,
     setTotalUsersCountAC,
     setUsersAC, toggleFollowingProgressAC, toggleIsFetchingAC,
+    UsersActionType,
     UsersType,
     usFollowAC
 } from "../../Redux/users-reducer";
@@ -99,7 +100,7 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
+const mapDispatchToProps = (dispatch: Dispatch<UsersActionType>): mapDispatchToPropsType => {
     return {
         follow: (userID: number) => dispatch(followAC(userID)),
         usFollow: (userID: number) => dispatch(usFollowAC(userID)),
