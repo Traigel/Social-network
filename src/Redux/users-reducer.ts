@@ -1,6 +1,7 @@
-import {usersAPI} from "../api/api";
+import {followAPI, usersAPI} from "../api/api";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "./redux-store";
+import {Dispatch} from "redux";
 
 type LocationType = {
     city: string
@@ -102,14 +103,40 @@ export const toggleFollowingProgressAC = (isFetching: boolean, userID: number) =
 
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, UsersActionType>
 
-export const getUsersTC = (currentPage: number, pageSize: number): ThunkType => {
-    return async (dispatch) => {
+export const getUsersTC = (currentPage: number, pageSize: number): any => {
+    return async (dispatch: Dispatch<UsersActionType>) => {
         dispatch(toggleIsFetchingAC(true))
         usersAPI.getUsers(currentPage, pageSize)
             .then(date => {
                     dispatch(toggleIsFetchingAC(false))
                     dispatch(setUsersAC(date.items))
                     dispatch(setTotalUsersCountAC(date.totalCount))
+                }
+            )
+    }
+}
+export const followTC = (userID: number): any => {
+    return async (dispatch: Dispatch<UsersActionType>) => {
+        dispatch(toggleFollowingProgressAC(true, userID))
+        followAPI.postUserID(userID)
+            .then(response => {
+                    if (response.data.resultCode === 0) {
+                        dispatch(followAC(userID))
+                    }
+                dispatch(toggleFollowingProgressAC(false, userID))
+                }
+            )
+    }
+}
+export const usFollowTC = (userID: number): any => {
+    return async (dispatch: Dispatch<UsersActionType>) => {
+        dispatch(toggleFollowingProgressAC(true, userID))
+        followAPI.deleteUserID(userID)
+            .then(response => {
+                    if (response.data.resultCode === 0) {
+                        dispatch(usFollowAC(userID))
+                    }
+                    dispatch(toggleFollowingProgressAC(false, userID))
                 }
             )
     }
