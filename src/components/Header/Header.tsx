@@ -14,13 +14,8 @@ export const Header = (props: HeaderPropsType) => {
             <img alt={'Logo'} src={imgLogo}/>
             <div className={styles.loginBlock}>
                 <h3>
-                    {props.isAuth ?
-                        props.login
-                        :
-                        <NavLink to={'/login'}>Login</NavLink>
-                    }
+                    {props.isAuth ? props.login : <NavLink to={'/login'}>Login</NavLink>}
                 </h3>
-
             </div>
         </div>
     </div>

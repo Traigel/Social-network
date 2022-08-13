@@ -1,23 +1,14 @@
 import React from "react";
 import {Header} from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
-import {ProfileType, setUserProfileAC} from "../../Redux/profile-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {Dispatch} from "redux";
-import {AuthType, setAuthUserDateAC} from "../../Redux/auth-reducer";
-import {authAPI} from "../../api/api";
+import {setAuthUserDateTC} from "../../Redux/auth-reducer";
 
 export class HeaderAPI extends React.Component<ProfilePropsType> {
 
     componentDidMount() {
-        authAPI.getAuth()
-            .then(data => {
-                    if (data.resultCode === 0) {
-                        this.props.setAuthUserDateAC(data.data)
-                    }
-                }
-            )
+        this.props.setAuthUserDateTC()
     }
 
     render() {
@@ -36,7 +27,7 @@ type mapStateToPropsType = {
 }
 
 type mapDispatchToPropsTye = {
-    setAuthUserDateAC: (date: AuthType) => void
+    setAuthUserDateTC: () => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -47,7 +38,7 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 }
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsTye => {
     return {
-        setAuthUserDateAC: (date: AuthType) => dispatch(setAuthUserDateAC(date))
+        setAuthUserDateTC: () => dispatch(setAuthUserDateTC())
     }
 }
 

@@ -1,4 +1,4 @@
-import {addPostAC, ProfilePageType, profileReducer, ProfileType, updateNewPostAC} from "./profile-reducer";
+import {addPostAC, ProfilePageType, profileReducer, ProfileType, updateNewPostAC} from "../Redux/profile-reducer";
 import {v1} from "uuid";
 
 let initialState: ProfilePageType;

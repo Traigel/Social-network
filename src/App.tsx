@@ -10,6 +10,7 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {HeaderContainer} from "./components/Header/HeaderContainer";
+import { Login } from './components/login/Login';
 
 const App = () => {
     return <BrowserRouter>
@@ -23,7 +24,7 @@ const App = () => {
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>
                 <Route path='/users' render={() => <UsersContainer/>}/>
-                <Route path='/friends' render={() => <Friends/>}/>
+                <Route path='/login' render={() => <Login/>}/>
             </div>
         </div>
     </BrowserRouter>

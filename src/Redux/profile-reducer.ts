@@ -1,4 +1,7 @@
 import {v1} from "uuid";
+import {Dispatch} from "redux";
+import {followAPI, profileAPI} from "../api/api";
+import {toggleFollowingProgressAC, usFollowAC} from "./users-reducer";
 
 export type PostsType = {
     id: string,
@@ -76,3 +79,13 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
 export const addPostAC = () => ({type: 'ADD-POST'} as const)
 export const updateNewPostAC = (newText: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText} as const)
 export const setUserProfileAC = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
+
+export const getUserProfileTC = (userID: string): any => {
+    return async (dispatch: Dispatch<ProfileActionType>) => {
+        profileAPI.getUserID(userID)
+            .then(response => {
+                    dispatch(setUserProfileAC(response.data))
+                }
+            )
+    }
+}

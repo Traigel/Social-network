@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {authAPI} from "../api/api";
+
 export type AuthType = {
     id: string | null
     login: string | null
@@ -33,3 +36,13 @@ export const authReducer = (state: AuthType = initialState, action: UsersActionT
 }
 
 export const setAuthUserDateAC = (date: AuthType) => ({type: 'SET-USER-DATE', date} as const)
+
+export const setAuthUserDateTC = (): any => async (dispatch: Dispatch<UsersActionType>) => {
+    authAPI.getAuth()
+        .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(setAuthUserDateAC(data.data))
+                }
+            }
+        )
+}

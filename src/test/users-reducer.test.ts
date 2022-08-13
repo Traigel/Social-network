@@ -6,7 +6,7 @@ import {
     UsersMainType,
     usersReducer,
     usFollowAC
-} from "./users-reducer";
+} from "../Redux/users-reducer";
 
 const userID_1: number = 1;
 const userID_2: number = 2;

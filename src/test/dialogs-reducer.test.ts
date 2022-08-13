@@ -1,4 +1,4 @@
-import {addMessagesAC, DialogsPageType, dialogsReducer, updateNewMessagesAC} from "./dialogs-reducer";
+import {addMessagesAC, DialogsPageType, dialogsReducer, updateNewMessagesAC} from "../Redux/dialogs-reducer";
 import {v1} from "uuid";
 
 let initialState: DialogsPageType;
