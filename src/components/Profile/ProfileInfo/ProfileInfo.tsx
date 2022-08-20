@@ -4,10 +4,12 @@ import imgProfile from '../../../assets/images/imagesProfile.jpg'
 import userImg from '../../../assets/images/usersImg.jpg'
 import {ProfileType} from "../../../Redux/profile-reducer";
 import {Preloader} from "../../common/preloader/Preloader";
-import { ProfileStatus } from "./profileStatus/ProfileStatus";
+import {ProfileStatus} from "./profileStatus/ProfileStatus";
 
 type ProfileInfoType = {
     profile: ProfileType | null
+    status: string
+    updateStatus: (status: string) => void
 }
 
 export const ProfileInfo = (props: ProfileInfoType) => {
@@ -15,14 +17,25 @@ export const ProfileInfo = (props: ProfileInfoType) => {
         return <Preloader/>
     }
     return <div>
-        {/*<img className={styles.imgProfile} alt={'imgProfile'} src={imgProfile}/>*/}
         <div className={styles.profileInfo}>
+
             <div className={styles.ava}>
                 <img alt={userImg} src={props.profile.photos.large ? props.profile.photos.large : userImg}/>
             </div>
+
             <div className={styles.info}>
+
                 <h1 className={styles.name}>{props.profile.fullName}</h1>
-                <ProfileStatus status={props.profile.aboutMe}/>
+                <ProfileStatus
+                    status={props.status}
+                    updateStatus={props.updateStatus}
+                />
+
+                <div>
+                    <h4 className={styles.aboutMe}>About me:</h4>
+                    {props.profile.aboutMe ? ' ' + props.profile.aboutMe : '...'}
+                </div>
+
                 <div>
                     {props.profile.lookingForAJob ? <h4 className={styles.job}>Looking for a job: </h4> : ''}
                     <span> {props.profile.lookingForAJobDescription}</span>

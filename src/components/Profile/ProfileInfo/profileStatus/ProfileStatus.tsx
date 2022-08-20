@@ -1,14 +1,16 @@
-import React from "react";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 import styles from './ProfileStatus.module.css'
 
 type ProfileStatusPropsType = {
     status: string
+    updateStatus: (status: string) => void
 }
 
 export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
 
     state = {
-        editMode: false
+        editMode: false,
+        status: this.props.status
     }
 
     activateEditMode() {
@@ -21,6 +23,17 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
         this.setState({
             editMode: false
         })
+        this.props.updateStatus(this.state.status)
+    }
+
+    onChangeHandler(value: ChangeEvent<HTMLInputElement>) {
+        this.setState({
+            status: value.currentTarget.value
+        })
+    }
+
+    onKeyPressHandler(e: KeyboardEvent<HTMLInputElement>) {
+        if (e.key === 'Enter') this.deactivateEditMode()
     }
 
     render() {
@@ -30,11 +43,13 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
 
                     ? <span
                         onDoubleClick={this.activateEditMode.bind(this)}
-                    >{this.props.status ? this.props.status : '...'}</span>
+                    > &#9998; {this.props.status ? this.props.status : '...'}</span>
 
                     : <input
-                        value={this.props.status}
+                        value={this.state.status}
+                        onChange={this.onChangeHandler.bind(this)}
                         onBlur={this.deactivateEditMode.bind(this)}
+                        onKeyPress={this.onKeyPressHandler.bind(this)}
                         autoFocus={true}
                     />
                 }

@@ -3,7 +3,7 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
-import {getUserProfileTC, ProfileType} from "../../Redux/profile-reducer";
+import {getUserProfileTC, getUserStatusTC, ProfileType, updateStatusTC} from "../../Redux/profile-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
@@ -15,13 +15,14 @@ export class ProfileAPI extends React.Component<PropsType> {
         if (!userID) {
             userID = '23751'
         }
-        this.props.getUserProfileTC(userID)
+        this.props.getUserProfile(userID)
+        this.props.getUserStatus(userID)
     }
 
     render() {
         return (
             <div>
-                <ProfileInfo profile={this.props.profile}/>
+                <ProfileInfo {...this.props}/>
                 <MyPostsContainer/>
             </div>
         )
@@ -35,20 +36,26 @@ type ProfilePropsType = mapStateToPropsType & mapDispatchToPropsTye
 
 type mapStateToPropsType = {
     profile: ProfileType | null
+    status: string
 }
 
 type mapDispatchToPropsTye = {
-    getUserProfileTC: (userID: string) => void
+    getUserProfile: (userID: string) => void
+    getUserStatus: (userID: string) => void
+    updateStatus: (status: string) => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
+        status: state.profilePage.status,
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsTye => {
     return {
-        getUserProfileTC: (userID: string) => dispatch(getUserProfileTC(userID))
+        getUserProfile: (userID: string) => dispatch(getUserProfileTC(userID)),
+        getUserStatus: (userID: string) => dispatch(getUserStatusTC(userID)),
+        updateStatus: (status: string) => dispatch(updateStatusTC(status))
     }
 }
 

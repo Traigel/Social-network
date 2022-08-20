@@ -118,7 +118,7 @@ export const getUsersTC = (currentPage: number, pageSize: number): any => {
 export const followTC = (userID: number): any => {
     return async (dispatch: Dispatch<UsersActionType>) => {
         dispatch(toggleFollowingProgressAC(true, userID))
-        followAPI.postUserID(userID)
+        followAPI.postFollow(userID)
             .then(response => {
                     if (response.data.resultCode === 0) {
                         dispatch(followAC(userID))
@@ -131,7 +131,7 @@ export const followTC = (userID: number): any => {
 export const usFollowTC = (userID: number): any => {
     return async (dispatch: Dispatch<UsersActionType>) => {
         dispatch(toggleFollowingProgressAC(true, userID))
-        followAPI.deleteUserID(userID)
+        followAPI.deleteUnFollow(userID)
             .then(response => {
                     if (response.data.resultCode === 0) {
                         dispatch(usFollowAC(userID))

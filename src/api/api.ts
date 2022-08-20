@@ -16,18 +16,25 @@ export const usersAPI = {
 }
 
 export const followAPI = {
-    postUserID: (userID: number) => {
+    postFollow: (userID: number) => {
         return instance.post(`follow/${userID}`)
     },
-    deleteUserID: (userID: number) => {
+    deleteUnFollow: (userID: number) => {
         return instance.delete(`follow/${userID}`)
     }
 }
 
 export const profileAPI = {
-    getUserID: (userID: string) => {
+    getProfile: (userID: string) => {
         return instance.get(`profile/${userID}`)
+    },
+    getStatus: (userID: string) => {
+        return instance.get(`profile/status/${userID}`)
+    },
+    putStatus: (status: string) => {
+        return instance.put('profile/status', {status})
     }
+
 }
 
 export const authAPI = {

@@ -29,7 +29,8 @@ beforeEach(() => {
                 website: '',
                 youtube: ''
             }
-        }
+        },
+        status: ''
     }
 })
 
