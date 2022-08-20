@@ -3,16 +3,16 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {
-    followAC, followTC, getUsersTC,
+    followTC, getUsersTC,
     setCurrentPageAC,
     toggleFollowingProgressAC,
     UsersActionType,
     UsersType,
-    usFollowAC,
     usFollowTC
 } from "../../Redux/users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 
@@ -89,4 +89,6 @@ const mapDispatchToProps = (dispatch: Dispatch<UsersActionType>): mapDispatchToP
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPI)
+const AuthRedirectComponent = withAuthRedirect(UsersAPI)
+
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
