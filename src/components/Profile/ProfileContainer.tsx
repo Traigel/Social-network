@@ -2,7 +2,7 @@ import React from "react";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {getUserProfileTC, ProfileType} from "../../Redux/profile-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
@@ -12,7 +12,9 @@ export class ProfileAPI extends React.Component<PropsType> {
 
     componentDidMount() {
         let userID = this.props.match.params.userID
-        if (!userID) {userID = '23751'}
+        if (!userID) {
+            userID = '23751'
+        }
         this.props.getUserProfileTC(userID)
     }
 
@@ -50,8 +52,8 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsTye => {
     }
 }
 
-const AuthRedirectComponent = withAuthRedirect(ProfileAPI)
-
-const WithUrlDataCC = withRouter(AuthRedirectComponent)
-
-export const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(WithUrlDataCC)
+export const ProfileContainer = compose<React.ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withRouter,
+    withAuthRedirect
+)(ProfileAPI)

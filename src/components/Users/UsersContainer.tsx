@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {
     followTC, getUsersTC,
@@ -13,7 +13,6 @@ import {
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-
 
 
 class UsersAPI extends React.Component<UsersPropsType> {
@@ -46,7 +45,6 @@ class UsersAPI extends React.Component<UsersPropsType> {
         </>
     }
 }
-
 
 
 export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -89,6 +87,7 @@ const mapDispatchToProps = (dispatch: Dispatch<UsersActionType>): mapDispatchToP
     }
 }
 
-const AuthRedirectComponent = withAuthRedirect(UsersAPI)
-
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
+export const UsersContainer = compose<React.ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(UsersAPI)
