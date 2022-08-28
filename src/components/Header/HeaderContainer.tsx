@@ -3,7 +3,7 @@ import {Header} from "./Header";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {Dispatch} from "redux";
-import {setAuthUserDateTC} from "../../Redux/auth-reducer";
+import {logoutTC, setAuthUserDateTC} from "../../Redux/auth-reducer";
 
 export class HeaderAPI extends React.Component<ProfilePropsType> {
 
@@ -15,6 +15,7 @@ export class HeaderAPI extends React.Component<ProfilePropsType> {
         return <Header
             isAuth={this.props.isAuth}
             login={this.props.login}
+            logout={this.props.logout}
         />
     }
 }
@@ -28,6 +29,7 @@ type mapStateToPropsType = {
 
 type mapDispatchToPropsTye = {
     setAuthUserDateTC: () => void
+    logout: () => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -38,7 +40,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 }
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsTye => {
     return {
-        setAuthUserDateTC: () => dispatch(setAuthUserDateTC())
+        setAuthUserDateTC: () => dispatch(setAuthUserDateTC()),
+        logout: () => dispatch(logoutTC())
     }
 }
 

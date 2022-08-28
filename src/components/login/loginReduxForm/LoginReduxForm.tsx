@@ -4,9 +4,9 @@ import {Input} from "../../common/formControls/FormsControls";
 import {requiredField} from "../../../utils/validators/validators";
 
 export type LoginFormType = {
-    login: string
+    email: string
     password: string
-    rememberMe: string
+    rememberMe: boolean
 }
 
 const LoginForm = (props: InjectedFormProps<LoginFormType>) => {
@@ -14,8 +14,8 @@ const LoginForm = (props: InjectedFormProps<LoginFormType>) => {
         <form onSubmit={props.handleSubmit}>
             <div>
                 <Field
-                    name={'login'}
-                    placeholder={'Login'}
+                    name={'email'}
+                    placeholder={'Email'}
                     component={Input}
                     validate={[requiredField]}
                 />
@@ -25,6 +25,7 @@ const LoginForm = (props: InjectedFormProps<LoginFormType>) => {
                     name={'password'}
                     placeholder={'Password'}
                     component={Input}
+                    type={'password'}
                     validate={[requiredField]}
                 />
             </div>

@@ -39,7 +39,24 @@ export const profileAPI = {
 
 export const authAPI = {
     getAuth: () => {
-        return instance.get(`auth/me`)
-            .then(res => res.data)
+        return instance.get<MyDataType>(`auth/me`)
+    },
+    login: (email: string, password: string, rememberMe: boolean = false) => {
+        return instance.post('auth/login', {email, password, rememberMe})
+    },
+    logout: () => {
+        return instance.delete('auth/login')
     }
+}
+
+export type MyDataType = {
+	data: MeType,
+	messages: any[];
+	fieldsErrors: any[];
+	resultCode: number;
+}
+export type MeType = {
+	id: number;
+	login: string;
+	email: string;
 }
