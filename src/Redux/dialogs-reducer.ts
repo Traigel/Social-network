@@ -1,4 +1,5 @@
 import {v1} from "uuid";
+import {AddMessageFormType} from "../components/Dialogs/addMessageForm/AddMessageForm";
 
 export type DialogsDataType = {
     id: string,
@@ -12,8 +13,7 @@ export type MessagesDataType = {
 export type DialogsPageType = typeof initialState
 
 type AddMessagesActionType = ReturnType<typeof addMessagesAC>
-type UpdateNewMessagesActionType = ReturnType<typeof updateNewMessagesAC>
-type DialogsActionType = AddMessagesActionType | UpdateNewMessagesActionType
+type DialogsActionType = AddMessagesActionType
 
 const initialState = {
     dialogsData: [
@@ -28,7 +28,6 @@ const initialState = {
         {id: v1(), message: 'I am a computer programmer'},
         {id: v1(), message: 'Yo'},
     ] as Array<MessagesDataType>,
-    newMessageText: ''
 }
 
 export const dialogsReducer = (state: DialogsPageType = initialState, action: DialogsActionType): DialogsPageType => {
@@ -36,24 +35,13 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Di
         case 'ADD-MESSAGE':
             return {
                 ...state,
-                messagesData: [...state.messagesData, {id: v1(), message: state.newMessageText}],
-                newMessageText: ''
-            };
-        case 'UPDATE-NEW-MESSAGE':
-            return {
-                ...state,
-                newMessageText: action.newText
+                messagesData: [...state.messagesData, {id: v1(), message: action.formData.newMessageText}]
             };
         default :
             return state;
     }
 }
 
-export const addMessagesAC = () => ({type: 'ADD-MESSAGE'} as const)
-
-export const updateNewMessagesAC = (newText: string) => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE',
-        newText: newText
-    } as const
+export const addMessagesAC = (formData: AddMessageFormType) => {
+    return {type: 'ADD-MESSAGE', formData} as const
 }

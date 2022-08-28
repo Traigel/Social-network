@@ -1,4 +1,4 @@
-import {addMessagesAC, DialogsPageType, dialogsReducer, updateNewMessagesAC} from "../Redux/dialogs-reducer";
+import {addMessagesAC, DialogsPageType, dialogsReducer} from "../Redux/dialogs-reducer";
 import {v1} from "uuid";
 
 let initialState: DialogsPageType;
@@ -15,16 +15,11 @@ beforeEach(() => {
             {id: v1(), message: 'Hello Word!'},
             {id: v1(), message: 'I am a computer programmer'},
             {id: v1(), message: 'Yo'},
-        ],
-        newMessageText: ''
+        ]
     }
 })
 
-test('update new message', () => {
-    const dialogsReducer1 = dialogsReducer(initialState, updateNewMessagesAC("New message"))
-    expect(dialogsReducer1.newMessageText).toBe("New message")
-})
 test('add message', () => {
-    const dialogsReducer1 = dialogsReducer(initialState, addMessagesAC())
+    const dialogsReducer1 = dialogsReducer(initialState, addMessagesAC({newMessageText: 'Hello'}))
     expect(dialogsReducer1.messagesData.length).toBe(4)
 })
