@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
 import {LoginFormType} from "../components/login/loginReduxForm/LoginReduxForm";
+import {stopSubmit} from "redux-form";
 
 export type AuthType = {
     id: number | null
@@ -50,14 +51,20 @@ export const setAuthUserDateTC = (): any => (dispatch: Dispatch<UsersActionType>
         )
 }
 
-export const loginTC = (formData: LoginFormType): any => (dispatch: Dispatch<UsersActionType>) => {
-    authAPI.login(formData.email, formData.password, formData.rememberMe)
-        .then(res => {
-                if (res.data.resultCode === 0) {
-                    dispatch(setAuthUserDateTC())
+export const loginTC = (formData: LoginFormType): any => {
+    return (dispatch: Dispatch<UsersActionType>) => {
+        authAPI.login(formData.email, formData.password, formData.rememberMe)
+            .then(res => {
+                    if (res.data.resultCode === 0) {
+                        dispatch(setAuthUserDateTC())
+                    } else {
+                        const message = res.data.messages.length > 0 ? res.data.messages[0] : 'Some error'
+                        const action: any = stopSubmit('login', {_error: message})
+                        dispatch(action)
+                    }
                 }
-            }
-        )
+            )
+    };
 }
 
 export const logoutTC = (): any => (dispatch: Dispatch<UsersActionType>) => {

@@ -51,8 +51,8 @@ export const authAPI = {
 
 export type MyDataType = {
 	data: MeType,
-	messages: any[];
-	fieldsErrors: any[];
+	messages: string[];
+	fieldsErrors: string[];
 	resultCode: number;
 }
 export type MeType = {

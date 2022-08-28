@@ -2,6 +2,7 @@ import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../../common/formControls/FormsControls";
 import {requiredField} from "../../../utils/validators/validators";
+import styles from '../../common/formControls/FormsControls.module.css'
 
 export type LoginFormType = {
     email: string
@@ -36,6 +37,7 @@ const LoginForm = (props: InjectedFormProps<LoginFormType>) => {
                     component={Input}
                 /> remember me
             </div>
+                {props.error && <div className={styles.formSummeryError}>{props.error}</div>}
             <div>
                 <button>Login</button>
             </div>

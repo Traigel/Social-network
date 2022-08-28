@@ -13,7 +13,8 @@ export class ProfileAPI extends React.Component<PropsType> {
     componentDidMount() {
         let userID = this.props.match.params.userID
         if (!userID) {
-            userID = '23751'
+            // @ts-ignore
+            userID = this.props.myID
         }
         this.props.getUserProfile(userID)
         this.props.getUserStatus(userID)
@@ -37,6 +38,8 @@ type ProfilePropsType = mapStateToPropsType & mapDispatchToPropsTye
 type mapStateToPropsType = {
     profile: ProfileType | null
     status: string
+    myID: number | null
+    isAuth: boolean
 }
 
 type mapDispatchToPropsTye = {
@@ -49,6 +52,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
+        myID: state.auth.id,
+        isAuth: state.auth.isAuth
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsTye => {

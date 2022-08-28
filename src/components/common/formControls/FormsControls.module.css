@@ -10,3 +10,10 @@
 .formControl.error span {
     color: red;
 }
+
+.formSummeryError {
+    display: inline-block;
+    border: red 1px solid;
+    padding: 5px;
+    color: red;
+}
