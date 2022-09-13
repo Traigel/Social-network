@@ -10,23 +10,43 @@ import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {HeaderContainer} from "./components/Header/HeaderContainer";
 import {LoginContainer} from './components/login/Login';
+import {connect} from "react-redux";
+import {setAuthUserDateTC} from "./Redux/auth-reducer";
+import {Dispatch} from "redux";
 
-const App = () => {
-    return <BrowserRouter>
-        <div className='app-wrapper'>
-            <HeaderContainer/>
-            <NavBar/>
-            <div className='app-wrapper-content'>
-                <Route path='/profile/:userID?' render={() => <ProfileContainer/>}/>
-                <Route path='/messages' render={() => <DialogsContainer/>}/>
-                <Route path='/news' render={() => <News/>}/>
-                <Route path='/music' render={() => <Music/>}/>
-                <Route path='/settings' render={() => <Settings/>}/>
-                <Route path='/users' render={() => <UsersContainer/>}/>
-                <Route path='/login' render={() => <LoginContainer/>}/>
+class App extends React.Component {
+
+    componentDidMount() {
+
+    }
+
+    render() {
+        return <BrowserRouter>
+            <div className='app-wrapper'>
+                <HeaderContainer/>
+                <NavBar/>
+                <div className='app-wrapper-content'>
+                    <Route path='/profile/:userID?' render={() => <ProfileContainer/>}/>
+                    <Route path='/messages' render={() => <DialogsContainer/>}/>
+                    <Route path='/news' render={() => <News/>}/>
+                    <Route path='/music' render={() => <Music/>}/>
+                    <Route path='/settings' render={() => <Settings/>}/>
+                    <Route path='/users' render={() => <UsersContainer/>}/>
+                    <Route path='/login' render={() => <LoginContainer/>}/>
+                </div>
             </div>
-        </div>
-    </BrowserRouter>
-};
+        </BrowserRouter>
+    }
+}
 
-export default App;
+type mapDispatchToPropsTye = {
+    setAuthUserDateTC: () => void
+}
+
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsTye => {
+    return {
+        setAuthUserDateTC: () => dispatch(setAuthUserDateTC())
+    }
+}
+
+export const AppContainer = connect(null, mapDispatchToProps)(App);
