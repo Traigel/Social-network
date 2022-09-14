@@ -13,14 +13,22 @@ import {LoginContainer} from './components/login/Login';
 import {connect} from "react-redux";
 import {setAuthUserDateTC} from "./Redux/auth-reducer";
 import {Dispatch} from "redux";
+import {setInitializedAppTC} from "./Redux/app-reducer";
+import {AppStateType} from "./Redux/redux-store";
+import {Preloader} from "./components/common/preloader/Preloader";
 
-class App extends React.Component {
+class App extends React.Component<AppPropsType> {
 
     componentDidMount() {
-
+        this.props.setInitializedAppTC()
     }
 
     render() {
+
+        if (!this.props.initialized) {
+            return <Preloader/>
+        }
+
         return <BrowserRouter>
             <div className='app-wrapper'>
                 <HeaderContainer/>
@@ -39,14 +47,26 @@ class App extends React.Component {
     }
 }
 
+type AppPropsType = mapDispatchToPropsTye & mapStateToPropsType
+
+type mapStateToPropsType = {
+    initialized: boolean
+}
+
 type mapDispatchToPropsTye = {
-    setAuthUserDateTC: () => void
+    setInitializedAppTC: () => void
+}
+
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+    return {
+        initialized: state.app.initialized
+    }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsTye => {
     return {
-        setAuthUserDateTC: () => dispatch(setAuthUserDateTC())
+        setInitializedAppTC: () => dispatch(setInitializedAppTC())
     }
 }
 
-export const AppContainer = connect(null, mapDispatchToProps)(App);
+export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);

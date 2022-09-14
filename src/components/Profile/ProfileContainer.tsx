@@ -15,6 +15,9 @@ export class ProfileAPI extends React.Component<PropsType> {
         if (!userID) {
             // @ts-ignore
             userID = this.props.myID
+            if (!userID) {
+                this.props.history.push('/login')  // не очень хорошее решение
+            }
         }
         this.props.getUserProfile(userID)
         this.props.getUserStatus(userID)

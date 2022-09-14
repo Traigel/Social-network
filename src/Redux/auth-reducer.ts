@@ -42,7 +42,7 @@ const setAuthUserDateAC = (id: number | null, email: string | null, login: strin
 
 export const setAuthUserDateTC = (): any => (dispatch: Dispatch<UsersActionType>) => {
 
-    authAPI.getAuth()
+     return authAPI.getAuth()
         .then(res => {
                 if (res.data.resultCode === 0) {
                     dispatch(setAuthUserDateAC(res.data.data.id, res.data.data.email, res.data.data.login, true))
