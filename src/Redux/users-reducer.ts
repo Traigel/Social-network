@@ -1,6 +1,6 @@
 import {followAPI, usersAPI} from "../api/api";
-import { ThunkAction } from "redux-thunk";
-import { AppStateType } from "./redux-store";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
 import {Dispatch} from "redux";
 
 type LocationType = {
@@ -65,22 +65,22 @@ export const usersReducer = (state: UsersMainType = initialState, action: UsersA
                 ...state,
                 users: [...action.users]
             }
-            case 'SET-CURRENT-PAGE':
+        case 'SET-CURRENT-PAGE':
             return {
                 ...state,
                 currentPage: action.pageNumber
             }
-            case 'SET-TOTAL-USERS-COUNT':
+        case 'SET-TOTAL-USERS-COUNT':
             return {
                 ...state,
                 totalUsersCount: action.totalCount
             }
-            case 'TOGGLE-IS-FETCHING':
+        case 'TOGGLE-IS-FETCHING':
             return {
                 ...state,
                 isFetching: action.isFetching
             }
-            case 'FOLLOWING-IN-PROGRESS':
+        case 'FOLLOWING-IN-PROGRESS':
             return {
                 ...state,
                 followingInProgress: action.isFetching
@@ -99,7 +99,11 @@ export const setUsersAC = (users: UsersType[]) => ({type: 'SET-USERS', users} as
 export const setCurrentPageAC = (pageNumber: number) => ({type: 'SET-CURRENT-PAGE', pageNumber} as const)
 export const setTotalUsersCountAC = (totalCount: number) => ({type: 'SET-TOTAL-USERS-COUNT', totalCount} as const)
 export const toggleIsFetchingAC = (isFetching: boolean) => ({type: 'TOGGLE-IS-FETCHING', isFetching} as const)
-export const toggleFollowingProgressAC = (isFetching: boolean, userID: number) => ({type: 'FOLLOWING-IN-PROGRESS', isFetching, userID} as const)
+export const toggleFollowingProgressAC = (isFetching: boolean, userID: number) => ({
+    type: 'FOLLOWING-IN-PROGRESS',
+    isFetching,
+    userID
+} as const)
 
 type ThunkType = ThunkAction<void, AppStateType, unknown, UsersActionType>
 
@@ -124,7 +128,7 @@ export const followTC = (userID: number): any => {
                     if (response.data.resultCode === 0) {
                         dispatch(followAC(userID))
                     }
-                dispatch(toggleFollowingProgressAC(false, userID))
+                    dispatch(toggleFollowingProgressAC(false, userID))
                 }
             )
     }

@@ -3,7 +3,8 @@ import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {
-    followTC, getUsersTC,
+    followTC,
+    getUsersTC,
     setCurrentPageAC,
     toggleFollowingProgressAC,
     UsersActionType,
@@ -12,7 +13,6 @@ import {
 } from "../../Redux/users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {
     getCurrentPage,
     getFollowingInProgress,
@@ -73,17 +73,6 @@ type mapDispatchToPropsType = {
     followTC: (userID: number) => void
     usFollowTC: (userID: number) => void
 }
-
-// const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         followingInProgress: state.usersPage.followingInProgress
-//     }
-// }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {  //selector
     return {
