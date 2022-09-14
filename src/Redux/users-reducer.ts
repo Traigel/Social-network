@@ -101,11 +101,12 @@ export const setTotalUsersCountAC = (totalCount: number) => ({type: 'SET-TOTAL-U
 export const toggleIsFetchingAC = (isFetching: boolean) => ({type: 'TOGGLE-IS-FETCHING', isFetching} as const)
 export const toggleFollowingProgressAC = (isFetching: boolean, userID: number) => ({type: 'FOLLOWING-IN-PROGRESS', isFetching, userID} as const)
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, UsersActionType>
+type ThunkType = ThunkAction<void, AppStateType, unknown, UsersActionType>
 
 export const getUsersTC = (currentPage: number, pageSize: number): any => {
     return async (dispatch: Dispatch<UsersActionType>) => {
         dispatch(toggleIsFetchingAC(true))
+        dispatch(setCurrentPageAC(currentPage))
         usersAPI.getUsers(currentPage, pageSize)
             .then(date => {
                     dispatch(toggleIsFetchingAC(false))

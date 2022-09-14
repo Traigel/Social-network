@@ -13,6 +13,14 @@ import {
 import {Users} from "./Users";
 import {Preloader} from "../common/preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPagesSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../Redux/users-selectors";
 
 
 class UsersAPI extends React.Component<UsersPropsType> {
@@ -66,14 +74,25 @@ type mapDispatchToPropsType = {
     usFollowTC: (userID: number) => void
 }
 
-const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+// const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress
+//     }
+// }
+
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => {  //selector
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        users: getUsers(state),
+        pageSize: getPagesSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 }
 

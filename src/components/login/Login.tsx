@@ -17,6 +17,16 @@ const Login = (props: LoginPropsType) => {
     }
 
     return <div>
+        <div>
+            <p>To log in get registered
+                <a href={'https://social-network.samuraijs.com/'}
+                   target={'_blank'}> here
+                </a>
+            </p>
+            <p>or use common test account credentials:</p>
+            <p>Email: free@samuraijs.com</p>
+            <p>Password: free</p>
+        </div>
         <h1>Login</h1>
         <LoginReduxForm onSubmit={onSubmitHandler}/>
     </div>
