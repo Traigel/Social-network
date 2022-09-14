@@ -14,7 +14,7 @@ export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
     }
 
     componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<{}>) {
-        if (prevProps.status !== this.props.status) {
+        if (prevProps.status !== this.props.status) { // сравнивает с преыдущими проасами (при прошлой отрисовке)
             this.setState({
                 status: this.props.status
             })
