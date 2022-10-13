@@ -3,17 +3,6 @@ import {authAPI} from "../api/api";
 import {LoginFormType} from "../components/login/loginReduxForm/LoginReduxForm";
 import {stopSubmit} from "redux-form";
 
-export type AuthType = {
-    id: number | null
-    login: string | null
-    email: string | null
-    isAuth: boolean
-}
-
-type SetAuthUserDateACType = ReturnType<typeof setAuthUserDateAC>
-
-type UsersActionType = SetAuthUserDateACType
-
 const initialState: AuthType = {
     id: null,
     login: null,
@@ -23,7 +12,7 @@ const initialState: AuthType = {
 
 export const authReducer = (state: AuthType = initialState, action: UsersActionType): AuthType => {
     switch (action.type) {
-        case "SET-USER-DATE": {
+        case "AUTH/SET-USER-DATE": {
             return {
                 ...state,
                 ...action.date
@@ -35,14 +24,16 @@ export const authReducer = (state: AuthType = initialState, action: UsersActionT
     }
 }
 
-const setAuthUserDateAC = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
-    type: 'SET-USER-DATE',
+// actions
+export const setAuthUserDateAC = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
+    type: 'AUTH/SET-USER-DATE',
     date: {id, email, login, isAuth}
 } as const)
 
+// thunks
 export const setAuthUserDateTC = (): any => (dispatch: Dispatch<UsersActionType>) => {
 
-     return authAPI.getAuth()
+    return authAPI.getAuth()
         .then(res => {
                 if (res.data.resultCode === 0) {
                     dispatch(setAuthUserDateAC(res.data.data.id, res.data.data.email, res.data.data.login, true))
@@ -76,3 +67,13 @@ export const logoutTC = (): any => (dispatch: Dispatch<UsersActionType>) => {
             }
         )
 }
+
+// types
+export type AuthType = {
+    id: number | null
+    login: string | null
+    email: string | null
+    isAuth: boolean
+}
+
+type UsersActionType = ReturnType<typeof setAuthUserDateAC>

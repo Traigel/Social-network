@@ -1,4 +1,4 @@
-import { Dispatch } from "redux";
+import {Dispatch} from "redux";
 import {setAuthUserDateTC} from "./auth-reducer";
 
 
@@ -18,14 +18,14 @@ export const AppReducer = (state: AppReducerType = initialState, action: AppActi
 }
 
 //action
-const setInitializedAC = () => ({type: 'APP/SET-INITIALIZED'} as const)
+export const setInitializedAC = () => ({type: 'APP/SET-INITIALIZED'} as const)
 
 //thunks
 export const setInitializedAppTC = (): any => (dispatch: Dispatch) => {
     const promise = dispatch(setAuthUserDateTC())
     promise.then((res: any) => {
         dispatch(setInitializedAC())
-        })
+    })
 
 }
 
@@ -34,9 +34,7 @@ export type AppReducerType = {
     initialized: boolean
 }
 
-type SetInitializedType = ReturnType<typeof setInitializedAC>
-
-type AppActionType = SetInitializedType
+type AppActionType = ReturnType<typeof setInitializedAC>
 
 
 

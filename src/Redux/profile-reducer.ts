@@ -3,46 +3,6 @@ import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
 import {AddPostFormType} from "../components/Profile/MyPosts/addPostForm/AddPostForm";
 
-export type PostsType = {
-    id: string,
-    message: string,
-    likes: number
-}
-type ContactsType = {
-    github: string | null
-    vk: string | null
-    facebook: string | null
-    instagram: string | null
-    twitter: string | null
-    website: string | null
-    youtube: string | null
-    mainLink: string | null
-}
-type PhotosType = {
-    small: string | null
-    large: string | null
-}
-export type ProfileType = {
-    aboutMe: string
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: ContactsType
-    photos: PhotosType
-
-}
-export type ProfilePageType = {
-    posts: Array<PostsType>
-    profile: ProfileType | null
-    status: string
-}
-
-type AddPostActionType = ReturnType<typeof addPostAC>
-type SetUserProfileACType = ReturnType<typeof setUserProfileAC>
-type SetUserStatusACType = ReturnType<typeof setUserStatusAC>
-export type ProfileActionType = AddPostActionType | SetUserProfileACType | SetUserStatusACType
-
 const initialState: ProfilePageType = {
     posts: [
         {id: v1(), message: 'Hello word', likes: 24},
@@ -54,31 +14,41 @@ const initialState: ProfilePageType = {
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionType): ProfilePageType => {
     switch (action.type) {
-        case 'ADD-POST':
+        case 'PROFILE/ADD-POST':
             return {
                 ...state,
                 posts: [{id: v1(), message: action.formData.newPostText, likes: 0}, ...state.posts]
             };
-        case 'SET-USER-PROFILE':
+        case 'PROFILE/SET-USER-PROFILE':
             return {
                 ...state,
                 profile: action.profile
             };
-        case 'SET-USER-STATUS':
+        case 'PROFILE/SET-USER-STATUS':
             return {
                 ...state,
                 status: action.status
             };
-
+        case "PROFILE/DELETE-POST":
+            return {
+                ...state,
+                posts: state.posts.filter(el => el.id !== action.id)
+            }
         default :
             return state;
     }
 }
 
-export const addPostAC = (formData: AddPostFormType) => ({type: 'ADD-POST', formData} as const)
-export const setUserProfileAC = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
-export const setUserStatusAC = (status: string) => ({type: 'SET-USER-STATUS', status} as const)
+// actions
+export const addPostAC = (formData: AddPostFormType) => ({type: 'PROFILE/ADD-POST', formData} as const)
 
+export const setUserProfileAC = (profile: ProfileType) => ({type: 'PROFILE/SET-USER-PROFILE', profile} as const)
+
+export const setUserStatusAC = (status: string) => ({type: 'PROFILE/SET-USER-STATUS', status} as const)
+
+export const deletePostAC = (id: string) => ({type: 'PROFILE/DELETE-POST', id} as const)
+
+// thunks
 export const getUserProfileTC = (userID: string): any => {
     return async (dispatch: Dispatch<ProfileActionType>) => {
         profileAPI.getProfile(userID)
@@ -88,6 +58,7 @@ export const getUserProfileTC = (userID: string): any => {
             )
     }
 }
+
 
 export const getUserStatusTC = (userID: string): any => async (dispatch: Dispatch<ProfileActionType>) => {
     profileAPI.getStatus(userID)
@@ -105,3 +76,48 @@ export const updateStatusTC = (status: string): any => async (dispatch: Dispatch
             console.error(rej.data.messages)
         })
 }
+
+// types
+export type PostsType = {
+    id: string,
+    message: string,
+    likes: number
+}
+
+type ContactsType = {
+    github: string | null
+    vk: string | null
+    facebook: string | null
+    instagram: string | null
+    twitter: string | null
+    website: string | null
+    youtube: string | null
+    mainLink: string | null
+}
+
+type PhotosType = {
+    small: string | null
+    large: string | null
+}
+
+export type ProfileType = {
+    aboutMe: string
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotosType
+}
+
+export type ProfilePageType = {
+    posts: Array<PostsType>
+    profile: ProfileType | null
+    status: string
+}
+
+export type ProfileActionType =
+    | ReturnType<typeof addPostAC>
+    | ReturnType<typeof setUserProfileAC>
+    | ReturnType<typeof setUserStatusAC>
+    | ReturnType<typeof deletePostAC>

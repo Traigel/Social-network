@@ -1,20 +1,6 @@
 import {v1} from "uuid";
 import {AddMessageFormType} from "../components/Dialogs/addMessageForm/AddMessageForm";
 
-export type DialogsDataType = {
-    id: string,
-    name: string
-}
-export type MessagesDataType = {
-    id: string,
-    message: string
-}
-
-export type DialogsPageType = typeof initialState
-
-type AddMessagesActionType = ReturnType<typeof addMessagesAC>
-type DialogsActionType = AddMessagesActionType
-
 const initialState = {
     dialogsData: [
         {id: v1(), name: 'Vova'},
@@ -32,7 +18,7 @@ const initialState = {
 
 export const dialogsReducer = (state: DialogsPageType = initialState, action: DialogsActionType): DialogsPageType => {
     switch (action.type) {
-        case 'ADD-MESSAGE':
+        case 'DIALOGS/ADD-MESSAGE':
             return {
                 ...state,
                 messagesData: [...state.messagesData, {id: v1(), message: action.formData.newMessageText}]
@@ -42,6 +28,22 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Di
     }
 }
 
+// actions
 export const addMessagesAC = (formData: AddMessageFormType) => {
-    return {type: 'ADD-MESSAGE', formData} as const
+    return {type: 'DIALOGS/ADD-MESSAGE', formData} as const
 }
+
+//types
+export type DialogsDataType = {
+    id: string,
+    name: string
+}
+
+export type MessagesDataType = {
+    id: string,
+    message: string
+}
+
+export type DialogsPageType = typeof initialState
+
+type DialogsActionType = ReturnType<typeof addMessagesAC>
