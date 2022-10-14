@@ -49,13 +49,12 @@ export const setUserStatusAC = (status: string) => ({type: 'PROFILE/SET-USER-STA
 export const deletePostAC = (id: string) => ({type: 'PROFILE/DELETE-POST', id} as const)
 
 // thunks
-export const getUserProfileTC = (userID: string): any => {
-    return async (dispatch: Dispatch<ProfileActionType>) => {
-        profileAPI.getProfile(userID)
-            .then(response => {
-                    dispatch(setUserProfileAC(response.data))
-                }
-            )
+export const getUserProfileTC = (userID: string): any => async (dispatch: Dispatch<ProfileActionType>) => {
+    try {
+        const res = await profileAPI.getProfile(userID)
+        dispatch(setUserProfileAC(res.data))
+    } catch (err) {
+        console.log(err)
     }
 }
 

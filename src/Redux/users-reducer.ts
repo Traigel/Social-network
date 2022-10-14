@@ -1,6 +1,4 @@
 import {followAPI, usersAPI} from "../api/api";
-import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./redux-store";
 import {Dispatch} from "redux";
 
 const initialState: UsersMainType = {
@@ -77,45 +75,45 @@ export const toggleFollowingProgressAC = (isFetching: boolean, userID: number) =
 } as const)
 
 // thunks
-export const getUsersTC = (currentPage: number, pageSize: number): any => {
-    return async (dispatch: Dispatch<UsersActionType>) => {
-        dispatch(toggleIsFetchingAC(true))
-        dispatch(setCurrentPageAC(currentPage))
-        usersAPI.getUsers(currentPage, pageSize)
-            .then(date => {
-                    dispatch(toggleIsFetchingAC(false))
-                    dispatch(setUsersAC(date.items))
-                    dispatch(setTotalUsersCountAC(date.totalCount))
-                }
-            )
+export const getUsersTC = (currentPage: number, pageSize: number): any => async (dispatch: Dispatch<UsersActionType>) => {
+    dispatch(toggleIsFetchingAC(true))
+    dispatch(setCurrentPageAC(currentPage))
+    try {
+        const res = await usersAPI.getUsers(currentPage, pageSize)
+        dispatch(setUsersAC(res.items))
+        dispatch(setTotalUsersCountAC(res.totalCount))
+    } catch (err) {
+        console.log(err)
+    } finally {
+        dispatch(toggleIsFetchingAC(false))
     }
 }
 
-export const followTC = (userID: number): any => {
-    return async (dispatch: Dispatch<UsersActionType>) => {
-        dispatch(toggleFollowingProgressAC(true, userID))
-        followAPI.postFollow(userID)
-            .then(response => {
-                    if (response.data.resultCode === 0) {
-                        dispatch(followAC(userID))
-                    }
-                    dispatch(toggleFollowingProgressAC(false, userID))
-                }
-            )
+export const followTC = (userID: number): any => async (dispatch: Dispatch<UsersActionType>) => {
+    dispatch(toggleFollowingProgressAC(true, userID))
+    try {
+        const res = await followAPI.postFollow(userID)
+        if (res.data.resultCode === 0) {
+            dispatch(followAC(userID))
+        }
+    } catch (err) {
+        console.log(err)
+    } finally {
+        dispatch(toggleFollowingProgressAC(false, userID))
     }
 }
 
-export const usFollowTC = (userID: number): any => {
-    return async (dispatch: Dispatch<UsersActionType>) => {
-        dispatch(toggleFollowingProgressAC(true, userID))
-        followAPI.deleteUnFollow(userID)
-            .then(response => {
-                    if (response.data.resultCode === 0) {
-                        dispatch(usFollowAC(userID))
-                    }
-                    dispatch(toggleFollowingProgressAC(false, userID))
-                }
-            )
+export const usFollowTC = (userID: number): any => async (dispatch: Dispatch<UsersActionType>) => {
+    dispatch(toggleFollowingProgressAC(true, userID))
+    try {
+        const res = await followAPI.deleteUnFollow(userID)
+        if (res.data.resultCode === 0) {
+            dispatch(usFollowAC(userID))
+        }
+    } catch (err) {
+        console.log(err)
+    } finally {
+        dispatch(toggleFollowingProgressAC(false, userID))
     }
 }
 

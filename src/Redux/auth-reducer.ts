@@ -42,30 +42,30 @@ export const setAuthUserDateTC = (): any => (dispatch: Dispatch<UsersActionType>
         )
 }
 
-export const loginTC = (formData: LoginFormType): any => {
-    return (dispatch: Dispatch<UsersActionType>) => {
-        authAPI.login(formData.email, formData.password, formData.rememberMe)
-            .then(res => {
-                    if (res.data.resultCode === 0) {
-                        dispatch(setAuthUserDateTC())
-                    } else {
-                        const message = res.data.messages.length > 0 ? res.data.messages[0] : 'Some error'
-                        const action: any = stopSubmit('login', {_error: message})
-                        dispatch(action)
-                    }
-                }
-            )
-    };
+export const loginTC = (formData: LoginFormType): any => async (dispatch: Dispatch<UsersActionType>) => {
+    try {
+        const res = await authAPI.login(formData.email, formData.password, formData.rememberMe)
+        if (res.data.resultCode === 0) {
+            dispatch(setAuthUserDateTC())
+        } else {
+            const message = res.data.messages.length > 0 ? res.data.messages[0] : 'Some error'
+            const action: any = stopSubmit('login', {_error: message})
+            dispatch(action)
+        }
+    } catch (err) {
+        console.log(err)
+    }
 }
 
-export const logoutTC = (): any => (dispatch: Dispatch<UsersActionType>) => {
-    authAPI.logout()
-        .then(res => {
-                if (res.data.resultCode === 0) {
-                    dispatch(setAuthUserDateAC(null, null, null, false))
-                }
-            }
-        )
+export const logoutTC = (): any => async (dispatch: Dispatch<UsersActionType>) => {
+    try {
+        const res = await authAPI.logout()
+        if (res.data.resultCode === 0) {
+            dispatch(setAuthUserDateAC(null, null, null, false))
+        }
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 // types
