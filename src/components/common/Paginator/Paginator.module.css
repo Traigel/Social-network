@@ -1,3 +1,58 @@
+.paginationBox {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.pageCountBox {
+    position: relative;
+    margin: 0 10px;
+}
+
+.pageCount {
+    display: inline-block;
+    border: 1px black solid;
+    border-radius: 5px;
+    width: 40px;
+    text-align: center;
+    padding: 1px 5px;
+    cursor: pointer;
+}
+
+.pageCountOptions {
+    position: absolute;
+    right: 0;
+    top: 28px;
+    background-color: white;
+    border: 1px black solid;
+    border-radius: 5px;
+    width: 50px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.el:hover {
+    background-color: #b4b4b4;
+    border-radius: 5px;
+}
+
+.pagBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 400px;
+}
+
+.paginationBox span {
+    cursor: pointer;
+}
+
+.arrowsBox span {
+    margin: 0 8px;
+    font-weight: bold;
+}
+
 .selectPage {
     font-weight: bold;
+    font-size: 20px;
 }

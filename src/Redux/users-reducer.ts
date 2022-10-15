@@ -3,7 +3,7 @@ import {Dispatch} from "redux";
 
 const initialState: UsersMainType = {
     users: [],
-    pageSize: 100,
+    pageSize: 25,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
@@ -49,7 +49,8 @@ export const usersReducer = (state: UsersMainType = initialState, action: UsersA
                     ? [...state.followingInProgress, action.userID]
                     : state.followingInProgress.filter(id => id !== action.userID)
             }
-
+        case "USERS/SET-PAGE-SIZE":
+            return {...state, pageSize: action.pageSize}
         default :
             return state;
     }
@@ -63,6 +64,8 @@ export const usFollowAC = (userID: number) => ({type: 'USERS/UNFOLLOW', userID} 
 export const setUsersAC = (users: UsersType[]) => ({type: 'USERS/SET-USERS', users} as const)
 
 export const setCurrentPageAC = (pageNumber: number) => ({type: 'USERS/SET-CURRENT-PAGE', pageNumber} as const)
+
+export const setPageSizeAC = (pageSize: number) => ({type: 'USERS/SET-PAGE-SIZE', pageSize} as const)
 
 export const setTotalUsersCountAC = (totalCount: number) => ({type: 'USERS/SET-TOTAL-USERS-COUNT', totalCount} as const)
 
@@ -82,6 +85,7 @@ export const getUsersTC = (currentPage: number, pageSize: number): any => async 
         const res = await usersAPI.getUsers(currentPage, pageSize)
         dispatch(setUsersAC(res.items))
         dispatch(setTotalUsersCountAC(res.totalCount))
+        dispatch(setPageSizeAC(pageSize))
     } catch (err) {
         console.log(err)
     } finally {
@@ -152,3 +156,4 @@ export type UsersActionType =
     | ReturnType<typeof setTotalUsersCountAC>
     | ReturnType<typeof toggleIsFetchingAC>
     | ReturnType<typeof toggleFollowingProgressAC>
+    | ReturnType<typeof setPageSizeAC>
