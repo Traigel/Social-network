@@ -34,6 +34,9 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
                 ...state,
                 posts: state.posts.filter(el => el.id !== action.id)
             }
+        case "PROFILE/SAVE-PHOTO-SUCCESS":
+            // @ts-ignore
+            return {...state, profile: {...state.profile, photos: action.data}}
         default :
             return state;
     }
@@ -47,6 +50,8 @@ export const setUserProfileAC = (profile: ProfileType) => ({type: 'PROFILE/SET-U
 export const setUserStatusAC = (status: string) => ({type: 'PROFILE/SET-USER-STATUS', status} as const)
 
 export const deletePostAC = (id: string) => ({type: 'PROFILE/DELETE-POST', id} as const)
+
+export const savePhotoSuccessAC = (data: PhotosType) => ({type: 'PROFILE/SAVE-PHOTO-SUCCESS', data} as const)
 
 // thunks
 export const getUserProfileTC = (userID: string): any => async (dispatch: Dispatch<ProfileActionType>) => {
@@ -74,6 +79,15 @@ export const updateStatusTC = (status: string): any => async (dispatch: Dispatch
         .catch(rej => {
             console.error(rej.data.messages)
         })
+}
+
+export const savePhotoTC = (file: File): any => async (dispatch: Dispatch<ProfileActionType>) => {
+    try {
+        const res = await profileAPI.savePhoto(file)
+        dispatch(savePhotoSuccessAC(res.data))
+    } catch (err) {
+        console.error(err)
+    }
 }
 
 // types
@@ -120,3 +134,4 @@ export type ProfileActionType =
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof setUserStatusAC>
     | ReturnType<typeof deletePostAC>
+    | ReturnType<typeof savePhotoSuccessAC>

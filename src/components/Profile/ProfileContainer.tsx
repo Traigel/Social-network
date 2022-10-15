@@ -3,14 +3,14 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
-import {getUserProfileTC, getUserStatusTC, ProfileType, updateStatusTC} from "../../Redux/profile-reducer";
+import {getUserProfileTC, getUserStatusTC, ProfileType, savePhotoTC, updateStatusTC} from "../../Redux/profile-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export class ProfileAPI extends React.Component<PropsType> {
 
-    componentDidMount() {
+    refreshProfile() {
         let userID = this.props.match.params.userID
         if (!userID) {
             // @ts-ignore
@@ -23,10 +23,21 @@ export class ProfileAPI extends React.Component<PropsType> {
         this.props.getUserStatus(userID)
     }
 
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>) {
+        if (this.props.match.params.userID !== prevProps.match.params.userID)
+        this.refreshProfile()
+    }
+
     render() {
         return (
             <div>
-                <ProfileInfo {...this.props}/>
+                <ProfileInfo {...this.props}
+                             isOwner={!this.props.match.params.userID}
+                />
                 <MyPostsContainer/>
             </div>
         )
@@ -49,6 +60,7 @@ type mapDispatchToPropsTye = {
     getUserProfile: (userID: string) => void
     getUserStatus: (userID: string) => void
     updateStatus: (status: string) => void
+    savePhoto: (file: File) => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -63,7 +75,8 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsTye => {
     return {
         getUserProfile: (userID: string) => dispatch(getUserProfileTC(userID)),
         getUserStatus: (userID: string) => dispatch(getUserStatusTC(userID)),
-        updateStatus: (status: string) => dispatch(updateStatusTC(status))
+        updateStatus: (status: string) => dispatch(updateStatusTC(status)),
+        savePhoto: (file: File) => dispatch(savePhotoTC(file))
     }
 }
 

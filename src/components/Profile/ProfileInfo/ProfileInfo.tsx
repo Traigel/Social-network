@@ -1,27 +1,40 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import styles from './ProfileInfo.module.css'
-import imgProfile from '../../../assets/images/imagesProfile.jpg'
-import userImg from '../../../assets/images/usersImg.jpg'
+import userImg from '../../../assets/images/usersImg.png'
 import {ProfileType} from "../../../Redux/profile-reducer";
 import {Preloader} from "../../common/preloader/Preloader";
-import {ProfileStatus} from "./profileStatus/ProfileStatus";
 import {ProfileStatusWithHooks} from "./profileStatus/ProfileStatusWithHooks";
 
 type ProfileInfoType = {
     profile: ProfileType | null
     status: string
     updateStatus: (status: string) => void
+    isOwner: boolean
+    savePhoto: (e: File) => void
 }
 
 export const ProfileInfo = (props: ProfileInfoType) => {
+
+    const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files?.length) {
+            props.savePhoto(e.target.files[0])
+        }
+    }
+
     if (!props.profile) {
         return <Preloader/>
     }
+
     return <div>
         <div className={styles.profileInfo}>
 
             <div className={styles.ava}>
                 <img alt={userImg} src={props.profile.photos.large ? props.profile.photos.large : userImg}/>
+                {props.isOwner &&
+                    <input
+                        type={'file'}
+                        onChange={onChangeInputHandler}
+                    />}
             </div>
 
             <div className={styles.info}>
