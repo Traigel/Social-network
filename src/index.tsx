@@ -5,11 +5,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {AppContainer} from './App';
 import {Provider} from "react-redux";
+import { HashRouter } from 'react-router-dom';
 
 ReactDOM.render(
-    <Provider store={store}>
-        <AppContainer/>
-    </Provider>
+    <HashRouter>
+        <Provider store={store}>
+            <AppContainer/>
+        </Provider>
+    </HashRouter>
     ,
     document.getElementById('root')
 );

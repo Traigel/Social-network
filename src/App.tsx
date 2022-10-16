@@ -1,7 +1,7 @@
 import React, {Suspense} from 'react';
 import './App.css';
 import {NavBar} from "./components/NavBar/NavBar";
-import {BrowserRouter, Redirect, Route} from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
 import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Settings} from './components/Setting/Setting';
@@ -20,8 +20,20 @@ const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsCo
 
 class App extends React.Component<AppPropsType> {
 
+    catchAllUnhandledErrors = (promise: Promise<any>) => {
+        alert("Some error occurred")
+        console.log(promise)
+    }
+
     componentDidMount() {
         this.props.setInitializedAppTC()
+        // @ts-ignore
+        window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+    }
+
+    componentWillUnmount() {
+        // @ts-ignore
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
     }
 
     render() {
@@ -30,13 +42,12 @@ class App extends React.Component<AppPropsType> {
             return <Preloader/>
         }
 
-        return <BrowserRouter>
-            <div className='app-wrapper'>
+        return <div className='app-wrapper'>
                 <HeaderContainer/>
                 <NavBar/>
                 <div className='app-wrapper-content'>
-                    <Route path='/login' exact render={() => <LoginContainer/>}/>
-                    <Route path='/' render={() => <Redirect to={'/login'}/>}/>
+                    <Route exact path='/' render={() => <Redirect to={'/login'}/>}/>
+                    <Route path='/login' render={() => <LoginContainer/>}/>
                     <Route path='/profile/:userID?' render={() => <ProfileContainer/>}/>
                     <Route path='/messages' render={() => {
                         return <Suspense fallback={<Preloader/>}>
@@ -49,7 +60,6 @@ class App extends React.Component<AppPropsType> {
                     <Route path='/users' render={() => <UsersContainer/>}/>
                 </div>
             </div>
-        </BrowserRouter>
     }
 }
 
