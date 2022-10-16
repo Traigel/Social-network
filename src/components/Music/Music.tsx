@@ -1,7 +1,14 @@
 import React from "react";
+import {compose} from "redux";
+import {withRouter} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
-export const Music = () => {
-    return <div>
-        Music
-    </div>
-};
+class MusicAPI extends React.Component {
+    render() {
+        return <div>
+            The project is under development.
+        </div>
+    }
+}
+
+export const MusicContainer = compose<React.ComponentType>(withRouter, withAuthRedirect)(MusicAPI)

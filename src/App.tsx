@@ -2,9 +2,8 @@ import React, {Suspense} from 'react';
 import './App.css';
 import {NavBar} from "./components/NavBar/NavBar";
 import {Redirect, Route} from "react-router-dom";
-import {News} from './components/News/News';
-import {Music} from './components/Music/Music';
-import {Settings} from './components/Setting/Setting';
+import {NewsContainer} from './components/News/News';
+import {MusicContainer} from './components/Music/Music';
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {HeaderContainer} from "./components/Header/HeaderContainer";
 import {LoginContainer} from './components/login/Login';
@@ -43,23 +42,22 @@ class App extends React.Component<AppPropsType> {
         }
 
         return <div className='app-wrapper'>
-                <HeaderContainer/>
-                <NavBar/>
-                <div className='app-wrapper-content'>
-                    <Route exact path='/' render={() => <Redirect to={'/login'}/>}/>
-                    <Route path='/login' render={() => <LoginContainer/>}/>
-                    <Route path='/profile/:userID?' render={() => <ProfileContainer/>}/>
-                    <Route path='/messages' render={() => {
-                        return <Suspense fallback={<Preloader/>}>
-                            <DialogsContainer/>
-                        </Suspense>
-                    }}/>
-                    <Route path='/news' render={() => <News/>}/>
-                    <Route path='/music' render={() => <Music/>}/>
-                    <Route path='/settings' render={() => <Settings/>}/>
-                    <Route path='/users' render={() => <UsersContainer/>}/>
-                </div>
+            <HeaderContainer/>
+            <NavBar/>
+            <div className='app-wrapper-content'>
+                <Route exact path='/' render={() => <Redirect to={'/login'}/>}/>
+                <Route path='/login' render={() => <LoginContainer/>}/>
+                <Route path='/profile/:userID?' render={() => <ProfileContainer/>}/>
+                <Route path='/messages' render={() => {
+                    return <Suspense fallback={<Preloader/>}>
+                        <DialogsContainer/>
+                    </Suspense>
+                }}/>
+                <Route path='/users' render={() => <UsersContainer/>}/>
+                <Route path='/news' render={() => <NewsContainer/>}/>
+                <Route path='/music' render={() => <MusicContainer/>}/>
             </div>
+        </div>
     }
 }
 

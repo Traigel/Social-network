@@ -21,6 +21,7 @@ import {
     getTotalUsersCount,
     getUsers
 } from "../../Redux/users-selectors";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 class UsersAPI extends React.Component<UsersPropsType> {
@@ -103,5 +104,5 @@ const mapDispatchToProps = (dispatch: Dispatch<UsersActionType>): mapDispatchToP
 
 export const UsersContainer = compose<React.ComponentType>(
     connect(mapStateToProps, mapDispatchToProps),
-    // withAuthRedirect
+    withAuthRedirect
 )(UsersAPI)

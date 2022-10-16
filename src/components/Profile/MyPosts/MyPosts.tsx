@@ -19,7 +19,13 @@ export class MyPosts extends React.PureComponent<MyPostsPropsType> {
         return <div className={style.myPosts}>
             <h3>My posts</h3>
             <AddPostFormRedux onSubmit={addNewPost}/>
-            {this.props.profilePage.posts.map(u => <Post key={u.id} message={u.message} likes={u.likes} id={u.id}/>)}
+            {this.props.profilePage.posts.map(u => <Post
+                key={u.id}
+                message={u.message}
+                likes={u.likes}
+                id={u.id}
+                photos={this.props.profilePage.profile?.photos?.small}
+            />)}
         </div>
     }
 }

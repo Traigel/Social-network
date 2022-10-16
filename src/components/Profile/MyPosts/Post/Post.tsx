@@ -1,14 +1,22 @@
 import React from "react";
-import { PostsType } from "../../../../Redux/profile-reducer";
-import s from './Post.module.css'
+import styles from './Post.module.css'
+import avatar from '../../../../assets/images/usersImg.png'
 
-export const Post = (props: PostsType) => {
-    return <div className={s.item}>
+type PostPropsType = {
+    message: string
+    likes: number
+    id: string
+    photos: string | undefined | null
+}
+
+export const Post = (props: PostPropsType) => {
+    return <div className={styles.item}>
         <img alt={'ava'}
-             src={'https://shapka-youtube.ru/wp-content/uploads/2021/02/avatarka-dlya-skaypa-dlya-parney.jpg'}/>
+             src={props.photos ? props.photos : avatar}
+        />
         {props.message}
         <div>
-            <span>Like {props.likes }</span>
+            <span>Like {props.likes}</span>
         </div>
     </div>
 };
