@@ -2,6 +2,8 @@ import {v1} from "uuid";
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
 import {AddPostFormType} from "../components/Profile/MyPosts/addPostForm/AddPostForm";
+import {AppStateType} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 const initialState: ProfilePageType = {
     posts: [
@@ -81,10 +83,30 @@ export const updateStatusTC = (status: string): any => async (dispatch: Dispatch
         })
 }
 
-export const savePhotoTC = (file: File): any => async (dispatch: Dispatch<ProfileActionType>) => {
+export const savePhotoTC = (file: File): any => async (dispatch: Dispatch<ProfileActionType>, getState: () => AppStateType) => {
+    const userId = getState().auth.id + ''
     try {
         const res = await profileAPI.savePhoto(file)
-        dispatch(savePhotoSuccessAC(res.data))
+        if (res.data.resultCode === 0) {
+            dispatch(getUserProfileTC(userId))
+        }
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+export const saveProfileTC = (formData: ProfileType): any => async (dispatch: Dispatch<ProfileActionType>, getState: () => AppStateType) => {
+    const userId = getState().auth.id + ''
+    try {
+        const res = await profileAPI.saveProfile(formData)
+        if (res.data.resultCode === 0) {
+            dispatch(getUserProfileTC(userId))
+        } else {
+            const action: any = stopSubmit('profileData', {_error: res.data.messages[0]})
+            dispatch(action)
+            // const action: any = stopSubmit('profileData', {'contacts': {'facebook': res.data.messages[0]}})
+            return Promise.reject(res.data.messages[0])
+        }
     } catch (err) {
         console.error(err)
     }
@@ -97,15 +119,15 @@ export type PostsType = {
     likes: number
 }
 
-type ContactsType = {
-    github: string | null
-    vk: string | null
-    facebook: string | null
-    instagram: string | null
-    twitter: string | null
-    website: string | null
-    youtube: string | null
-    mainLink: string | null
+export type ContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
 }
 
 type PhotosType = {

@@ -1,9 +1,10 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useState} from "react";
 import styles from './ProfileInfo.module.css'
 import userImg from '../../../assets/images/usersImg.png'
 import {ProfileType} from "../../../Redux/profile-reducer";
 import {Preloader} from "../../common/preloader/Preloader";
-import {ProfileStatusWithHooks} from "./profileStatus/ProfileStatusWithHooks";
+import {ProfileData} from "./ProfileData/ProfileData";
+import {ProfileDataReduxForm} from "./ProfileDataForm/ProfileDataForm";
 
 type ProfileInfoType = {
     profile: ProfileType | null
@@ -11,14 +12,26 @@ type ProfileInfoType = {
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (e: File) => void
+    saveProfile: (formData: ProfileType) => void
 }
 
 export const ProfileInfo = (props: ProfileInfoType) => {
+
+    const [editMode, setEditMode] = useState<boolean>(false)
 
     const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.length) {
             props.savePhoto(e.target.files[0])
         }
+    }
+
+    const onSubmitHandler = (formData: ProfileType) => {
+        // @ts-ignore
+        props.saveProfile(formData).then(
+            () => {
+                setEditMode(false)
+            }
+        )
     }
 
     if (!props.profile) {
@@ -38,50 +51,21 @@ export const ProfileInfo = (props: ProfileInfoType) => {
             </div>
 
             <div className={styles.info}>
-
-                <h1 className={styles.name}>{props.profile.fullName}</h1>
-                <ProfileStatusWithHooks
-                    status={props.status}
-                    updateStatus={props.updateStatus}
-                />
-
-                <div>
-                    <h4 className={styles.aboutMe}>About me:</h4>
-                    {props.profile.aboutMe ? ' ' + props.profile.aboutMe : '...'}
-                </div>
-
-                <div>
-                    {props.profile.lookingForAJob ? <h4 className={styles.job}>Looking for a job: </h4> : ''}
-                    <span> {props.profile.lookingForAJobDescription}</span>
-                </div>
-
-                <div className={styles.contacts}>
-                    <h4>Contacts:</h4>
-                    <span>
-                    {props.profile.contacts.facebook ? 'Facebook: ' + props.profile.contacts.facebook : ''}
-                </span>
-                    <span>
-                    {props.profile.contacts.website ? 'Website: ' + props.profile.contacts.website : ''}
-                </span>
-                    <span>
-                    {props.profile.contacts.vk ? 'VK: ' + props.profile.contacts.vk : ''}
-                </span>
-                    <span>
-                    {props.profile.contacts.twitter ? 'Twitter: ' + props.profile.contacts.twitter : ''}
-                </span>
-                    <span>
-                    {props.profile.contacts.instagram ? 'Instagram: ' + props.profile.contacts.instagram : ''}
-                </span>
-                    <span>
-                    {props.profile.contacts.youtube ? 'YouTube: ' + props.profile.contacts.youtube : ''}
-                </span>
-                    <span>
-                    {props.profile.contacts.github ? 'GitHub: ' + props.profile.contacts.github : ''}
-                </span>
-                    <span>
-                    {props.profile.contacts.mainLink ? 'MainLink: ' + props.profile.contacts.mainLink : ''}
-                </span>
-                </div>
+                {editMode ?
+                    <ProfileDataReduxForm
+                        onSubmit={onSubmitHandler}
+                        initialValues={props.profile}
+                        // profile={props.profile}
+                    />
+                    :
+                    <ProfileData
+                        profile={props.profile}
+                        isOwner={props.isOwner}
+                        setEditMode={setEditMode}
+                        status={props.status}
+                        updateStatus={props.updateStatus}
+                    />
+                }
             </div>
         </div>
     </div>

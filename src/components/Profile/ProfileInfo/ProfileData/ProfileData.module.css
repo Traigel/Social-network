@@ -1,0 +1,28 @@
+/*.info {*/
+/*    width: 60%;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
+
+.name {
+    margin: 0;
+}
+
+.aboutMe {
+    display: inline-block;
+}
+
+.job {
+    display: inline-block;
+}
+
+h4 {
+    margin: 0;
+}
+
+.contacts {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+
+}

@@ -3,7 +3,14 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
-import {getUserProfileTC, getUserStatusTC, ProfileType, savePhotoTC, updateStatusTC} from "../../Redux/profile-reducer";
+import {
+    getUserProfileTC,
+    getUserStatusTC,
+    ProfileType,
+    savePhotoTC,
+    saveProfileTC,
+    updateStatusTC
+} from "../../Redux/profile-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
@@ -61,6 +68,7 @@ type mapDispatchToPropsTye = {
     getUserStatus: (userID: string) => void
     updateStatus: (status: string) => void
     savePhoto: (file: File) => void
+    saveProfile: (formData: ProfileType) => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -76,7 +84,8 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsTye => {
         getUserProfile: (userID: string) => dispatch(getUserProfileTC(userID)),
         getUserStatus: (userID: string) => dispatch(getUserStatusTC(userID)),
         updateStatus: (status: string) => dispatch(updateStatusTC(status)),
-        savePhoto: (file: File) => dispatch(savePhotoTC(file))
+        savePhoto: (file: File) => dispatch(savePhotoTC(file)),
+        saveProfile: (formData: ProfileType) => dispatch(saveProfileTC(formData))
     }
 }
 
