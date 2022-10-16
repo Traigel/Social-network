@@ -10,17 +10,22 @@ type HeaderPropsType = {
 }
 
 export const Header = (props: HeaderPropsType) => {
-    return <div className={styles.header}>
-        <div className={styles.logo}>
+    return (
+        <div className={styles.header}>
             <img alt={'Logo'} src={imgLogo}/>
+            <div className={styles.text}>
+                The project is under development. <a href="https://github.com/Traihel/Social-network-TS">Read more on
+                GitHub</a>
+            </div>
             <div className={styles.loginBlock}>
-                <h3>
-                    {props.isAuth
-                        ? <div>{props.login} <button onClick={props.logout}>LogOut</button></div>
-                        : <NavLink to={'/login'}>Login</NavLink>
-                    }
-                </h3>
+                {props.isAuth
+                    ? <div className={styles.title}>
+                        {props.login}
+                        <button onClick={props.logout}>LogOut</button>
+                    </div>
+                    : <NavLink to={'/login'}>Login</NavLink>
+                }
             </div>
         </div>
-    </div>
+    )
 };

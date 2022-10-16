@@ -1,7 +1,7 @@
 import React, {Suspense} from 'react';
 import './App.css';
 import {NavBar} from "./components/NavBar/NavBar";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Settings} from './components/Setting/Setting';
@@ -35,6 +35,8 @@ class App extends React.Component<AppPropsType> {
                 <HeaderContainer/>
                 <NavBar/>
                 <div className='app-wrapper-content'>
+                    <Route path='/login' exact render={() => <LoginContainer/>}/>
+                    <Route path='/' render={() => <Redirect to={'/login'}/>}/>
                     <Route path='/profile/:userID?' render={() => <ProfileContainer/>}/>
                     <Route path='/messages' render={() => {
                         return <Suspense fallback={<Preloader/>}>
@@ -45,7 +47,6 @@ class App extends React.Component<AppPropsType> {
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/settings' render={() => <Settings/>}/>
                     <Route path='/users' render={() => <UsersContainer/>}/>
-                    <Route path='/login' render={() => <LoginContainer/>}/>
                 </div>
             </div>
         </BrowserRouter>
