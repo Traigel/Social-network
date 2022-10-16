@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../api/api";
+import {authAPI, securityAPI} from "../api/api";
 import {LoginFormType} from "../components/login/loginReduxForm/LoginReduxForm";
 import {stopSubmit} from "redux-form";
 
@@ -7,7 +7,8 @@ const initialState: AuthType = {
     id: null,
     login: null,
     email: null,
-    isAuth: false
+    isAuth: false,
+    captchaUrl: ''
 }
 
 export const authReducer = (state: AuthType = initialState, action: UsersActionType): AuthType => {
@@ -17,6 +18,9 @@ export const authReducer = (state: AuthType = initialState, action: UsersActionT
                 ...state,
                 ...action.date
             }
+        }
+        case "AUTH/GET-CAPTCHA": {
+            return {...state, captchaUrl: action.captchaUrl}
         }
         default :
             return state;
@@ -30,9 +34,10 @@ export const setAuthUserDateAC = (id: number | null, email: string | null, login
     date: {id, email, login, isAuth}
 } as const)
 
+export const getCaptchaAC = (captchaUrl: string) => ({type: 'AUTH/GET-CAPTCHA', captchaUrl} as const)
+
 // thunks
 export const setAuthUserDateTC = (): any => (dispatch: Dispatch<UsersActionType>) => {
-
     return authAPI.getAuth()
         .then(res => {
                 if (res.data.resultCode === 0) {
@@ -44,10 +49,13 @@ export const setAuthUserDateTC = (): any => (dispatch: Dispatch<UsersActionType>
 
 export const loginTC = (formData: LoginFormType): any => async (dispatch: Dispatch<UsersActionType>) => {
     try {
-        const res = await authAPI.login(formData.email, formData.password, formData.rememberMe)
+        const res = await authAPI.login(formData)
         if (res.data.resultCode === 0) {
             dispatch(setAuthUserDateTC())
         } else {
+            if (res.data.resultCode === 10) {
+                dispatch(getCaptchaTC())
+            }
             const message = res.data.messages.length > 0 ? res.data.messages[0] : 'Some error'
             const action: any = stopSubmit('login', {_error: message})
             dispatch(action)
@@ -68,12 +76,24 @@ export const logoutTC = (): any => async (dispatch: Dispatch<UsersActionType>) =
     }
 }
 
+export const getCaptchaTC = (): any => async (dispatch: Dispatch<UsersActionType>) => {
+    try {
+        const res = await securityAPI.getCaptcha()
+        dispatch(getCaptchaAC(res.data.url))
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 // types
 export type AuthType = {
     id: number | null
     login: string | null
     email: string | null
     isAuth: boolean
+    captchaUrl: string
 }
 
-type UsersActionType = ReturnType<typeof setAuthUserDateAC>
+type UsersActionType =
+    | ReturnType<typeof setAuthUserDateAC>
+    | ReturnType<typeof getCaptchaAC>

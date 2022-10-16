@@ -55,7 +55,7 @@ export const ProfileInfo = (props: ProfileInfoType) => {
                     <ProfileDataReduxForm
                         onSubmit={onSubmitHandler}
                         initialValues={props.profile}
-                        // profile={props.profile}
+                        profile={props.profile}
                     />
                     :
                     <ProfileData

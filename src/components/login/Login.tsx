@@ -28,7 +28,7 @@ const Login = (props: LoginPropsType) => {
             <p>Password: free</p>
         </div>
         <h1>Login</h1>
-        <LoginReduxForm onSubmit={onSubmitHandler}/>
+        <LoginReduxForm captchaUrl={props.captchaUrl} onSubmit={onSubmitHandler}/>
     </div>
 };
 
@@ -36,6 +36,7 @@ export type LoginPropsType = mapDispatchToPropsType & mapStatePropsType
 
 type mapStatePropsType = {
     isAuth: boolean
+    captchaUrl: string
 }
 
 type mapDispatchToPropsType = {
@@ -45,6 +46,7 @@ type mapDispatchToPropsType = {
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
         isAuth: state.auth.isAuth,
+        captchaUrl: state.auth.captchaUrl
     }
 }
 

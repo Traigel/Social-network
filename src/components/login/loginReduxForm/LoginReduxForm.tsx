@@ -8,9 +8,14 @@ export type LoginFormType = {
     email: string
     password: string
     rememberMe: boolean
+    captcha?: string
 }
 
-const LoginForm = (props: InjectedFormProps<LoginFormType>) => {
+type LoginFormPropsType = {
+    captchaUrl: string
+}
+
+const LoginForm = (props: InjectedFormProps<LoginFormType, LoginFormPropsType> & LoginFormPropsType) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
@@ -37,7 +42,17 @@ const LoginForm = (props: InjectedFormProps<LoginFormType>) => {
                     component={Input}
                 /> remember me
             </div>
-                {props.error && <div className={styles.formSummeryError}>{props.error}</div>}
+            {props.captchaUrl && <img src={props.captchaUrl} alt={'captchaUrl'}/>}
+            {props.captchaUrl &&  <div>
+                <Field
+                    name={'captcha'}
+                    placeholder={'Captcha'}
+                    component={Input}
+                    type={'text'}
+                    validate={[requiredField]}
+                />
+            </div>}
+            {props.error && <div className={styles.formSummeryError}>{props.error}</div>}
             <div>
                 <button>Login</button>
             </div>
@@ -45,4 +60,4 @@ const LoginForm = (props: InjectedFormProps<LoginFormType>) => {
     )
 }
 
-export const LoginReduxForm = reduxForm<LoginFormType>({form: 'login'})(LoginForm)
+export const LoginReduxForm = reduxForm<LoginFormType, LoginFormPropsType>({form: 'login'})(LoginForm)
