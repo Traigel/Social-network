@@ -1,4 +1,4 @@
-# Social-network-TS React
+# Social-network
 
 ### The project is under development
 
@@ -19,3 +19,4 @@ https://traihel.github.io/Social-network-TS/
 - Redux-Thunk
 - Redux-Form
 - Axios
+- SASS
