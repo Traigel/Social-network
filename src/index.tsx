@@ -1,9 +1,9 @@
 import React from 'react';
 import './index.css';
-import {store} from "./Redux/redux-store";
+import {store} from "./app/redux-store";
 import ReactDOM from 'react-dom';
 import './index.css';
-import {AppContainer} from './App';
+import {AppContainer} from './app/App';
 import {Provider} from "react-redux";
 import { HashRouter } from 'react-router-dom';
 
