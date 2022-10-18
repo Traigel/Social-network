@@ -22,6 +22,7 @@ import {
     getUsers
 } from "./users-selectors";
 import {withAuthRedirect} from "../../common/hoc/withAuthRedirect";
+import {LinearProgress} from "../../common/components/LinearProgress/LinearProgress";
 
 
 class UsersAPI extends React.Component<UsersPropsType> {
@@ -43,7 +44,7 @@ class UsersAPI extends React.Component<UsersPropsType> {
 
     render() {
         return <>
-            {this.props.isFetching ? <Preloader/> : null}
+            {this.props.isFetching ? <LinearProgress/> : null}
             <Users
                 users={this.props.users}
                 pageSize={this.props.pageSize}

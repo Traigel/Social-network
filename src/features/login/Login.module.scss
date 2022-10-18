@@ -95,12 +95,12 @@
         }
 
         .oneButton {
-          @include loginButton(#e5e5e5, #000000);
+          @include loginButton(#e5e5e5, #000000, 0.1s);
           border-radius: 5px 0 0 5px;
         }
 
         .twoButton {
-          @include loginButton(#e5e5e5, #000000);
+          @include loginButton(#e5e5e5, #000000, 0.1s);
           border-radius: 0 5px 5px 0;
         }
 

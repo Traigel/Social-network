@@ -69,14 +69,18 @@ export const loginTC = (formData: LoginFormType): any => async (dispatch: Dispat
     }
 }
 
-export const logoutTC = (): any => async (dispatch: Dispatch<UsersActionType>) => {
+export const logoutTC = (): any => async (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC("loading"))
     try {
         const res = await authAPI.logout()
         if (res.data.resultCode === 0) {
             dispatch(setAuthUserDateAC(null, null, null, false))
+            dispatch(getCaptchaAC(''))
         }
     } catch (err) {
         console.log(err)
+    } finally {
+        dispatch(setAppStatusAC("idle"))
     }
 }
 

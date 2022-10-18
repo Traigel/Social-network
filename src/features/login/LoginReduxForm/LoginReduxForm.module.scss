@@ -80,7 +80,7 @@
   }
 
   .formButton {
-    @include loginButton($bgColor, #fff);
+    @include loginButton($bgColor, #fff, 0.3s);
     border-radius: 5px;
     width: 98px;
     height: 43px;

@@ -5,6 +5,7 @@ import {ProfileType} from "../profile-reducer";
 import {Preloader} from "../../../common/components/Preloader/Preloader";
 import {ProfileData} from "./ProfileData/ProfileData";
 import {ProfileDataReduxForm} from "./ProfileDataForm/ProfileDataForm";
+import {LinearProgress} from "../../../common/components/LinearProgress/LinearProgress";
 
 type ProfileInfoType = {
     profile: ProfileType | null
@@ -35,7 +36,7 @@ export const ProfileInfo = (props: ProfileInfoType) => {
     }
 
     if (!props.profile) {
-        return <Preloader/>
+        return <LinearProgress/>
     }
 
     return <div>

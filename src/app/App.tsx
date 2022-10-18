@@ -40,7 +40,7 @@ class App extends React.Component<AppPropsType> {
             return <Preloader/>
         }
 
-        return <div className={styles.appBlock}>
+        return <div>
             <HeaderContainer/>
             {/*<NavBar/>*/}
             <Route exact path='/' render={() => <Redirect to={'/login'}/>}/>
