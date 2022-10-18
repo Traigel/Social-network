@@ -4,6 +4,7 @@ import {profileAPI} from "../../api/api";
 import {AddPostFormType} from "./MyPosts/addPostForm/AddPostForm";
 import {AppStateType} from "../../app/redux-store";
 import {stopSubmit} from "redux-form";
+import {setAppStatusAC} from "../../app/app-reducer";
 
 const initialState: ProfilePageType = {
     posts: [
@@ -56,24 +57,35 @@ export const deletePostAC = (id: string) => ({type: 'PROFILE/DELETE-POST', id} a
 export const savePhotoSuccessAC = (data: PhotosType) => ({type: 'PROFILE/SAVE-PHOTO-SUCCESS', data} as const)
 
 // thunks
-export const getUserProfileTC = (userID: string): any => async (dispatch: Dispatch<ProfileActionType>) => {
+export const getUserProfileTC = (userID: string): any => async (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC("loading"))
     try {
         const res = await profileAPI.getProfile(userID)
         dispatch(setUserProfileAC(res.data))
     } catch (err) {
         console.log(err)
+    } finally {
+        dispatch(setAppStatusAC("idle"))
     }
 }
 
 
-export const getUserStatusTC = (userID: string): any => async (dispatch: Dispatch<ProfileActionType>) => {
+export const getUserStatusTC = (userID: string): any => async (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC("loading"))
     profileAPI.getStatus(userID)
         .then(res => {
             dispatch(setUserStatusAC(res.data))
         })
+        .catch(err => {
+            console.log(err)
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC("idle"))
+        })
 }
 
-export const updateStatusTC = (status: string): any => async (dispatch: Dispatch<ProfileActionType>) => {
+export const updateStatusTC = (status: string): any => async (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC("loading"))
     profileAPI.putStatus(status)
         .then(res => {
             dispatch(setUserStatusAC(status))
@@ -81,9 +93,13 @@ export const updateStatusTC = (status: string): any => async (dispatch: Dispatch
         .catch(rej => {
             console.error(rej.data.messages)
         })
+        .finally(() => {
+            dispatch(setAppStatusAC("idle"))
+        })
 }
 
-export const savePhotoTC = (file: File): any => async (dispatch: Dispatch<ProfileActionType>, getState: () => AppStateType) => {
+export const savePhotoTC = (file: File): any => async (dispatch: Dispatch, getState: () => AppStateType) => {
+    dispatch(setAppStatusAC("loading"))
     const userId = getState().auth.id + ''
     try {
         const res = await profileAPI.savePhoto(file)
@@ -92,10 +108,13 @@ export const savePhotoTC = (file: File): any => async (dispatch: Dispatch<Profil
         }
     } catch (err) {
         console.error(err)
+    } finally {
+        dispatch(setAppStatusAC("idle"))
     }
 }
 
-export const saveProfileTC = (formData: ProfileType): any => async (dispatch: Dispatch<ProfileActionType>, getState: () => AppStateType) => {
+export const saveProfileTC = (formData: ProfileType): any => async (dispatch: Dispatch, getState: () => AppStateType) => {
+    dispatch(setAppStatusAC("loading"))
     const userId = getState().auth.id + ''
     try {
         const res = await profileAPI.saveProfile(formData)
@@ -109,6 +128,8 @@ export const saveProfileTC = (formData: ProfileType): any => async (dispatch: Di
         }
     } catch (err) {
         console.error(err)
+    } finally {
+        dispatch(setAppStatusAC("idle"))
     }
 }
 

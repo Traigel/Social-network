@@ -1,5 +1,6 @@
 import {followAPI, usersAPI} from "../../api/api";
 import {Dispatch} from "redux";
+import {setAppStatusAC} from "../../app/app-reducer";
 
 const initialState: UsersMainType = {
     users: [],
@@ -78,7 +79,8 @@ export const toggleFollowingProgressAC = (isFetching: boolean, userID: number) =
 } as const)
 
 // thunks
-export const getUsersTC = (currentPage: number, pageSize: number): any => async (dispatch: Dispatch<UsersActionType>) => {
+export const getUsersTC = (currentPage: number, pageSize: number): any => async (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC("loading"))
     dispatch(toggleIsFetchingAC(true))
     dispatch(setCurrentPageAC(currentPage))
     try {
@@ -90,10 +92,12 @@ export const getUsersTC = (currentPage: number, pageSize: number): any => async 
         console.log(err)
     } finally {
         dispatch(toggleIsFetchingAC(false))
+        dispatch(setAppStatusAC("idle"))
     }
 }
 
-export const followTC = (userID: number): any => async (dispatch: Dispatch<UsersActionType>) => {
+export const followTC = (userID: number): any => async (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC("loading"))
     dispatch(toggleFollowingProgressAC(true, userID))
     try {
         const res = await followAPI.postFollow(userID)
@@ -104,10 +108,12 @@ export const followTC = (userID: number): any => async (dispatch: Dispatch<Users
         console.log(err)
     } finally {
         dispatch(toggleFollowingProgressAC(false, userID))
+        dispatch(setAppStatusAC("idle"))
     }
 }
 
-export const usFollowTC = (userID: number): any => async (dispatch: Dispatch<UsersActionType>) => {
+export const usFollowTC = (userID: number): any => async (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC("loading"))
     dispatch(toggleFollowingProgressAC(true, userID))
     try {
         const res = await followAPI.deleteUnFollow(userID)
@@ -118,6 +124,7 @@ export const usFollowTC = (userID: number): any => async (dispatch: Dispatch<Use
         console.log(err)
     } finally {
         dispatch(toggleFollowingProgressAC(false, userID))
+        dispatch(setAppStatusAC("idle"))
     }
 }
 

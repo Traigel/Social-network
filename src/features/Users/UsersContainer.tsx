@@ -44,7 +44,7 @@ class UsersAPI extends React.Component<UsersPropsType> {
 
     render() {
         return <>
-            {this.props.isFetching ? <LinearProgress/> : null}
+            {/*{this.props.isFetching ? <LinearProgress/> : null}*/}
             <Users
                 users={this.props.users}
                 pageSize={this.props.pageSize}

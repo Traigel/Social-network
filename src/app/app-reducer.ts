@@ -1,10 +1,9 @@
 import {Dispatch} from "redux";
 import {setAuthUserDateTC} from "../features/login/auth-reducer";
 
-
 const initialState: AppReducerType = {
     initialized: false,
-    status: 'idle'
+    status: 'idle',
 }
 
 export const AppReducer = (state: AppReducerType = initialState, action: AppActionType): AppReducerType => {

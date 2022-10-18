@@ -5,7 +5,7 @@ import {ProfileType} from "../../profile-reducer";
 import styles from "./ProfileDataForm.module.css";
 
 type ProfileDataFormPropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
 }
 
 export const ProfileDataForm = (props: InjectedFormProps<ProfileType, ProfileDataFormPropsType> & ProfileDataFormPropsType) => {
@@ -49,7 +49,7 @@ export const ProfileDataForm = (props: InjectedFormProps<ProfileType, ProfileDat
                 />
             </div>
             <h4>Contacts:</h4>
-            {Object.keys(props.profile.contacts).map(key => {
+            {props.profile && Object.keys(props.profile.contacts).map(key => {
                 return <div>
                     <b>{key}</b>
                     <Field

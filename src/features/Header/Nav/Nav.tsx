@@ -10,38 +10,37 @@ type NavPropsType = {
 
 export const Nav = (props: NavPropsType) => {
     return <nav className={styles.navBox}>
-        <div className={styles.item}>
-
-            <NavLink to="/profile" activeClassName={styles.activeLink}>
+        <div className={styles.navItem}>
+            <NavLink to="/profile" className={styles.nav} activeClassName={styles.activeLink}>
                 <SvgSelector svgName={"Home"}/>
-                <span>Profile</span>
+                <span>Home</span>
             </NavLink>
         </div>
-        <div className={styles.item}>
-            <NavLink to="/messages" activeClassName={styles.activeLink}>
+        <div className={styles.navItem}>
+            <NavLink to="/messages" className={styles.nav} activeClassName={styles.activeLink}>
                 <SvgSelector svgName={"Messages"}/>
                 <span>Messages</span>
             </NavLink>
         </div>
-        <div className={styles.item}>
-            <NavLink to="/users" activeClassName={styles.activeLink}>
+        <div className={styles.navItem}>
+            <NavLink to="/users" className={styles.nav} activeClassName={styles.activeLink}>
                 <SvgSelector svgName={"Users"}/>
                 <span>Users</span>
             </NavLink>
         </div>
-        <div className={styles.item}>
-            <NavLink to="/music" activeClassName={styles.activeLink}>
+        <div className={styles.navItem}>
+            <NavLink to="/music" className={styles.nav} activeClassName={styles.activeLink}>
                 <SvgSelector svgName={"Music"}/>
                 <span>Music</span>
             </NavLink>
         </div>
-        <div className={styles.item}>
-            <NavLink to="/news" activeClassName={styles.activeLink}>
+        <div className={styles.navItem}>
+            <NavLink to="/news" className={styles.nav} activeClassName={styles.activeLink}>
                 <SvgSelector svgName={"News"}/>
                 <span>News</span>
             </NavLink>
         </div>
-        <div className={styles.title}>
+        <div className={styles.nameNav}>
             {props.login}
             <button onClick={props.logout}>LogOut</button>
         </div>

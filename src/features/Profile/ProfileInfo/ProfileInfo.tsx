@@ -35,15 +35,11 @@ export const ProfileInfo = (props: ProfileInfoType) => {
         )
     }
 
-    if (!props.profile) {
-        return <LinearProgress/>
-    }
-
     return <div>
         <div className={styles.profileInfo}>
 
             <div className={styles.ava}>
-                <img alt={userImg} src={props.profile.photos.large ? props.profile.photos.large : userImg}/>
+                <img alt={userImg} src={props.profile?.photos.large ? props.profile.photos.large : userImg}/>
                 {props.isOwner &&
                     <input
                         type={'file'}
@@ -55,7 +51,7 @@ export const ProfileInfo = (props: ProfileInfoType) => {
                 {editMode ?
                     <ProfileDataReduxForm
                         onSubmit={onSubmitHandler}
-                        initialValues={props.profile}
+                        initialValues={props.profile as ProfileType}
                         profile={props.profile}
                     />
                     :

@@ -2,4 +2,24 @@
 
 .navBox {
   display: flex;
+
+  .navItem {
+    margin: 13px;
+    text-align: center;
+
+    .nav {
+      color: $white;
+      font-size: 14px;
+      text-decoration: none;
+      line-height: 10px;
+
+      svg {
+        fill: $white;
+      }
+
+      span {
+        display: block;
+      }
+    }
+  }
 }

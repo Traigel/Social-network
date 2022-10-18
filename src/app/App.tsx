@@ -12,9 +12,9 @@ import {setInitializedAppTC} from "./app-reducer";
 import {AppStateType} from "./redux-store";
 import {Preloader} from "../common/components/Preloader/Preloader";
 import {ProfileContainer} from '../features/Profile/ProfileContainer';
+import DialogsContainer from '../features/Dialogs/DialogsContainer';
 
-// @ts-ignore
-const DialogsContainer = React.lazy(() => import('../features/Dialogs/DialogsContainer'));
+// const DialogsContainer = React.lazy(() => import('../features/Dialogs/DialogsContainer'));
 
 class App extends React.Component<AppPropsType> {
 
@@ -47,14 +47,16 @@ class App extends React.Component<AppPropsType> {
 
             <div className={styles.appContainer}>
                 <Route path='/profile/:userID?' render={() => <ProfileContainer/>}/>
-                <Route path='/messages' render={() => {
-                    return <Suspense fallback={<Preloader/>}>
-                        <DialogsContainer/>
-                    </Suspense>
-                }}/>
+                <Route path='/messages' render={() => <DialogsContainer/>}/>
                 <Route path='/users' render={() => <UsersContainer/>}/>
                 <Route path='/news' render={() => <NewsContainer/>}/>
                 <Route path='/music' render={() => <MusicContainer/>}/>
+
+                {/*<Route path='/messages' render={() => {*/}
+                {/*    return <Suspense fallback={<Preloader/>}>*/}
+                {/*        <DialogsContainer/>*/}
+                {/*    </Suspense>*/}
+                {/*}}/>*/}
             </div>
         </div>
     }

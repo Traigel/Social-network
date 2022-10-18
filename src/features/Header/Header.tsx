@@ -3,11 +3,14 @@ import styles from './Header.module.scss'
 import imgLogo from '../../assets/images/logo.png'
 import {SvgSelector} from "../../common/components/svgSelector/SvgSelector";
 import {Nav} from "./Nav/Nav";
+import {LinearProgress} from "../../common/components/LinearProgress/LinearProgress";
+import {RequestStatusType} from "../../app/app-reducer";
 
 type HeaderPropsType = {
     isAuth: boolean
     login: string | null
     logout: () => void
+    status: RequestStatusType
 }
 
 export const Header = (props: HeaderPropsType) => {
@@ -32,6 +35,7 @@ export const Header = (props: HeaderPropsType) => {
                     logout={props.logout}
                 />
             </div>
+            {props.status === 'loading' && <LinearProgress/>}
         </div>
     )
 };

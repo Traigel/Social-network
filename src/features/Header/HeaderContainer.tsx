@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../app/redux-store";
 import {Dispatch} from "redux";
 import {logoutTC, setAuthUserDateTC} from "../login/auth-reducer";
+import {RequestStatusType} from "../../app/app-reducer";
 
 export class HeaderAPI extends React.Component<ProfilePropsType> {
 
@@ -16,6 +17,7 @@ export class HeaderAPI extends React.Component<ProfilePropsType> {
             isAuth={this.props.isAuth}
             login={this.props.login}
             logout={this.props.logout}
+            status={this.props.status}
         />
     }
 }
@@ -25,6 +27,7 @@ type ProfilePropsType = mapStateToPropsType & mapDispatchToPropsTye
 type mapStateToPropsType = {
     isAuth: boolean
     login: string | null
+    status: RequestStatusType
 }
 
 type mapDispatchToPropsTye = {
@@ -35,7 +38,8 @@ type mapDispatchToPropsTye = {
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         isAuth: state.auth.isAuth,
-        login: state.auth.login
+        login: state.auth.login,
+        status: state.app.status
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsTye => {
