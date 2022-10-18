@@ -2,6 +2,7 @@ import React from "react";
 import styles from './Header.module.scss'
 import imgLogo from '../../assets/images/logo.png'
 import {SvgSelector} from "../../common/components/svgSelector/SvgSelector";
+import {Nav} from "./Nav/Nav";
 
 type HeaderPropsType = {
     isAuth: boolean
@@ -26,14 +27,10 @@ export const Header = (props: HeaderPropsType) => {
                     />
                     <button className={styles.searchButton}><SvgSelector svgName={"Search"}/></button>
                 </div>
-                <div className={styles.nav}>
-
-                    <div className={styles.title}>
-                        {props.login}
-                        <button onClick={props.logout}>LogOut</button>
-                    </div>
-
-                </div>
+                <Nav
+                    login={props.login}
+                    logout={props.logout}
+                />
             </div>
         </div>
     )

@@ -42,7 +42,6 @@ class App extends React.Component<AppPropsType> {
 
         return <div>
             <HeaderContainer/>
-            {/*<NavBar/>*/}
             <Route exact path='/' render={() => <Redirect to={'/login'}/>}/>
             <Route path='/login' render={() => <LoginContainer/>}/>
 
