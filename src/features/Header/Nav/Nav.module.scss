@@ -3,22 +3,53 @@
 .navBox {
   display: flex;
 
-  .navItem {
-    margin: 13px;
-    text-align: center;
+  @media (max-width: 700px) {
+    width: 100%;
+    justify-content: space-between;
+  }
 
-    .nav {
+  .userNav {
+    position: relative;
+
+    .userButton {
+      padding: 12px 10px;
+      margin-left: 13px;
       color: $white;
-      font-size: 14px;
-      text-decoration: none;
-      line-height: 10px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      border-left: 1px solid #dd3e2b;
+      border-right: 1px solid #dd3e2b;
+      cursor: pointer;
+      transition-duration: 0.2s;
+
+      @media (max-width: 700px) {
+        margin-left: 0;
+      }
+
+      &:hover {
+        color: $bgButton;
+      }
+
+      &:hover svg {
+        fill: $bgButton;
+      }
 
       svg {
         fill: $white;
+        width: 30px;
+        height: 30px;
+        transition-duration: 0.2s;
       }
 
-      span {
-        display: block;
+      .user {
+        margin-left: 10px;
+        margin-right: 5px;
+
+        .symbol {
+          display: inline-block;
+          width: 14px;
+        }
       }
     }
   }

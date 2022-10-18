@@ -7,7 +7,6 @@ import {Redirect} from "react-router-dom";
 import {AppStateType} from "../../app/redux-store";
 import styles from "./Login.module.scss"
 import {LoginInfo} from "./LoginInfo/LoginInfo";
-import {RepairComponent} from "../../common/components/ RepairComponent/ RepairComponent";
 import {Registration} from "./Registration/Registration";
 import {RequestStatusType} from "../../app/app-reducer";
 

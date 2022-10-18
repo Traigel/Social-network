@@ -5,6 +5,10 @@
   top: 40px;
   width: 100%;
 
+  @media (max-width: 700px) {
+    top: 91px;
+  }
+
   .linearProgress {
     -webkit-appearance: none;
     -moz-appearance: none;

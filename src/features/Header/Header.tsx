@@ -15,7 +15,7 @@ type HeaderPropsType = {
 
 export const Header = (props: HeaderPropsType) => {
     return (
-        <div className={styles.headerComponent}>
+        <header className={styles.headerComponent}>
             <div className={styles.headerBox}>
                 <div className={styles.searchBox}>
                     <img
@@ -36,6 +36,6 @@ export const Header = (props: HeaderPropsType) => {
                 />
             </div>
             {props.status === 'loading' && <LinearProgress/>}
-        </div>
+        </header>
     )
 };

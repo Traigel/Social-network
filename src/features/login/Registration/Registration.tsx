@@ -1,5 +1,5 @@
 import styles from "./Registration.module.scss";
-import {RepairComponent} from "../../../common/components/ RepairComponent/ RepairComponent";
+import {RepairComponent} from "../../../common/components/RepairComponent/RepairComponent";
 import React from "react";
 
 export const Registration = () => {

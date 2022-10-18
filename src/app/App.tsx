@@ -1,4 +1,4 @@
-import React, {Suspense} from 'react';
+import React from 'react';
 import styles from "./App.module.scss";
 import {Redirect, Route} from "react-router-dom";
 import {NewsContainer} from '../features/News/News';

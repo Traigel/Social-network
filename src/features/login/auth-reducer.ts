@@ -8,6 +8,7 @@ const initialState: AuthType = {
     id: null,
     login: null,
     email: null,
+    avatarUrl: '',
     isAuth: false,
     captchaUrl: ''
 }
@@ -23,6 +24,9 @@ export const authReducer = (state: AuthType = initialState, action: UsersActionT
         case "AUTH/GET-CAPTCHA": {
             return {...state, captchaUrl: action.captchaUrl}
         }
+        case "AUTH/SET-AVATAR": {
+            return {...state, avatarUrl: action.avatarUrl}
+        }
         default :
             return state;
 
@@ -36,6 +40,8 @@ export const setAuthUserDateAC = (id: number | null, email: string | null, login
 } as const)
 
 export const getCaptchaAC = (captchaUrl: string) => ({type: 'AUTH/GET-CAPTCHA', captchaUrl} as const)
+
+export const setAvatarAC = (avatarUrl: string) => ({type: 'AUTH/SET-AVATAR', avatarUrl} as const)
 
 // thunks
 export const setAuthUserDateTC = (): any => (dispatch: Dispatch<UsersActionType>) => {
@@ -76,6 +82,7 @@ export const logoutTC = (): any => async (dispatch: Dispatch) => {
         if (res.data.resultCode === 0) {
             dispatch(setAuthUserDateAC(null, null, null, false))
             dispatch(getCaptchaAC(''))
+            dispatch(setAvatarAC(''))
         }
     } catch (err) {
         console.log(err)
@@ -100,8 +107,10 @@ export type AuthType = {
     email: string | null
     isAuth: boolean
     captchaUrl: string
+    avatarUrl: string
 }
 
 type UsersActionType =
     | ReturnType<typeof setAuthUserDateAC>
     | ReturnType<typeof getCaptchaAC>
+    | ReturnType<typeof setAvatarAC>
