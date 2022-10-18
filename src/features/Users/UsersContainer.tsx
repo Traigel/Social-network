@@ -12,7 +12,7 @@ import {
     usFollowTC
 } from "./users-reducer";
 import {Users} from "./Users";
-import {Preloader} from "../../common/components/preloader/Preloader";
+import {Preloader} from "../../common/components/Preloader/Preloader";
 import {
     getCurrentPage,
     getFollowingInProgress,

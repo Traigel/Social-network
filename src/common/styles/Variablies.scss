@@ -25,3 +25,24 @@ $white: #fff;
   cursor: pointer;
   transition-duration: 0.3s;
 }
+
+
+@mixin preloader($widthHeight, $border, $sec) {
+  width: $widthHeight;
+  height: $widthHeight;
+  border: $border;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation $sec linear infinite;
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

@@ -1,0 +1,12 @@
+@import '../../styles/Variablies';
+
+.preloaderBox {
+  position: fixed;
+  top: 35%;
+  text-align: center;
+  width: 100%;
+
+  .loader {
+    @include preloader(100px, 15px solid $bgColor, 1.5s);
+  }
+}

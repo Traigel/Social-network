@@ -1,6 +1,5 @@
 import React, {Suspense} from 'react';
 import styles from "./App.module.scss";
-import {NavBar} from "../features/NavBar/NavBar";
 import {Redirect, Route} from "react-router-dom";
 import {NewsContainer} from '../features/News/News';
 import {MusicContainer} from '../features/Music/Music';
@@ -11,7 +10,7 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {setInitializedAppTC} from "./app-reducer";
 import {AppStateType} from "./redux-store";
-import {Preloader} from "../common/components/preloader/Preloader";
+import {Preloader} from "../common/components/Preloader/Preloader";
 import {ProfileContainer} from '../features/Profile/ProfileContainer';
 
 // @ts-ignore
