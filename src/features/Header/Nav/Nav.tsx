@@ -41,7 +41,8 @@ export const Nav = (props: NavPropsType) => {
             visibilityCallBack={navMenuOffHandler}
         />
         <div className={styles.userNav}>
-            <div onClick={userMenuHandler} className={styles.userButton}>
+            <div onClick={userMenuHandler}
+                 className={`${styles.userButton} ${visibilityUserMenu ? styles.activeLink : ''}`}>
                 <SvgSelector svgName={"User"}/>
                 <span className={styles.user}>{props.login} {!visibilityUserMenu ?
                     <span className={styles.symbol}>&#9660;</span>

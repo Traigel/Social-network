@@ -14,6 +14,6 @@ export const Registration = () => {
             <p>Email: <b>free@samuraijs.com</b></p>
             <p>Password: <b>free</b></p>
         </div>
-        <RepairComponent/>
+        <RepairComponent text={'This page is under development.'}/>
     </div>
 }

@@ -73,4 +73,29 @@ $white: #fff;
   box-shadow: 0 2px #e4e4e4;
 }
 
+@mixin activeBorder() {
+  &:after {
+    position: absolute;
+    content: "";
+    height: 2px;
+    width: 0;
+    left: 50%;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    color: $white;
+    border-width: 0 0 3px 0;
+    border-style: solid;
+    border-color: $white;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+    transform: translate(-50%, 0) translateZ(0);
+    -webkit-transform: translate(-50%, 0) translateZ(0);
+  }
+
+  &:hover:after,
+  &:focus:after {
+    width: 100%;
+  }
+}
 

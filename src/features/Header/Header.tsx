@@ -38,4 +38,4 @@ export const Header = (props: HeaderPropsType) => {
             {props.status === 'loading' && <LinearProgress/>}
         </header>
     )
-};
+}

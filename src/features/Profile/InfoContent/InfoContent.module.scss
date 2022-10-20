@@ -1,6 +1,11 @@
 @import "./../../../common/styles/Variablies";
 
 .infoContentComponent {
-  background-color: $white;
   width: 230px;
+
+  .repairBox {
+    @include borderBox();
+    padding: 30px 5px;
+  }
+
 }

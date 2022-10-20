@@ -12,6 +12,7 @@
     position: relative;
 
     .userButton {
+      position: relative;
       padding: 12px 10px;
       margin-left: 13px;
       color: $white;
@@ -22,17 +23,10 @@
       border-right: 1px solid #dd3e2b;
       cursor: pointer;
       transition-duration: 0.2s;
+      @include activeBorder();
 
       @media (max-width: 700px) {
         margin-left: 0;
-      }
-
-      &:hover {
-        color: $bgButton;
-      }
-
-      &:hover svg {
-        fill: $bgButton;
       }
 
       svg {
@@ -51,6 +45,10 @@
           width: 14px;
         }
       }
+    }
+
+    .activeLink:after {
+      width: 100%;
     }
   }
 }

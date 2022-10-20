@@ -2,63 +2,42 @@
 
 .navOpenMenuBox {
   display: flex;
+  text-align: center;
 
   @media (max-width: 950px) {
     visibility: hidden;
     position: fixed;
   }
 
-  .navItem {
-    margin: 13px;
-    text-align: center;
+  .nav {
+    position: relative;
+    padding: 13px;
+    color: $white;
+    text-decoration: none;
+    line-height: 10px;
+    transition-duration: 0.2s;
+    @include activeBorder();
 
-    .nav {
-      color: $white;
-      font-size: 14px;
-      text-decoration: none;
-      line-height: 10px;
+    @media (max-width: 950px) {
+      transition: none;
+    }
+
+    svg {
+      fill: $white;
       transition-duration: 0.2s;
 
       @media (max-width: 950px) {
         transition: none;
       }
-
-      &:hover {
-        color: $bgButton;
-      }
-
-      &:hover svg {
-        fill: $bgButton;
-      }
-
-      svg {
-        fill: $white;
-        transition-duration: 0.2s;
-
-        @media (max-width: 950px) {
-          transition: none;
-        }
-      }
-
-      span {
-        display: block;
-      }
     }
 
-    .activeLink {
-      color: black;
-
-      &:hover {
-        color: black;
-      }
-
-      &:hover svg {
-        fill: black;
-      }
-
-      svg {
-        fill: black;
-      }
+    span {
+      display: block;
+      margin-top: 4px;
     }
+  }
+
+  .activeLink:after {
+    width: 100%;
   }
 }
