@@ -21,6 +21,12 @@
 
       .h1 {
         padding-left: 10px;
+        font-size: 32px;
+
+        @media (max-width: 450px) {
+          font-size: 25px;
+        }
+
       }
     }
 

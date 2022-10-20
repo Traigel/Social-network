@@ -11,9 +11,6 @@
   }
 
   .menuItem {
-    color: $white;
-    font-size: 20px;
-    line-height: 10px;
     margin: 19px 13px 13px 13px;
     text-align: center;
     cursor: pointer;
@@ -24,6 +21,9 @@
 
     span {
       margin-left: 10px;
+      color: $white;
+      font-size: 20px;
+      line-height: 10px;
     }
   }
 
