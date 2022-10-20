@@ -14,9 +14,10 @@ import {
 import {AppStateType} from "../../app/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../common/hoc/withAuthRedirect";
-import { InfoContent } from "./InfoContent/InfoContent";
+import {InfoContent} from "./InfoContent/InfoContent";
 import styles from './Profile.module.scss';
 import {followTC, UsersType, usFollowTC} from "../Users/users-reducer";
+import {RequestStatusType} from "../../app/app-reducer";
 
 export class ProfileAPI extends React.Component<PropsType> {
 
@@ -49,7 +50,7 @@ export class ProfileAPI extends React.Component<PropsType> {
 
     componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>) {
         if (this.props.match.params.userID !== prevProps.match.params.userID)
-        this.refreshProfile()
+            this.refreshProfile()
     }
 
     render() {
@@ -82,6 +83,7 @@ type mapStateToPropsType = {
     myID: number | null
     isAuth: boolean
     followingInProgress: number[]
+    statusApp: RequestStatusType
 }
 
 type mapDispatchToPropsTye = {
@@ -101,7 +103,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         status: state.profilePage.status,
         myID: state.auth.id,
         isAuth: state.auth.isAuth,
-        followingInProgress: state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress,
+        statusApp: state.app.status
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsTye => {

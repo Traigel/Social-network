@@ -25,13 +25,13 @@ export const Input = ({input, meta, ...props}: any) => {
     )
 }
 
-export const Checkbox = ({input, meta, ...props}: any) => {
+export const Checkbox = ({input, meta, text, ...props}: any) => {
     const hasError = meta.touched && meta.error
     return (
         <div className={`${styles.formControl} ${hasError ? styles.error : ''}`}>
             <div className={styles.checkboxBox}>
-                    <input className={styles.checkbox} id={'rememberMe'} {...props} {...input}/>
-                    <label htmlFor={'rememberMe'}>Remember me</label>
+                <input className={styles.checkbox} id={'rememberMe'} {...props} {...input}/>
+                <label htmlFor={'rememberMe'}>{text}</label>
             </div>
             {hasError && <span>{meta.error}</span>}
         </div>

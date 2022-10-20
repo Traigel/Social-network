@@ -1,61 +1,47 @@
-import styles from "./ProfileData.module.css";
+import styles from "./ProfileData.module.scss";
 import React from "react";
 import {ProfileType} from "../../profile-reducer";
 import {ProfileStatusWithHooks} from "../profileStatus/ProfileStatusWithHooks";
 
 type ProfileDataPropsType = {
     profile: ProfileType | null
-    isOwner: boolean
-    setEditMode: (value: boolean) => void
 }
 
 export const ProfileData = (props: ProfileDataPropsType) => {
 
-    const settingsHandler = () => {
-        props.setEditMode(true)
-    }
-
     return (
-        <div>
-            {props.isOwner && <div onClick={settingsHandler}>Settings</div>}
-
-            <div>
-                <h4 className={styles.aboutMe}>About me:</h4>
-                {props.profile?.aboutMe ? ' ' + props.profile.aboutMe : '...'}
+        <div className={styles.profileDataContainer}>
+            <div className={styles.titleBox}>
+                <h3 className={styles.title}>About me:</h3>
+                <span>
+                    {props.profile?.aboutMe ? ' ' + props.profile.aboutMe : '...'}
+                </span>
             </div>
 
-            <div>
-                {props.profile?.lookingForAJob ? <h4 className={styles.job}>Looking for a job: </h4> : ''}
-                <span> {props.profile?.lookingForAJobDescription}</span>
-            </div>
-            <div className={styles.contacts}>
-                <h4>Contacts:</h4>
-                <span>
-                {props.profile?.contacts.facebook ? 'Facebook: ' + props.profile.contacts.facebook : ''}
-            </span>
-                <span>
-                {props.profile?.contacts.website ? 'Website: ' + props.profile.contacts.website : ''}
-            </span>
-                <span>
-                {props.profile?.contacts.vk ? 'VK: ' + props.profile.contacts.vk : ''}
-            </span>
-                <span>
-                {props.profile?.contacts.twitter ? 'Twitter: ' + props.profile.contacts.twitter : ''}
-            </span>
-                <span>
-                {props.profile?.contacts.instagram ? 'Instagram: ' + props.profile.contacts.instagram : ''}
-            </span>
-                <span>
-                {props.profile?.contacts.youtube ? 'YouTube: ' + props.profile.contacts.youtube : ''}
-            </span>
-                <span>
-                {props.profile?.contacts.github ? 'GitHub: ' + props.profile.contacts.github : ''}
-            </span>
-                <span>
-                {props.profile?.contacts.mainLink ? 'MainLink: ' + props.profile.contacts.mainLink : ''}
-            </span>
-            </div>
+            {props.profile?.lookingForAJob &&
+                <div className={styles.titleBox}>
+                    <h3 className={styles.title}>Looking for a job:</h3>
+                    <span>{props.profile?.lookingForAJobDescription}</span>
+                </div>
+            }
+
+            {props.profile?.contacts &&
+                Object.keys(props.profile.contacts).map((key, index) => {
+                    // @ts-ignore
+                    const keyContact = props.profile?.contacts ? props.profile.contacts[key] : ''
+                    if (keyContact) {
+                        return <div key={index} className={styles.contactBox}>
+                            <span>{key}:</span>
+                            <a
+                                target="_blank"
+                                className={styles.link}
+                                href={keyContact}
+                            >{keyContact}</a>
+                        </div>
+                    }
+                })
+            }
+
         </div>
-
     )
 }

@@ -55,12 +55,15 @@ const LoginForm = (props: InjectedFormProps<LoginFormType, LoginFormPropsType> &
                 />
             </div>
             <div className={styles.formCheckbox}>
-                <Field
-                    name={'rememberMe'}
-                    type={"checkbox"}
-                    component={Checkbox}
-                    disabled={props.status === 'loading'}
-                />
+                <div style={{marginRight: '25px'}}>
+                    <Field
+                        name={'rememberMe'}
+                        type={"checkbox"}
+                        component={Checkbox}
+                        text={'Remember me'}
+                        disabled={props.status === 'loading'}
+                    />
+                </div>
                 <NavLink className={styles.a} onClick={onClickHandler} to={'/login'}>Forgot Password?</NavLink>
             </div>
             {props.captchaUrl && <img src={props.captchaUrl} alt={'captchaUrl'}/>}

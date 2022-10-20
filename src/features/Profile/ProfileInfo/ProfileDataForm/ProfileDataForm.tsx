@@ -1,19 +1,41 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input, Textarea} from "../../../../common/components/formControls/FormsControls";
+import {Checkbox, Input, Textarea} from "../../../../common/components/formControls/FormsControls";
 import {ProfileType} from "../../profile-reducer";
-import styles from "./ProfileDataForm.module.css";
+import styles from "./ProfileDataForm.module.scss";
+import {SvgSelector} from "../../../../common/components/svgSelector/SvgSelector";
+import styleButton from "../ProfileInfo.module.scss"
+import {RequestStatusType} from "../../../../app/app-reducer";
 
 type ProfileDataFormPropsType = {
     profile: ProfileType | null
+    statusApp: RequestStatusType
 }
 
 export const ProfileDataForm = (props: InjectedFormProps<ProfileType, ProfileDataFormPropsType> & ProfileDataFormPropsType) => {
 
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <b>Full name: </b>
+        <form className={styles.form} onSubmit={props.handleSubmit}>
+            {props.error &&
+                <div className={`${styles.formSummeryError} ${styles.titleBox}`}>
+                    <span>{props.error}</span>
+                </div>
+            }
+            <div className={`${styleButton.buttons} ${styles.buttons}`}>
+                <button className={`${styleButton.button} ${styleButton.followButton} ${styles.saveButton}`}>
+                    {props.statusApp === "loading" ?
+                        <span className={styles.loader}></span>
+                        :
+                        <span>
+                            <SvgSelector svgName={"Save"}/>
+                            <span className={styleButton.span}>Save</span>
+                        </span>
+                    }
+
+                </button>
+            </div>
+            <div className={styles.titleBox}>
+                <h3 className={styles.title}>Full name:</h3>
                 <Field
                     name={'fullName'}
                     placeholder={'Full Name'}
@@ -22,8 +44,8 @@ export const ProfileDataForm = (props: InjectedFormProps<ProfileType, ProfileDat
                     validate={[]}
                 />
             </div>
-            <div>
-                <b>About me: </b>
+            <div className={styles.titleBox}>
+                <h3 className={styles.title}>About me:</h3>
                 <Field
                     name={'aboutMe'}
                     placeholder={'About me'}
@@ -32,13 +54,15 @@ export const ProfileDataForm = (props: InjectedFormProps<ProfileType, ProfileDat
                     validate={[]}
                 />
             </div>
-            <div>
-                <b>Looking for a job: </b>
+            <div className={styles.titleBox}>
+                <h3 className={styles.title}>Looking for a job:</h3>
                 <Field
                     name={'lookingForAJob'}
-                    component={Input}
+                    component={Checkbox}
+                    text={'I am looking for a job'}
                     type={'checkbox'}
                     validate={[]}
+                    hello={'hello text'}
                 />
                 <Field
                     name={'lookingForAJobDescription'}
@@ -48,10 +72,9 @@ export const ProfileDataForm = (props: InjectedFormProps<ProfileType, ProfileDat
                     validate={[]}
                 />
             </div>
-            <h4>Contacts:</h4>
-            {props.profile && Object.keys(props.profile.contacts).map(key => {
-                return <div>
-                    <b>{key}</b>
+            {props.profile && Object.keys(props.profile.contacts).map((key, index) => {
+                return <div key={index} className={styles.titleBox}>
+                    <h3 className={styles.title}>{key}:</h3>
                     <Field
                         name={'contacts.' + key}
                         placeholder={key}
@@ -61,8 +84,6 @@ export const ProfileDataForm = (props: InjectedFormProps<ProfileType, ProfileDat
                     />
                 </div>
             })}
-            {props.error && <div className={styles.formSummeryError}>{props.error}</div>}
-            <button>Save</button>
         </form>
     )
 }

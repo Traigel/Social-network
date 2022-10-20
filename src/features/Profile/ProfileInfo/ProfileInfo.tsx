@@ -6,8 +6,8 @@ import {ProfileData} from "./ProfileData/ProfileData";
 import {ProfileDataReduxForm} from "./ProfileDataForm/ProfileDataForm";
 import {SvgSelector} from "../../../common/components/svgSelector/SvgSelector";
 import {ProfileStatusWithHooks} from "./profileStatus/ProfileStatusWithHooks";
-import {UsersType} from "../../Users/users-reducer";
 import {NavLink} from "react-router-dom";
+import {RequestStatusType} from "../../../app/app-reducer";
 
 type ProfileInfoType = {
     profile: ProfileType | null
@@ -16,18 +16,22 @@ type ProfileInfoType = {
     isOwner: boolean
     savePhoto: (e: File) => void
     saveProfile: (formData: ProfileType) => void
-
     userID: string | undefined
     userFollowed: boolean | undefined
     follow: (userID: number) => void
     usFollow: (userID: number) => void
     followingInProgress: number[]
+    statusApp: RequestStatusType
 }
 
 export const ProfileInfo = (props: ProfileInfoType) => {
 
     const inputRef = useRef<HTMLInputElement>(null)
     const [editMode, setEditMode] = useState<boolean>(false)
+
+    const settingHandler = () => {
+        setEditMode(true)
+    }
 
     const selectFileHandler = () => {
         inputRef && inputRef.current?.click();
@@ -41,14 +45,11 @@ export const ProfileInfo = (props: ProfileInfoType) => {
 
     const onSubmitHandler = (formData: ProfileType) => {
         // @ts-ignore
-        props.saveProfile(formData).then(
-            () => {
+        props.saveProfile(formData).then(() => {
                 setEditMode(false)
             }
         )
     }
-
-    console.log(props.userID)
 
     const onClickFollowHandler = () => {
         if (props.userID) {
@@ -94,7 +95,7 @@ export const ProfileInfo = (props: ProfileInfoType) => {
             </div>
         </div>
 
-        {!props.isOwner &&
+        {!props.isOwner ?
             <div className={styles.buttons}>
                 {props.userFollowed ?
                     <button
@@ -134,6 +135,13 @@ export const ProfileInfo = (props: ProfileInfoType) => {
                     </NavLink>
                 </button>
             </div>
+            :
+            <div className={`${styles.buttons} ${editMode ? styles.nuneButton : ''}`}>
+                <button className={`${styles.button} ${styles.settings}`} onClick={settingHandler}>
+                    <SvgSelector svgName={"Setting"}/>
+                    <span className={styles.span}>Settings</span>
+                </button>
+            </div>
         }
 
         <div className={styles.infoBox}>
@@ -142,13 +150,10 @@ export const ProfileInfo = (props: ProfileInfoType) => {
                     onSubmit={onSubmitHandler}
                     initialValues={props.profile as ProfileType}
                     profile={props.profile}
+                    statusApp={props.statusApp}
                 />
                 :
-                <ProfileData
-                    profile={props.profile}
-                    isOwner={props.isOwner}
-                    setEditMode={setEditMode}
-                />
+                <ProfileData profile={props.profile}/>
             }
         </div>
     </div>

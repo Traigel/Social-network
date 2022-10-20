@@ -96,9 +96,22 @@
         color: $white;
       }
     }
+
+    .settings {
+      @include loginButton($bgColor, $white, 0.3s);
+      width: 150px;
+    }
+  }
+
+  .nuneButton {
+    transition: none;
+    visibility: hidden;
   }
 
   .infoBox {
+    position: relative;
+    text-align: center;
+    @include borderBox();
     margin-top: 15px;
   }
 }
