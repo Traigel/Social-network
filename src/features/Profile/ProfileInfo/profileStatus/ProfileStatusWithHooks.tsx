@@ -1,9 +1,11 @@
 import React, {ChangeEvent, KeyboardEvent, useEffect, useState} from "react";
-import styles from './ProfileStatus.module.css'
+import styles from './ProfileStatus.module.scss'
+import {SvgSelector} from "../../../../common/components/svgSelector/SvgSelector";
 
 type ProfileStatusPropsType = {
     status: string
     updateStatus: (status: string) => void
+    isOwner: boolean
 }
 
 export const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
@@ -15,26 +17,37 @@ export const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
         setStatus(props.status)
     }, [props.status])
 
-    const activateEditMode = () => setEditMode(true)
+    const activateEditMode = () => {
+        if (props.isOwner) {
+            setEditMode(true)
+        }
+    }
+
     const deactivateEditMode = () => {
         setEditMode(false)
         props.updateStatus(status)
     }
+
     const onKeyPressHandler = (el: KeyboardEvent<HTMLInputElement>) => {
         if (el.key === 'Enter') deactivateEditMode()
     }
 
     const onChangeHandler = (el: ChangeEvent<HTMLInputElement>) => setStatus(el.currentTarget.value)
 
+    const styleCursor = props.isOwner ? {cursor: 'pointer'} : {}
+
     return (
-        <div className={styles.status}>
+        <div className={styles.statusComponent}>
             {!editMode
+                ?
+                <span className={styles.statusBox} style={styleCursor} onDoubleClick={activateEditMode}>
+                    <span className={styles.status}>{props.status ? props.status : '...'} </span>
+                    {props.isOwner && <SvgSelector svgName={"Pencil"}/>}
+                </span>
 
-                ? <span
-                    onDoubleClick={activateEditMode}
-                > &#9998; {props.status ? props.status : '...'}</span>
-
-                : <input
+                :
+                <input
+                    className={styles.input}
                     value={status}
                     onChange={onChangeHandler}
                     onBlur={deactivateEditMode}
@@ -42,7 +55,6 @@ export const ProfileStatusWithHooks = (props: ProfileStatusPropsType) => {
                     autoFocus={true}
                 />
             }
-
         </div>
     )
 }

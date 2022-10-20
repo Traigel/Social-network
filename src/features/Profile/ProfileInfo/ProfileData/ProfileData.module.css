@@ -4,10 +4,6 @@
 /*    flex-direction: column;*/
 /*}*/
 
-.name {
-    margin: 0;
-}
-
 .aboutMe {
     display: inline-block;
 }

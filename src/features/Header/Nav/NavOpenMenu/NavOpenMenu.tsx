@@ -18,7 +18,7 @@ export const NavOpenMenu = (props: NavOpenMenuPropsType) => {
                     onClick={props.visibilityCallBack}
                 >
                     <SvgSelector svgName={"Home"}/>
-                    <span>Home</span>
+                    <span>Profile</span>
                 </NavLink>
             </div>
             <div className={styles.navItem}>

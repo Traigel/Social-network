@@ -83,9 +83,10 @@
     border-radius: 5px;
     width: 98px;
     height: 43px;
+    box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
 
     &:hover {
-      box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
+      box-shadow: 0 5px 15px rgb(0 0 0 / 30%);
     }
 
     .loader {

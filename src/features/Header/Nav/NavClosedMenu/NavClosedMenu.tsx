@@ -25,7 +25,7 @@ export const NavClosedMenu = (props: NavClosedMenuPropsType) => {
                             activeClassName={styles.activeLink}
                             onClick={props.visibilityCallBack}
                         >
-                            <span>Home</span>
+                            <span>Profile</span>
                         </NavLink>
                     </div>
                     <div className={styles.navItem}>

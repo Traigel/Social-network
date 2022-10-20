@@ -7,8 +7,6 @@ type ProfileDataPropsType = {
     profile: ProfileType | null
     isOwner: boolean
     setEditMode: (value: boolean) => void
-    status: string
-    updateStatus: (status: string) => void
 }
 
 export const ProfileData = (props: ProfileDataPropsType) => {
@@ -20,11 +18,6 @@ export const ProfileData = (props: ProfileDataPropsType) => {
     return (
         <div>
             {props.isOwner && <div onClick={settingsHandler}>Settings</div>}
-            <h1 className={styles.name}>{props.profile?.fullName}</h1>
-            <ProfileStatusWithHooks
-                status={props.status}
-                updateStatus={props.updateStatus}
-            />
 
             <div>
                 <h4 className={styles.aboutMe}>About me:</h4>

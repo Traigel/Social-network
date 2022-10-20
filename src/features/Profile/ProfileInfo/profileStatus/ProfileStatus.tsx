@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
-import styles from './ProfileStatus.module.css'
+import styles from './ProfileStatus.module.scss'
 
 type ProfileStatusPropsType = {
     status: string
