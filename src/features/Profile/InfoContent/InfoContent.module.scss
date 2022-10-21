@@ -8,4 +8,8 @@
     padding: 30px 5px;
   }
 
+  .newsBox {
+    @include borderBox();
+    margin-top: 20px;
+  }
 }

@@ -99,3 +99,14 @@ $white: #fff;
   }
 }
 
+@mixin inputTextarea() {
+  color: $twoColor;
+  border-radius: 5px;
+  border: 1px $colorSearch solid;
+  outline: none;
+  text-align: center;
+  padding: 0 10px;
+  height: 27px;
+  width: 100%;
+}
+

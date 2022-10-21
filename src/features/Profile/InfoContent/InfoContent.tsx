@@ -7,5 +7,9 @@ export const InfoContent = () => {
         <div className={styles.repairBox}>
             <RepairComponent text={'The project is under development. Some features may be unavailable.'}/>
         </div>
+
+        <div className={styles.newsBox}>
+            News
+        </div>
     </div>
 }

@@ -4,7 +4,7 @@ import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
 import {
-    addPostAC,
+    addPostAC, deletePostAC,
     getUserProfileTC,
     getUserStatusTC, ProfilePageType,
     ProfileType,
@@ -73,6 +73,7 @@ export class ProfileAPI extends React.Component<PropsType> {
                     reset={this.props.reset}
                     addPost={this.props.addPost}
                     profilePage={this.props.profilePage}
+                    deletePost={this.props.deletePost}
                 />
                 <InfoContent/>
             </div>
@@ -106,6 +107,7 @@ type mapDispatchToPropsTye = {
     usFollowTC: (userID: number) => void
     addPost: (formData: AddPostFormType) => void
     reset: () => void
+    deletePost: (id: string) => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -130,7 +132,8 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsTye => {
         followTC: (userID: number) => dispatch(followTC(userID)),
         usFollowTC: (userID: number) => dispatch(usFollowTC(userID)),
         addPost: (formData: AddPostFormType) => dispatch(addPostAC(formData)),
-        reset: () => dispatch(reset('addPostForm'))
+        reset: () => dispatch(reset('addPostForm')),
+        deletePost: (id: string) => dispatch(deletePostAC(id))
     }
 }
 

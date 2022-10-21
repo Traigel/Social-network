@@ -9,6 +9,7 @@ type MyPostsPropsType = {
     addPost: (formData: AddPostFormType) => void
     reset: () => void
     profilePage: ProfilePageType
+    deletePost: (id: string) => void
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
@@ -29,6 +30,8 @@ export const MyPosts = (props: MyPostsPropsType) => {
             id={u.id}
             photos={props.profilePage.profile?.photos?.small}
             name={props.profilePage.profile?.fullName}
+            isOwner={props.isOwner}
+            deletePost={props.deletePost}
         />)}
     </div>
 }

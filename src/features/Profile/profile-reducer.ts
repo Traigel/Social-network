@@ -10,7 +10,7 @@ const initialState: ProfilePageType = {
     posts: [
         {
             id: v1(),
-            message: 'Post functionality is still under development. Some features may be unavailable.',
+            message: 'Post functionality is still under development. Some features may be unavailable. An online platform that is used for communication, dating, creating social relationships between people who have similar interests or offline connections, as well as for entertainment (music, movies) and work.',
             likes: 8
         },
         {
@@ -22,6 +22,16 @@ const initialState: ProfilePageType = {
             id: v1(),
             message: 'Web programming is a section of programming focused on the development of web applications (programs that ensure the functioning of dynamic World Wide Web sites). Web programming languages are languages that are primarily designed to work with web technologies. Web programming languages can be roughly divided into two overlapping groups: client-side and server-side.',
             likes: 56
+        },
+        {
+            id: v1(),
+            message: 'React can be used to develop single page and mobile applications. Its goal is to provide high development speed, simplicity and scalability. As a library for developing user interfaces, React is often used with other libraries such as MobX, Redux, and GraphQL.',
+            likes: 34
+        },
+        {
+            id: v1(),
+            message: 'TypeScript is a programming language introduced by Microsoft in 2012 and positioned as a web application development tool that extends the capabilities of JavaScript. The developer of the TypeScript language is Anders Hejlsberg, who previously created Turbo Pascal, Delphi, and C#.',
+            likes: 18
         },
     ],
     profile: null,
