@@ -8,6 +8,12 @@
     left: 74px;
     top: -70px;
 
+    @media (max-width: 900px) {
+      position: relative;
+      left: 0;
+      top: -55px;
+    }
+
     .saveButton {
       width: 150px !important;
 
@@ -34,11 +40,19 @@
       height: 100px !important;
       resize: none;
     }
+  }
 
-    .jobCheckbox {
-      //display: flex;
-      //justify-content: center;
-      //align-items: center;
+  .titleName {
+    @media (max-width: 900px) {
+      margin-top: -40px;
+    }
+  }
+
+  .titleError {
+    @media (max-width: 900px) {
+      position: relative;
+      top: -40px;
+      width: 100%;
     }
   }
 

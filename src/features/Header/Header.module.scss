@@ -23,6 +23,11 @@
       height: 107px;
     }
 
+    @media (max-width: 500px) {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
     .searchBox {
       width: 300px;
       display: flex;

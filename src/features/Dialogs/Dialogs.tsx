@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from "react";
-import style from './Dialogs.module.css'
+import style from './Dialogs.module.scss'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
@@ -11,7 +11,7 @@ export const Dialogs = (props: DialogsPropsType) => {
         props.addMessages(formData)
     }
 
-    return <div className={style.dialogs}>
+    return <div className={style.dialogsComponent}>
         <div className={style.dialogsItem}>
             {props.dialogsPage.dialogsData.map(u => <DialogItem key={u.id} name={u.name} id={u.id}/>)}
         </div>

@@ -39,5 +39,9 @@
 
   .activeLink:after {
     width: 100%;
+
+    @media (max-width: 950px) {
+      transition: none;
+    }
   }
 }

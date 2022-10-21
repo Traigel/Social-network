@@ -16,11 +16,6 @@ export const ProfileDataForm = (props: InjectedFormProps<ProfileType, ProfileDat
 
     return (
         <form className={styles.form} onSubmit={props.handleSubmit}>
-            {props.error &&
-                <div className={`${styles.formSummeryError} ${styles.titleBox}`}>
-                    <span>{props.error}</span>
-                </div>
-            }
             <div className={`${styleButton.buttons} ${styles.buttons}`}>
                 <button className={`${styleButton.button} ${styleButton.followButton} ${styles.saveButton}`}>
                     {props.statusApp === "loading" ?
@@ -34,7 +29,12 @@ export const ProfileDataForm = (props: InjectedFormProps<ProfileType, ProfileDat
 
                 </button>
             </div>
-            <div className={styles.titleBox}>
+            {props.error &&
+                <div className={`${styles.formSummeryError} ${styles.titleBox} ${styles.titleError}`}>
+                    <span>{props.error}</span>
+                </div>
+            }
+            <div className={`${styles.titleBox} ${styles.titleName}`}>
                 <h3 className={styles.title}>Full name:</h3>
                 <Field
                     name={'fullName'}

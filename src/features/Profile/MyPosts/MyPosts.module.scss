@@ -2,4 +2,9 @@
 
 .myPostsContainer {
   width: 520px;
+  grid-area: myPostsContainer;
+
+  @media (max-width: 1140px) {
+    width: 100%;
+  }
 }
