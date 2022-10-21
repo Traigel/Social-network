@@ -17,6 +17,8 @@ type SvgNameType =
     | 'Pencil'
     | 'Setting'
     | 'Save'
+    | 'Post'
+    |
 
 type SvgSelectorPropsType = {
     svgName: SvgNameType
@@ -629,6 +631,46 @@ export const SvgSelector = (props: SvgSelectorPropsType) => {
 		C295.485,75.617,293.104,69.867,288.865,65.628z"/>
                     <path d="M164.076,76.829h17.333c3.498,0,6.333-2.836,6.333-6.333V23.829c0-3.498-2.835-6.333-6.333-6.333h-17.333
 		c-3.498,0-6.333,2.835-6.333,6.333v46.667C157.743,73.993,160.579,76.829,164.076,76.829z"/>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+                <g>
+                </g>
+            </svg>
+        case "Post":
+            return <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                <g>
+                    <g id="document_x5F_alt_x5F_fill">
+                        <g>
+                            <path d="M18,0H4v32h24V9.998L18,0z M15.918,12V4l8,8H15.918z"/>
+                        </g>
+                    </g>
                 </g>
                 <g>
                 </g>

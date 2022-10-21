@@ -4,8 +4,9 @@ import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
 import {
+    addPostAC,
     getUserProfileTC,
-    getUserStatusTC,
+    getUserStatusTC, ProfilePageType,
     ProfileType,
     savePhotoTC,
     saveProfileTC,
@@ -18,6 +19,9 @@ import {InfoContent} from "./InfoContent/InfoContent";
 import styles from './Profile.module.scss';
 import {followTC, UsersType, usFollowTC} from "../Users/users-reducer";
 import {RequestStatusType} from "../../app/app-reducer";
+import {AddPostFormType} from "./MyPosts/addPostForm/AddPostForm";
+import {reset} from "redux-form";
+import {MyPosts} from "./MyPosts/MyPosts";
 
 export class ProfileAPI extends React.Component<PropsType> {
 
@@ -64,7 +68,12 @@ export class ProfileAPI extends React.Component<PropsType> {
                              usFollow={this.props.usFollowTC}
                              followingInProgress={this.props.followingInProgress}
                 />
-                <MyPostsContainer/>
+                <MyPosts
+                    isOwner={!this.props.match.params.userID}
+                    reset={this.props.reset}
+                    addPost={this.props.addPost}
+                    profilePage={this.props.profilePage}
+                />
                 <InfoContent/>
             </div>
         )
@@ -84,6 +93,7 @@ type mapStateToPropsType = {
     isAuth: boolean
     followingInProgress: number[]
     statusApp: RequestStatusType
+    profilePage: ProfilePageType
 }
 
 type mapDispatchToPropsTye = {
@@ -94,6 +104,8 @@ type mapDispatchToPropsTye = {
     saveProfile: (formData: ProfileType) => void
     followTC: (userID: number) => void
     usFollowTC: (userID: number) => void
+    addPost: (formData: AddPostFormType) => void
+    reset: () => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -104,7 +116,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         myID: state.auth.id,
         isAuth: state.auth.isAuth,
         followingInProgress: state.usersPage.followingInProgress,
-        statusApp: state.app.status
+        statusApp: state.app.status,
+        profilePage: state.profilePage
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsTye => {
@@ -115,7 +128,9 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsTye => {
         savePhoto: (file: File) => dispatch(savePhotoTC(file)),
         saveProfile: (formData: ProfileType) => dispatch(saveProfileTC(formData)),
         followTC: (userID: number) => dispatch(followTC(userID)),
-        usFollowTC: (userID: number) => dispatch(usFollowTC(userID))
+        usFollowTC: (userID: number) => dispatch(usFollowTC(userID)),
+        addPost: (formData: AddPostFormType) => dispatch(addPostAC(formData)),
+        reset: () => dispatch(reset('addPostForm'))
     }
 }
 

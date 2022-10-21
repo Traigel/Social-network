@@ -35,7 +35,7 @@ export const ProfileData = (props: ProfileDataPropsType) => {
                             <a
                                 target="_blank"
                                 className={styles.link}
-                                href={keyContact}
+                                href={'https://' + keyContact}
                             >{keyContact}</a>
                         </div>
                     }

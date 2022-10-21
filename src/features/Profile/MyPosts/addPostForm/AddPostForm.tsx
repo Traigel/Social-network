@@ -2,8 +2,10 @@ import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, requiredField} from "../../../../common/utils/validators/validators";
 import {Textarea} from "../../../../common/components/formControls/FormsControls";
+import styles from "./AddPostForm.module.scss";
+import {SvgSelector} from "../../../../common/components/svgSelector/SvgSelector";
 
-const maxLength150 = maxLengthCreator(150)
+const maxLength150 = maxLengthCreator(250)
 
 export type AddPostFormType = {
     newPostText: string
@@ -11,14 +13,21 @@ export type AddPostFormType = {
 
 const AddPostForm = (props: InjectedFormProps<AddPostFormType>) => {
     return (
-        <form onSubmit={props.handleSubmit}>
-            <Field
-                name={'newPostText'}
-                component={Textarea}
-                placeholder={'Enter your message'}
-                validate={[requiredField, maxLength150]}
-            />
-            <button>Add post</button>
+        <form className={styles.form} onSubmit={props.handleSubmit}>
+            <div className={styles.titleBox}>
+                <Field
+                    name={'newPostText'}
+                    component={Textarea}
+                    placeholder={'Enter your message'}
+                    validate={[requiredField, maxLength150]}
+                />
+            </div>
+            <div className={styles.buttons}>
+                <button className={`${styles.button} ${styles.settings}`}>
+                    <SvgSelector svgName={"Post"}/>
+                    <span className={styles.span}>Add post</span>
+                </button>
+            </div>
         </form>
     )
 }

@@ -8,8 +8,21 @@ import {setAppStatusAC} from "../../app/app-reducer";
 
 const initialState: ProfilePageType = {
     posts: [
-        {id: v1(), message: 'Hello word', likes: 24},
-        {id: v1(), message: 'Yo! i`m props', likes: 56},
+        {
+            id: v1(),
+            message: 'Post functionality is still under development. Some features may be unavailable.',
+            likes: 8
+        },
+        {
+            id: v1(),
+            message: 'Programming is the process of creating computer programs. In the words of one of the founders of programming languages, Niklaus Wirth, "Programs = algorithms + data structures."',
+            likes: 24
+        },
+        {
+            id: v1(),
+            message: 'Web programming is a section of programming focused on the development of web applications (programs that ensure the functioning of dynamic World Wide Web sites). Web programming languages are languages that are primarily designed to work with web technologies. Web programming languages can be roughly divided into two overlapping groups: client-side and server-side.',
+            likes: 56
+        },
     ],
     profile: null,
     status: ''

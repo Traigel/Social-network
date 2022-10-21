@@ -1,31 +1,34 @@
 import React from "react";
-import style from './MyPosts.module.scss'
-import {MyPostsPropsType} from "./MyPostsContainer";
+import styles from './MyPosts.module.scss';
 import {Post} from "./Post/Post";
 import {AddPostFormRedux, AddPostFormType} from "./addPostForm/AddPostForm";
+import {ProfilePageType} from "../profile-reducer";
 
-export class MyPosts extends React.PureComponent<MyPostsPropsType> {
+type MyPostsPropsType = {
+    isOwner: boolean
+    addPost: (formData: AddPostFormType) => void
+    reset: () => void
+    profilePage: ProfilePageType
+}
 
-    // shouldComponentUpdate(nextProps: Readonly<MyPostsPropsType>, nextState: Readonly<{}>, nextContext: any): boolean {
-    //     return nextProps !== this.props || nextState !== this.state
-    // }
+export const MyPosts = (props: MyPostsPropsType) => {
 
-    render() {
-
-        const addNewPost = (formData: AddPostFormType) => {
-            this.props.addPost(formData)
-        }
-
-        return <div className={style.myPosts}>
-            <h3>My posts</h3>
-            <AddPostFormRedux onSubmit={addNewPost}/>
-            {this.props.profilePage.posts.map(u => <Post
-                key={u.id}
-                message={u.message}
-                likes={u.likes}
-                id={u.id}
-                photos={this.props.profilePage.profile?.photos?.small}
-            />)}
-        </div>
+    const addNewPost = (formData: AddPostFormType) => {
+        props.addPost(formData)
+        props.reset()
     }
+
+    return <div className={styles.myPostsContainer}>
+        {props.isOwner &&
+            <AddPostFormRedux onSubmit={addNewPost}/>
+        }
+        {props.profilePage.posts.map(u => <Post
+            key={u.id}
+            message={u.message}
+            likes={u.likes}
+            id={u.id}
+            photos={props.profilePage.profile?.photos?.small}
+            name={props.profilePage.profile?.fullName}
+        />)}
+    </div>
 }

@@ -5,6 +5,8 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../../app/redux-store";
 import {Dispatch} from "redux";
 import {AddPostFormType} from "./addPostForm/AddPostForm";
+import {reset} from "redux-form";
+import {ResetAction} from "redux-form/lib/reduxForm";
 
 export type MyPostsPropsType = mapStatePropsType & mapDispatchPropsType
 
@@ -14,6 +16,7 @@ type mapStatePropsType = {
 
 type mapDispatchPropsType = {
     addPost: (formData: AddPostFormType) => void
+    reset: () => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
@@ -24,7 +27,8 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
 
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
     return {
-        addPost: (formData: AddPostFormType) => dispatch(addPostAC(formData))
+        addPost: (formData: AddPostFormType) => dispatch(addPostAC(formData)),
+        reset: () => dispatch(reset('addPostForm'))
     }
 }
 

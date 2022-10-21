@@ -45,7 +45,7 @@ class App extends React.Component<AppPropsType> {
             <Route exact path='/' render={() => <Redirect to={'/login'}/>}/>
             <Route path='/login' render={() => <LoginContainer/>}/>
 
-            <div className={styles.appContainer}>
+            <main className={styles.appContainer}>
                 <Route path='/profile/:userID?' render={() => <ProfileContainer/>}/>
                 <Route path='/messages' render={() => <DialogsContainer/>}/>
                 <Route path='/users' render={() => <UsersContainer/>}/>
@@ -57,7 +57,7 @@ class App extends React.Component<AppPropsType> {
                 {/*        <DialogsContainer/>*/}
                 {/*    </Suspense>*/}
                 {/*}}/>*/}
-            </div>
+            </main>
         </div>
     }
 }
