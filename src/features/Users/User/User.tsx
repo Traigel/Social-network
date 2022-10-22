@@ -1,8 +1,9 @@
 import React from "react";
-import style from "./User.module.css";
+import styles from "./User.module.scss";
 import usersImg from "../../../assets/images/usersImg.png";
 import {NavLink} from "react-router-dom";
 import {UsersType} from "../users-reducer";
+import {SvgSelector} from "../../../common/components/svgSelector/SvgSelector";
 
 type UserCompType = {
     user: UsersType
@@ -17,35 +18,58 @@ export const User = (props: UserCompType) => {
     const onClickUnFollowHandler = () => props.follow(props.user.id)
 
     return (
-        <div className={style.items}>
-            <div className={`${style.item} ${style.itemImgButton}`}>
-                <div>
-                    <NavLink to={'/profile/' + props.user.id}>
-                        <img style={{width: '50px', borderRadius: '20px'}}
-                             alt={'ava'}
-                             src={props.user.photos.small !== null ? props.user.photos.small : usersImg}/>
-                    </NavLink>
-                </div>
-                <div>
-                    {props.user.followed
-                        ?
-                        <button
-                            disabled={props.followingInProgress.some(id => id === props.user.id)}
-                            onClick={onClickFollowHandler}>UnFollow</button>
-                        :
-                        <button
-                            disabled={props.followingInProgress.some(id => id === props.user.id)}
-                            onClick={onClickUnFollowHandler}>Follow</button>
-                    }
-                </div>
+        <div className={styles.userComponent}>
+            <div className={styles.userInfo}>
+                <img
+                    className={styles.imgAvatar}
+                    alt={'ava'}
+                    src={props.user.photos.small !== null ? props.user.photos.small : usersImg}
+                />
+                <h3 className={styles.userName}>{props.user.name}</h3>
+                <div className={styles.status}>{props.user.status}</div>
             </div>
-            <div className={`${style.item} ${style.itemInfo}`}>
-                <div className={style.item}>
-                    <div>{props.user.name}</div>
-                    <div>{props.user.status}</div>
-                </div>
-                <div className={`${style.item} ${style.location}`}>
-                </div>
+            <div className={styles.buttons}>
+                {props.user.followed ?
+                    <button
+                        className={`${styles.button} ${styles.followButton}`}
+                        disabled={props.followingInProgress.some(id => id === props.user.id)}
+                        onClick={onClickFollowHandler}
+                    >
+                        {props.followingInProgress.some(id => id === props.user.id) ?
+                            <span className={styles.loader}></span>
+                            :
+                            <span>
+                                <SvgSelector svgName={"User"}/>
+                                <span className={styles.span}>UnFollow</span>
+                            </span>
+                        }
+                    </button>
+                    :
+                    <button
+                        className={`${styles.button} ${styles.followButton}`}
+                        disabled={props.followingInProgress.some(id => id === props.user.id)}
+                        onClick={onClickUnFollowHandler}
+                    >
+                        {props.followingInProgress.some(id => id === props.user.id) ?
+                            <span className={styles.loader}></span>
+                            :
+                            <span>
+                                <SvgSelector svgName={"User"}/>
+                                <span className={styles.span}>Follow</span>
+                            </span>
+                        }
+                    </button>
+                }
+                <button className={`${styles.button} ${styles.messageButton}`}>
+                    <NavLink to="/messages">
+                        <SvgSelector svgName={"Messages"}/>
+                    </NavLink>
+                </button>
+            </div>
+            <div className={styles.viewProfile}>
+                <NavLink to={'/profile/' + props.user.id}>
+                    View profile
+                </NavLink>
             </div>
         </div>
     )

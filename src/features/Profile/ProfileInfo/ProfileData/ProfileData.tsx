@@ -1,7 +1,6 @@
 import styles from "./ProfileData.module.scss";
 import React from "react";
 import {ProfileType} from "../../profile-reducer";
-import {ProfileStatusWithHooks} from "../profileStatus/ProfileStatusWithHooks";
 
 type ProfileDataPropsType = {
     profile: ProfileType | null

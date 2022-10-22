@@ -2,6 +2,7 @@ import React from "react";
 import {UsersType} from "./users-reducer";
 import {Pagination} from "../../common/components/Paginator/Paginator";
 import {User} from "./User/User";
+import styles from './Users.module.scss'
 
 type UsersCompType = {
     users: UsersType[]
@@ -18,7 +19,7 @@ type UsersCompType = {
 export const Users = (props: UsersCompType) => {
 
     return (
-        <div>
+        <div className={styles.usersComponent}>
             <Pagination
                 page={props.currentPage}
                 pageCount={props.pageSize}
@@ -27,15 +28,16 @@ export const Users = (props: UsersCompType) => {
                 onPageCallBack={props.onPageChanged}
                 onPageCountCallBack={props.onPageSize}
             />
-
-            {props.users.map(el => <User
-                    key={el.id}
-                    user={el}
-                    follow={props.follow}
-                    usFollow={props.usFollow}
-                    followingInProgress={props.followingInProgress}
-                />
-            )}
+            <div className={styles.usersBox}>
+                {props.users.map(el => <User
+                        key={el.id}
+                        user={el}
+                        follow={props.follow}
+                        usFollow={props.usFollow}
+                        followingInProgress={props.followingInProgress}
+                    />
+                )}
+            </div>
         </div>
     )
 }

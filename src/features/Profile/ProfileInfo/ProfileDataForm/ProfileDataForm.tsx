@@ -17,7 +17,10 @@ export const ProfileDataForm = (props: InjectedFormProps<ProfileType, ProfileDat
     return (
         <form className={styles.form} onSubmit={props.handleSubmit}>
             <div className={`${styleButton.buttons} ${styles.buttons}`}>
-                <button className={`${styleButton.button} ${styleButton.followButton} ${styles.saveButton}`}>
+                <button
+                    className={`${styleButton.button} ${styleButton.followButton} ${styles.saveButton}`}
+                    disabled={props.statusApp === "loading"}
+                >
                     {props.statusApp === "loading" ?
                         <span className={styles.loader}></span>
                         :

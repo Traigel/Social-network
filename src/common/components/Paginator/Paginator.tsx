@@ -1,5 +1,6 @@
-import styles from "./Paginator.module.css";
-import React, {useState} from "react";
+import styles from "./Paginator.module.scss";
+import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
+import {SvgSelector} from "../svgSelector/SvgSelector";
 
 type PaginatorPropsType = {
     page: number
@@ -18,6 +19,10 @@ export const Pagination = ({
                                onPageCountCallBack,
                                pageCountOptions
                            }: PaginatorPropsType) => {
+
+    const windowInnerWidth = window.innerWidth
+    const numberPages = windowInnerWidth < 401 ? 2 : windowInnerWidth > 700 ? 5 : 3
+    const startEndPages = windowInnerWidth < 401 ? 3 : windowInnerWidth > 700 ? 9 : 5
 
     const [visibility, setVisibility] = useState<boolean>(false)
 
@@ -52,57 +57,60 @@ export const Pagination = ({
         onPageCallBack(pagesCount)
     }
 
-    return <div className={styles.paginationBox}>
-        <div className={styles.pageCountBox}>
-            <div>
-                Rows per page: <div
-                className={styles.pageCount}
-                onClick={pageCountHandler}
-            >{pageCount} &dArr;</div>
-            </div>
-            {visibility &&
-                <div className={styles.pageCountOptions}>
-                    {pageCountOptions.map((el, index) => {
-                        const onClickHandler = () => {
-                            onPageCountCallBack(el)
-                            setVisibility(false)
-                        }
-                        return <div
-                            key={index}
-                            className={styles.el}
-                            onClick={onClickHandler}
-                        >
-                            {el}
-                        </div>
-                    })}
+    return <div className={styles.paginationComponent}>
+        <div className={styles.paginationBox}>
+            <div className={styles.pageCountBox}>
+                <div
+                    className={styles.pageCount}
+                    onClick={pageCountHandler}
+                >
+                    {pageCount} &dArr;
                 </div>
-            }
-        </div>
-        <div className={styles.pagBox}>
-            <div className={styles.arrowsBox}>
-                <span onClick={onClickStartHandler}>&laquo;</span>
-                <span onClick={onClickBackHandler}>{'<'}</span>
-            </div>
-            {pages.filter(el => {
-                const rightPages = page + 5
-                const leftPages = page - 5
-                const endPages = pagesCount - page
-                if (endPages < 5) {
-                    return el > pagesCount - 9
+                {visibility &&
+                    <div className={styles.pageCountOptions}>
+                        {pageCountOptions.map((el, index) => {
+                            const onClickHandler = () => {
+                                onPageCountCallBack(el)
+                                setVisibility(false)
+                            }
+                            return <div
+                                key={index}
+                                className={styles.el}
+                                onClick={onClickHandler}
+                            >
+                                {el}
+                            </div>
+                        })}
+                    </div>
                 }
-                if (page < 5) {
-                    return el < 10
-                }
-                return el < rightPages && el > leftPages
-            }).map((el, i) => <span
-                key={i}
-                className={page === el ? styles.selectPage : ''}
-                onClick={() => onPageCallBack(el)}
-            >{el}</span>)}
-            <div className={styles.arrowsBox}>
-                <span onClick={onClickNextHandler}>{'>'}</span>
-                <span onClick={onClickEndHandler}>&raquo;</span>
+            </div>
+            <div className={styles.pagBox}>
+                <div className={styles.arrowsBox}>
+                    <span onClick={onClickStartHandler}><SvgSelector svgName={'LeftDoubleArrow'}/></span>
+                    <span onClick={onClickBackHandler}><SvgSelector svgName={'LeftArrow'}/></span>
+                </div>
+                {pages.filter(el => {
+                    const rightPages = page + numberPages
+                    const leftPages = page - numberPages
+                    const endPages = pagesCount - page
+                    if (endPages < numberPages) {
+                        return el > pagesCount - startEndPages
+                    }
+                    if (page < numberPages) {
+                        return el <= startEndPages
+                    }
+                    return el < rightPages && el > leftPages
+                }).map((el, i) => <span
+                    key={i}
+                    className={`${styles.pageNumber} ${page === el ? styles.selectPage : ''}`}
+                    onClick={() => onPageCallBack(el)}
+                >{el}</span>)}
+                <div className={styles.arrowsBox}>
+                    <span onClick={onClickNextHandler}><SvgSelector svgName={'RightArrow'}/></span>
+                    <span onClick={onClickEndHandler}><SvgSelector svgName={'RightDoubleArrow'}/></span>
+                </div>
             </div>
         </div>
+
     </div>
 }
