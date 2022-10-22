@@ -44,14 +44,12 @@ class App extends React.Component<AppPropsType> {
             <HeaderContainer/>
             <Route exact path='/' render={() => <Redirect to={'/login'}/>}/>
             <Route path='/login' render={() => <LoginContainer/>}/>
-
             <main className={styles.appContainer}>
                 <Route path='/profile/:userID?' render={() => <ProfileContainer/>}/>
-                <Route path='/messages' render={() => <DialogsContainer/>}/>
+                <Route path='/messages/:userID?' render={() => <DialogsContainer/>}/>
                 <Route path='/users' render={() => <UsersContainer/>}/>
                 <Route path='/news' render={() => <NewsContainer/>}/>
                 <Route path='/music' render={() => <MusicContainer/>}/>
-
                 {/*<Route path='/messages' render={() => {*/}
                 {/*    return <Suspense fallback={<Preloader/>}>*/}
                 {/*        <DialogsContainer/>*/}

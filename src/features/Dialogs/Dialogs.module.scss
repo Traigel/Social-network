@@ -1,4 +1,21 @@
+@import "../../common/styles/Variablies";
+
 .dialogsComponent {
-    display: flex;
-    justify-content: space-between;
+  @include borderBox();
+  display: flex;
+  justify-content: space-between;
+
+  .dialogsItem {
+    width: 30%;
+    border-right: 1px solid #e5e5e5;
+
+    .repairBox {
+      padding: 20px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+  }
+
+  .messages {
+    width: 70%;
+  }
 }

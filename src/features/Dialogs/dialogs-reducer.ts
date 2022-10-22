@@ -3,16 +3,17 @@ import {AddMessageFormType} from "./addMessageForm/AddMessageForm";
 
 const initialState = {
     dialogsData: [
-        {id: v1(), name: 'Vova'},
-        {id: v1(), name: 'Alex'},
-        {id: v1(), name: 'Dima'},
-        {id: v1(), name: 'Vasa'},
-        {id: v1(), name: 'Masha'},
+        {id: v1(), name: 'Samurai Dimych'},
+        {id: v1(), name: 'Alexander Khodaryonok'},
+        {id: v1(), name: 'Scarle Jones1337'},
+        {id: v1(), name: 'Jak Zigil`man'},
+        {id: v1(), name: 'Lilian Burdianov'},
+        {id: v1(), name: 'Ignios Tyumen'},
+        {id: v1(), name: 'Natalie Danilchenkofff'},
     ] as Array<DialogsDataType>,
     messagesData: [
-        {id: v1(), message: 'Hello Word!'},
-        {id: v1(), message: 'I am a computer programmer'},
-        {id: v1(), message: 'Yo'},
+        {id: v1(), message: 'Hello'},
+        {id: v1(), message: 'Thanks, I\'m trying hard to make the social network better.'},
     ] as Array<MessagesDataType>,
 }
 

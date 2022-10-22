@@ -1,5 +1,5 @@
 import styles from "./Paginator.module.scss";
-import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
+import React, {useState} from "react";
 import {SvgSelector} from "../svgSelector/SvgSelector";
 
 type PaginatorPropsType = {
