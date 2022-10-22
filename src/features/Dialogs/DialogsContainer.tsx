@@ -6,6 +6,7 @@ import {AppStateType} from "../../app/redux-store";
 import {compose, Dispatch} from "redux";
 import {withAuthRedirect} from "../../common/hoc/withAuthRedirect";
 import {AddMessageFormType} from "./addMessageForm/AddMessageForm";
+import {reset} from "redux-form";
 
 export type DialogsPropsType = mapStatePropsType & mapDispatchPropsType
 
@@ -15,17 +16,19 @@ type mapStatePropsType = {
 
 type mapDispatchPropsType = {
     addMessages: (formData: AddMessageFormType) => void
+    reset: () => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
-        dialogsPage: state.dialogsPage,
+        dialogsPage: state.dialogsPage
     }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
     return {
-        addMessages: (formData: AddMessageFormType) => dispatch(addMessagesAC(formData))
+        addMessages: (formData: AddMessageFormType) => dispatch(addMessagesAC(formData)),
+        reset: () => dispatch(reset('addMessageForm')),
     }
 }
 

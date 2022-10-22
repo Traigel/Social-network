@@ -13,6 +13,7 @@ import {AppStateType} from "./redux-store";
 import {Preloader} from "../common/components/Preloader/Preloader";
 import {ProfileContainer} from '../features/Profile/ProfileContainer';
 import DialogsContainer from '../features/Dialogs/DialogsContainer';
+import {Footer} from "../features/Footer/Footer";
 
 // const DialogsContainer = React.lazy(() => import('../features/Dialogs/DialogsContainer'));
 
@@ -56,6 +57,7 @@ class App extends React.Component<AppPropsType> {
                 {/*    </Suspense>*/}
                 {/*}}/>*/}
             </main>
+            {/*<Footer/>*/}
         </div>
     }
 }

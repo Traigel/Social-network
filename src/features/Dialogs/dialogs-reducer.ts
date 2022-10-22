@@ -10,6 +10,11 @@ const initialState = {
         {id: v1(), name: 'Lilian Burdianov'},
         {id: v1(), name: 'Ignios Tyumen'},
         {id: v1(), name: 'Natalie Danilchenkofff'},
+        {id: v1(), name: 'Anton Ovcharenko'},
+        {id: v1(), name: 'Aleks Joker'},
+        {id: v1(), name: 'Aleksandr Svetlov'},
+        {id: v1(), name: 'Sivakov Igor'},
+        {id: v1(), name: 'Sasha Zaitsau'},
     ] as Array<DialogsDataType>,
     messagesData: [
         {id: v1(), message: 'Hello'},
