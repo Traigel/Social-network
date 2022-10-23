@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/Social-network-TS/static/css/main.df114ba4.css",
-    "main.js": "/Social-network-TS/static/js/main.03252a3f.js",
+    "main.css": "/Social-network-TS/static/css/main.adbd73ab.css",
+    "main.js": "/Social-network-TS/static/js/main.2baa5f8f.js",
     "static/media/loginInfo.png": "/Social-network-TS/static/media/loginInfo.b9a05542862d4344a9bc.png",
     "static/media/logo.png": "/Social-network-TS/static/media/logo.3a7dd61dc1ce7742bddd.png",
     "static/media/usersImg.png": "/Social-network-TS/static/media/usersImg.d84969c8ab2198ee66c1.png",
     "index.html": "/Social-network-TS/index.html",
-    "main.df114ba4.css.map": "/Social-network-TS/static/css/main.df114ba4.css.map",
-    "main.03252a3f.js.map": "/Social-network-TS/static/js/main.03252a3f.js.map"
+    "main.adbd73ab.css.map": "/Social-network-TS/static/css/main.adbd73ab.css.map",
+    "main.2baa5f8f.js.map": "/Social-network-TS/static/js/main.2baa5f8f.js.map"
   },
   "entrypoints": [
-    "static/css/main.df114ba4.css",
-    "static/js/main.03252a3f.js"
+    "static/css/main.adbd73ab.css",
+    "static/js/main.2baa5f8f.js"
   ]
 }
