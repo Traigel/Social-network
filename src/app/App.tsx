@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from "./App.module.scss";
-import {Redirect, Route} from "react-router-dom";
+import {NavLink, Redirect, Route, Router, Switch} from "react-router-dom";
 import {NewsContainer} from '../features/News/News';
 import {MusicContainer} from '../features/Music/Music';
 import {UsersContainer} from "../features/Users/UsersContainer";
@@ -14,6 +14,7 @@ import {Preloader} from "../common/components/Preloader/Preloader";
 import {ProfileContainer} from '../features/Profile/ProfileContainer';
 import DialogsContainer from '../features/Dialogs/DialogsContainer';
 import {Footer} from "../features/Footer/Footer";
+import {Error404} from "../common/components/Error404/Error404";
 
 // const DialogsContainer = React.lazy(() => import('../features/Dialogs/DialogsContainer'));
 
@@ -43,19 +44,26 @@ class App extends React.Component<AppPropsType> {
 
         return <div>
             <HeaderContainer/>
-            <Route exact path='/' render={() => <Redirect to={'/login'}/>}/>
-            <Route path='/login' render={() => <LoginContainer/>}/>
+            {/*<Route exact path='/' render={() => <Redirect to={'/login'}/>}/>*/}
+            {/*<Route path='/login' render={() => <LoginContainer/>}/>*/}
             <main className={styles.appContainer}>
-                <Route path='/profile/:userID?' render={() => <ProfileContainer/>}/>
-                <Route path='/messages/:userID?' render={() => <DialogsContainer/>}/>
-                <Route path='/users' render={() => <UsersContainer/>}/>
-                <Route path='/music' render={() => <MusicContainer/>}/>
-                <Route path='/news' render={() => <NewsContainer/>}/>
-                {/*<Route path='/messages' render={() => {*/}
-                {/*    return <Suspense fallback={<Preloader/>}>*/}
-                {/*        <DialogsContainer/>*/}
-                {/*    </Suspense>*/}
-                {/*}}/>*/}
+                <Switch>
+                    <Route exact path='/' render={() => <Redirect to={'/login'}/>}/>
+                    <Route path='/login' render={() => <LoginContainer/>}/>
+                    <Route path='/profile/:userID?' render={() => <ProfileContainer/>}/>
+                    <Route path='/messages/:userID?' render={() => <DialogsContainer/>}/>
+                    <Route path='/users' render={() => <UsersContainer/>}/>
+                    <Route path='/music' render={() => <MusicContainer/>}/>
+                    <Route path='/news' render={() => <NewsContainer/>}/>
+                    <Route path='/error404' render={() => <Error404/>}/>
+                    <Route render={() => <Redirect to={'/error404'}/>}/>
+
+                    {/*<Route path='/messages' render={() => {*/}
+                    {/*    return <Suspense fallback={<Preloader/>}>*/}
+                    {/*        <DialogsContainer/>*/}
+                    {/*    </Suspense>*/}
+                    {/*}}/>*/}
+                </Switch>
             </main>
             {/*<Footer/>*/}
         </div>
