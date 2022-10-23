@@ -34,6 +34,14 @@ const Login = (props: LoginPropsType) => {
     }
 
     return <div className={styles.loginComponent}>
+        <div className={styles.repair}>
+            <span>The project is under development. Some features may be unavailable.<br/>
+                <a
+                    className={styles.a}
+                    href={'https://github.com/Traihel/Social-network-TS'}
+                    target="_blank">Read more on GitHub</a>
+            </span>
+        </div>
         <div className={styles.loginBox}>
             <div className={styles.loginInfo}>
                 <div className={styles.oneCircle}></div>
@@ -60,8 +68,11 @@ const Login = (props: LoginPropsType) => {
         </div>
         <div className={styles.copyright}>
             <span>Copyright © 2022. All Rights Reserved.</span>
-            <span>Developed by <a className={styles.a} href={'https://www.linkedin.com/in/vladimir-traihel/'}
-                                  target="_blank">Traihel Vladimir</a></span>
+            <span>Developed by <a
+                className={styles.a}
+                href={'https://www.linkedin.com/in/vladimir-traihel/'}
+                target="_blank">Traihel Vladimir</a>
+            </span>
         </div>
     </div>
 };

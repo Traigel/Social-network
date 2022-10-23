@@ -2,11 +2,13 @@ import React from "react";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../common/hoc/withAuthRedirect";
+import styles from './Music.module.scss'
+import {RepairComponent} from "../../common/components/RepairComponent/RepairComponent";
 
 class MusicAPI extends React.Component {
     render() {
-        return <div>
-            The project is under development.
+        return <div className={styles.musicComponent}>
+            <RepairComponent text={'This page is under development.'}/>
         </div>
     }
 }

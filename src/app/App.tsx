@@ -49,8 +49,8 @@ class App extends React.Component<AppPropsType> {
                 <Route path='/profile/:userID?' render={() => <ProfileContainer/>}/>
                 <Route path='/messages/:userID?' render={() => <DialogsContainer/>}/>
                 <Route path='/users' render={() => <UsersContainer/>}/>
-                <Route path='/news' render={() => <NewsContainer/>}/>
                 <Route path='/music' render={() => <MusicContainer/>}/>
+                <Route path='/news' render={() => <NewsContainer/>}/>
                 {/*<Route path='/messages' render={() => {*/}
                 {/*    return <Suspense fallback={<Preloader/>}>*/}
                 {/*        <DialogsContainer/>*/}
