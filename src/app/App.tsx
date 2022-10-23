@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from "./App.module.scss";
-import {NavLink, Redirect, Route, Router, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import {NewsContainer} from '../features/News/News';
 import {MusicContainer} from '../features/Music/Music';
 import {UsersContainer} from "../features/Users/UsersContainer";
@@ -13,7 +13,6 @@ import {AppStateType} from "./redux-store";
 import {Preloader} from "../common/components/Preloader/Preloader";
 import {ProfileContainer} from '../features/Profile/ProfileContainer';
 import DialogsContainer from '../features/Dialogs/DialogsContainer';
-import {Footer} from "../features/Footer/Footer";
 import {Error404} from "../common/components/Error404/Error404";
 
 // const DialogsContainer = React.lazy(() => import('../features/Dialogs/DialogsContainer'));
@@ -44,8 +43,6 @@ class App extends React.Component<AppPropsType> {
 
         return <div>
             <HeaderContainer/>
-            {/*<Route exact path='/' render={() => <Redirect to={'/login'}/>}/>*/}
-            {/*<Route path='/login' render={() => <LoginContainer/>}/>*/}
             <main className={styles.appContainer}>
                 <Switch>
                     <Route exact path='/' render={() => <Redirect to={'/login'}/>}/>
